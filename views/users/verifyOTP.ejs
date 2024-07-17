@@ -1,0 +1,92 @@
+<% include('../layouts/header.ejs') %>
+
+    <div>
+        <section class="pt-150 pb-150">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-10 m-auto">
+                        <div class="row">
+                            <div class="col-lg-5">
+                                <div
+                                    class="login_wrap widget-taber-content p-30 background-white border-radius-10 mb-md-5 mb-lg-0 mb-sm-5">
+                                    <div class="padding_eight_all bg-white">
+                                        <div class="heading_s1">
+                                            <h3 class="mb-30">Login</h3>
+                                        </div>
+                                        <form method="post" action="">
+                                            <div class="form-group">
+                                                <input type="text" name="otp" placeholder="Enter OTP" required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <button type="submit"
+                                                    class="btn btn-fill-out btn-block hover-up">Submit</button>
+                                            </div>
+                                            <% if(typeof errmessage !=='undefined' ) { %>
+                                                <p style="color: red;">
+                                                    <%= errmessage %>
+                                                </p>
+                                                <% } %>
+                                                    <div class="form-group">
+                                                        <button type="button" id="resendOTP"
+                                                            class="btn btn-fill-out btn-block hover-up">Resend
+                                                            OTP</button>
+                                                        <span id="timer"></span>
+                                                    </div>
+                                        </form>
+
+                                        <script>
+                                            // Resend OTP functionality with timer
+                                            document.getElementById('resendOTP').addEventListener('click', function () {
+                                                // Make AJAX request to resend OTP
+                                                var xhr = new XMLHttpRequest();
+                                                xhr.open('POST', '/resend-otp', true);
+                                                xhr.setRequestHeader('Content-Type', 'application/json');
+                                                xhr.onreadystatechange = function () {
+                                                    if (xhr.readyState === XMLHttpRequest.DONE) {
+                                                        if (xhr.status === 200) {
+                                                            // OTP resent successfully, start timer
+                                                            startTimer();
+                                                        } else {
+                                                            // Handle error
+                                                            console.error('Error resending OTP:', xhr.responseText);
+                                                        }
+                                                    }
+                                                };
+                                                xhr.send();
+                                            });
+
+                                            // Timer for resend OTP button
+                                            function startTimer() {
+                                                var timeLeft = 60; // Seconds
+                                                var timerElement = document.getElementById('timer');
+                                                var resendButton = document.getElementById('resendOTP');
+
+                                                var timerInterval = setInterval(function () {
+                                                    if (timeLeft > 0) {
+                                                        timerElement.textContent = 'Resend OTP in ' + timeLeft + ' seconds';
+                                                        timeLeft--;
+                                                    } else {
+                                                        clearInterval(timerInterval);
+                                                        timerElement.textContent = '';
+                                                        resendButton.disabled = false; // Enable resend button
+                                                    }
+                                                }, 1000);
+
+                                                resendButton.disabled = true; // Disable resend button during timer
+                                            }
+                                        </script>
+
+
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <% include('../layouts/footer.ejs') %>
