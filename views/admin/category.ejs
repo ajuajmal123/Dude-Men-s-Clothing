@@ -40,12 +40,12 @@
                     </a>
                 </li>
                 <li class="menu-item has-submenu active">
-                    <a class="menu-link" href="page-products-list.html"> <i
+                    <a class="menu-link" href="/admin/product"> <i
                             class="icon material-icons md-shopping_bag"></i>
                         <span class="text">Products</span>
                     </a>
                     <div class="submenu">
-                        <a href="page-products-list.html">Product List</a>
+                        <a href="/admin/product">Product List</a>
 
                     </div>
                 </li>
@@ -216,45 +216,42 @@
                     <h3 class="h3 text-second fw-bold mb-3">Categories</h3>
                     <a href="/admin/new-category" class="btn add-btn" style="height:40px;">Add New Category</a>
                 </div>
-                <table style="width: 100%;" id="example" class="table table-striped table-bordered table-sm"
-                    cellspacing="0" width="100%">
+                <table style="width: 100%;" id="example" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
                     <thead>
                         <tr>
                             <th class="th-sm">Category Name</th>
                             <th class="th-sm">Status</th>
-
+                            <th class="th-sm">Description</th>
                             <th class="th-sm">Edit/Delete</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <% categories.forEach(category=> { %>
+                        <% categories.forEach(category => { %>
                             <tr>
+                                <td><%= category.cat_name %></td>
+                                <td><%= category.cat_status ? 'List' : 'Unlisted' %></td>
                                 <td>
-                                    <%= category.cat_name %>
+                                    <div class="short-desc mb-30">
+                                        <p><%= category.description || 'No description provided' %></p>
+                                    </div>
                                 </td>
-                                <% if (category.cat_status) { %>
-                                    <td>List</td>
-                                    <% } else { %>
-                                        <td>Unlisted</td>
-                                        <% } %>
-
-                                            <td>
-                                                <!-- Edit category button -->
-                                                <a href="/admin/edit_category/<%= category._id %>" class="ms-3"><i
-                                                        class="fa-solid fa-pen"></i>Edit</a>
-
-                                                <a href="/admin/soft-delete/<%= category._id %>"
-                                                    class="text-danger ms-2"
-                                                    onclick="return confirm('Are you sure you want to delete <%= category.cat_name %>?')">Delete</a>
-
-                                            </td>
-
+                                <td>
+                                    <!-- Edit category button -->
+                                    <a href="/admin/edit_category/<%= category._id %>" class="ms-3">
+                                        <i class="fa-solid fa-pen"></i>Edit
+                                    </a>
+                                    <a href="/admin/soft-delete/<%= category._id %>" class="text-danger ms-2"
+                                       onclick="return confirm('Are you sure you want to delete <%= category.cat_name %>?')">
+                                        Delete
+                                    </a>
+                                </td>
                             </tr>
-                            <% }); %>
+                        <% }); %>
                     </tbody>
                 </table>
-
+            </div>
         </section>
+        
         <footer class="main-footer font-xs">
             <div class="row pb-30 pt-15">
                 <div class="col-sm-6">

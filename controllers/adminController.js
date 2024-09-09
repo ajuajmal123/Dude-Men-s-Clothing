@@ -20,17 +20,17 @@ const confirmLogin = async (req, res) => {
       const passwordMatch = await bcrypt.compare(password, userData.password);
       if (passwordMatch) {
         if (userData.is_admin === 0) {
-          res.render("login", { message: "Incorrect email or password" });
+          res.render("login", { errmessage: "Incorrect email or password" });
         } else {
           req.session.admin_id = userData._id;
 
           res.redirect("/admin/dashboard");
         }
       } else {
-        res.render("login", { message: "Incorrect email or password" });
+        res.render("login", { errmessage: "Incorrect email or password" });
       }
     } else {
-      res.render("login", { message: "Incorrect email or password" });
+      res.render("login", { errmessage: "Incorrect email or password" });
     }
 
   } catch (error) {

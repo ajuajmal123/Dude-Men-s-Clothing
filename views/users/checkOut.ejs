@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+
+
+<!-- Mirrored from wp.alithemes.com/html/evara/evara-frontend/shop-checkout.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 15 Jul 2023 10:10:07 GMT -->
+
+<head>
+    <meta charset="utf-8">
+    <title>Dude Men's Clothing</title>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:title" content="">
+    <meta property="og:type" content="">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/imgs/theme/logo1.png">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="assets/css/maind134.css?v=3.4">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <style>
+        .edit-address {
+            cursor: pointer;
+        }
+
+        .remove-icon {
+            margin-left: 570px;
+        }
+
+
+        /* 
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f2f2f2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+} */
+
+        .coupon-container {
+            display: flex;
+            justify-content: center;
+        }
+
+        .coupon {
+            background-color: #fff;
+            border: 2px dashed #333;
+            border-radius: 10px;
+            padding: 20px;
+            width: 300px;
+        }
+
+        .coupon-header {
+            text-align: center;
+        }
+
+        .coupon-header img {
+            width: 150px;
+        }
+
+        .coupon-header h1 {
+            font-size: 24px;
+            color: #333;
+        }
+
+        .coupon-content {
+            text-align: center;
+        }
+
+        .coupon-content p {
+            font-size: 16px;
+            color: #555;
+        }
+
+        .coupon-content h2 {
+            font-size: 32px;
+            color: #ff5733;
+            margin: 10px 0;
+        }
+
+        #apply-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        #apply-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header-area header-style-1 header-height-2">
+        <div class="header-top header-top-ptb-1 d-none d-lg-block">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-xl-3 col-lg-4">
+                        <div class="header-info">
+                            <ul>
+                                <li><i class="fi-rs-smartphone"></i> <a href="#">(+01) - 2345 - 6789</a></li>
+                                <li><i class="fi-rs-marker"></i><a href="#">Our location</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-4">
+                        <div class="text-center">
+                            <div id="news-flash" class="d-inline-block">
+                                <ul>
+                                    <li>Get great devices up to 50% off <a href="#">View details</a></li>
+                                    <li>Super Value Deals - Save more with coupons</li>
+                                    <li>Trendy Electricals, save up 35% off today <a href="#">Shop now</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-4">
+                        <div class="header-info header-info-right">
+                            <ul>
+                                <li>
+                                    <a class="language-dropdown-active" href="#"> <i class="fi-rs-world"></i> English <i
+                                            class="fi-rs-angle-small-down"></i></a>
+                                    <ul class="language-dropdown">
+                                        <li><a href="#"><img src="/assets/imgs/theme/flag-fr.png" alt="">Français</a>
+                                        </li>
+                                        <li><a href="#"><img src="/assets/imgs/theme/flag-dt.png" alt="">Deutsch</a>
+                                        </li>
+                                        <li><a href="#"><img src="/assets/imgs/theme/flag-ru.png" alt="">Pусский</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li><!-- In your navigation bar or header section -->
+
+                                    <% if (user) { %>
+                                        <!-- If user is logged in, show logout button -->
+                                <li><a href="/myaccount">
+                                        <h6>
+                                            <%= user.name %>
+                                        </h6>
+                                    </a></li>
+                                <li><a href="/logout">Logout</a></li>
+
+                                <% } else { %>
+                                    <!-- If user is not logged in, show login button -->
+                                    <li><a href="/signup">Log In / Sign Up</a></li>
+                                    <% } %>
+
+                                        </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header-middle header-middle-ptb-1 d-none d-lg-block">
+            <div class="container">
+                <div class="header-wrap">
+                    <div class="logo logo-width-1">
+                        <a href="/"><img src="/assets/imgs/theme/mainlogo.png" alt="logo"></a>
+                    </div>
+                    <div class="header-right">
+
+                        <div class="header-action-right">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header-bottom header-bottom-bg-color sticky-bar">
+            <div class="container">
+                <div class="header-wrap header-space-between position-relative">
+                    <div class="logo logo-width-1 d-block d-lg-none">
+                        <a href="/"><img src="assets/imgs/theme/logo1.png" alt="logo"></a>
+                    </div>
+                    <div class="header-nav d-none d-lg-flex">
+
+                        <div class="main-menu main-menu-padding-1 main-menu-lh-2 d-none d-lg-block">
+                            <nav>
+                                <ul>
+                                    <li><a class="active" href="/">Home </a>
+
+                                    </li>
+
+                                    <li><a href="#">Shop <i class="fi-rs-angle-down"></i></a>
+                                        <ul class="sub-menu">
+                                            <li><a href="/allproducts">All Products</a></li>
+                                            <li><a href="/filter">Filter</a></li>
+                                            <li><a href="/wishlist">Wishlist</a></li>
+                                            <li><a href="/cart">Cart</a></li>
+
+
+                                        </ul>
+                                    </li>
+
+
+                                    <li><a href="#">Pages <i class="fi-rs-angle-down"></i></a>
+                                        <ul class="sub-menu">
+
+                                            <li><a href="/myaccount">My Account</a></li>
+
+                                            <li><!-- In your navigation bar or header section -->
+
+                                                <% if (user) { %>
+                                                    <!-- If user is logged in, show logout button -->
+                                            <li><a href="/myaccount">
+                                                    <h6>
+                                                        <%= user.name %>
+                                                    </h6>
+                                                </a></li>
+                                            <li><a href="/logout">Logout</a></li>
+
+                                            <% } else { %>
+                                                <!-- If user is not logged in, show login button -->
+                                                <li><a href="/signup">Log In / Sign Up</a></li>
+                                                <% } %>
+
+                                    </li>
+
+                                </ul>
+                                </li>
+                                <li>
+                                    <a href="#">Contact</a>
+                                </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+
+                    <p class="mobile-promotion">Happy <span class="text-brand">Mother's Day</span>. Big Sale Up to 40%
+                    </p>
+                    <div class="header-action-right d-block d-lg-none">
+                        <div class="header-action-2">
+
+                        </div>
+                        <div class="header-action-icon-2 d-block d-lg-none">
+                            <div class="burger-icon burger-icon-white">
+                                <span class="burger-icon-top"></span>
+                                <span class="burger-icon-mid"></span>
+                                <span class="burger-icon-bottom"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </header>
+    <div class="mobile-header-active mobile-header-wrapper-style">
+        <div class="mobile-header-wrapper-inner">
+            <div class="mobile-header-top">
+                <div class="mobile-header-logo">
+                    <a href="/"><img src="/assets/imgs/theme/logo1.png" alt="logo"></a>
+                </div>
+                <div class="mobile-menu-close close-style-wrap close-style-position-inherit">
+                    <button class="close-style search-close">
+                        <i class="icon-top"></i>
+                        <i class="icon-bottom"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="mobile-header-content-area">
+
+                <div class="mobile-menu-wrap mobile-header-border">
+
+                    <!-- mobile menu start -->
+                    <nav>
+                        <ul class="mobile-menu">
+                            <li class="menu-item"><span class="menu-expand"></span><a href="/">Home</a>
+
+                            </li>
+                            <li class="menu-item-has-children"><span class="menu-expand"></span><a href="#">shop</a>
+                                <ul class="dropdown">
+
+
+                                    <li><a href="/filter">Filter</a></li>
+                                    <li><a href="/wishlist">Wishlist</a></li>
+                                    <li><a href="/cart">Cart</a></li>
+
+                                </ul>
+                            </li>
+
+
+                            <li class="menu-item-has-children"><span class="menu-expand"></span><a href="#">Pages</a>
+                                <ul class="dropdown">
+
+                                    <li><a href="/myaccount">My Account</a></li>
+                                    <li><a href="/signup">login/register</a></li>
+
+                                </ul>
+                            </li>
+
+                        </ul>
+                    </nav>
+                    <!-- mobile menu end -->
+                </div>
+                <div class="mobile-header-info-wrap mobile-header-border">
+                    <div class="single-mobile-header-info mt-30">
+                        <a href="page-contact.html"> Our location </a>
+                    </div>
+                    <div class="single-mobile-header-info">
+                        <a href="page-login-register.html">Log In / Sign Up </a>
+                    </div>
+                    <div class="single-mobile-header-info">
+                        <a href="#">(+01) - 2345 - 6789 </a>
+                    </div>
+                </div>
+                <div class="mobile-social-icon">
+                    <h5 class="mb-15 text-grey-4">Follow Us</h5>
+                    <a href="#"><img src="assets/imgs/theme/icons/icon-facebook.svg" alt=""></a>
+                    <a href="#"><img src="assets/imgs/theme/icons/icon-twitter.svg" alt=""></a>
+                    <a href="#"><img src="assets/imgs/theme/icons/icon-instagram.svg" alt=""></a>
+                    <a href="#"><img src="assets/imgs/theme/icons/icon-pinterest.svg" alt=""></a>
+                    <a href="#"><img src="assets/imgs/theme/icons/icon-youtube.svg" alt=""></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <main class="main">
+        <div class="page-header breadcrumb-wrap">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a href="/" rel="nofollow">Home</a>
+                    <span></span> Shop
+                    <span></span> Checkout
+                </div>
+            </div>
+        </div>
+
+        <section class="mt-50 mb-50">
+            <div class="container">
+             
+                <div class="row">
+                    <div class="col-12">
+                        <div class="divider mt-50 mb-50"></div>
+                    </div>
+                </div>
+
+                <!-- Other sections... -->
+                <div class="row">
+                    <!-- Billing Details Section -->
+                    <div class="col-md-6">
+                      <div class="mb-25">
+                        <h4>Billing Details</h4>
+                      </div>
+                      <div>
+                        <a href="/checkout-address">
+                          <input id="addAddress" class="btn user-btn" type="button" value="Add New Address">
+                        </a>
+                      </div>
+                      <div class="row">
+                        <% addresses.forEach((address, index) => { %>
+                          <div class="card mb-3 mb-lg-0">
+                            <div class="card-header col">
+                              <label>
+                                <input type="radio" id="selectedAddress<%= index %>" name="selectedAddress"
+                                  value="<%= address._id %>" <%= index === 0 ? 'checked' : '' %>>
+                              </label>
+                              <h5 class="mb-0">Address <%= index + 1 %></h5>
+                            </div>
+                            <div class="card-body">
+                              <p><%= address.name %></p>
+                              <address><%= address.address %></address>
+                              <p><%= address.city %>, <%= address.state %> - <%= address.pincode %></p>
+                              <p><%= address.mobile %></p>
+                              <a href="/edit-checkoutaddress/<%= address._id %>" class="btn-small">Edit</a>
+                            </div>
+                          </div>
+                        <% }) %>
+                      </div>
+                    </div>
+                  
+                    <!-- Orders Section -->
+                    <div class="col-md-6">
+                      <div class="order_review">
+                        <div class="mb-20">
+                          <h4>Your Orders</h4>
+                        </div>
+                        <div class="table-responsive order_table text-center">
+                          <table class="table">
+                            <thead>
+                              <tr>
+                                <th colspan="2">Product</th>
+                                <th>Total</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <% cartItems.forEach(item => { %>
+                                <tr>
+                                  <td class="image product-thumbnail"><img src="/admin-assets/imgs/items/<%= item.productId.primary_image.name %>" alt="#"></td>
+                                  <td>
+                                    <h5><a href="shop-product-full.html"><%= item.productId.product_name %></a></h5>
+                                    <span class="product-qty">x <%= item.quantity %></span>
+                                  </td>
+                                  <td>$<%= item.price %></td>
+                                </tr>
+                              <% }) %>
+                              <tr>
+                                <th>Shipping</th>
+                                <td colspan="2"><em>Free Shipping</em></td>
+                              </tr>
+                              <tr>
+                                <th>Total</th>
+                                <td id="GrandTotal" colspan="2" class="product-subtotal"><span class="font-xl text-brand fw-900">$<%= subtotal.toFixed(2) %></span></td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        <div class="panel-body">
+                          <p class="mb-30 font-sm">
+                          <h4>If you have a coupon code, please apply it below.</h4>
+                          </p>
+                          <div class="form-group">
+                            <input type="text" placeholder="Enter Coupon Code..." id="couponCode" name="couponCode" />
+                          </div>
+                          <div class="form-group">
+                            <a class="btn mr-10 mb-sm-15" id="applyCouponBtn" onclick="applyCoupon()">Apply Coupon</a>
+                          </div>
+                          <div id="couponNamePlaceholder"></div>
+                        </div>
+                        <div class="bt-1 border-color-1 mt-30 mb-30"></div>
+                  
+                        <!-- Payment Method Section -->
+                        <div class="payment_method">
+                          <div class="mb-25">
+                            <h5>Payment</h5>
+                          </div>
+                          <div class="payment_option">
+                            <div class="custome-radio">
+                              <input class="form-check-input" type="radio" name="payment_option" id="cashOnDelivery" value="Cash on Delivery">
+                              <label class="form-check-label" for="cashOnDelivery">Cash On Delivery</label>
+                            </div>
+                            <div class="custome-radio">
+                              <input class="form-check-input" type="radio" name="payment_option" id="onlinePayment" value="Online" checked>
+                              <label class="form-check-label" for="onlinePayment">Online Payment</label>
+                            </div>
+                            <div class="custome-radio">
+                              <input class="form-check-input" type="radio" name="payment_option" id="walletPayment" value="Wallet">
+                              <label class="form-check-label" for="walletPayment">Wallet</label>
+                            </div>
+                          </div>
+                          <p id="codMessage" class="text-danger" style="display: none;">COD is not available.</p>
+                        </div>
+                        <!-- Place Order button -->
+                        <button onclick="formSubmit()" class="btn btn-fill-out btn-block mt-30">Place Order</button>
+                      </div>
+                    </div>
+                  </div>
+                  <form id="hiddenForm" action="/place-order" method="POST" style="display: none;">
+                    <!-- Hidden input fields for selected address and payment method -->
+                    
+                    <input type="hidden" id="selectedAddressInput" name="selectedAddress">
+                    <input type="hidden" id="paymentMethodInput" name="paymentMethod">
+                    <input type="hidden" name="couponCode" id="couponCodeInput">
+                  </form>
+                  
+
+            </div>
+        </section>
+
+
+    </main>
+    <footer class="main">
+
+        <section class="section-padding footer-mid">
+            <div class="container pt-15 pb-20">
+                <div class="row">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="widget-about font-md mb-md-5 mb-lg-0">
+                            <div class="logo logo-width-1 wow fadeIn animated">
+                                <a href="/"><img src="/assets/imgs/theme/mainlogo.png" alt="logo"></a>
+                            </div>
+                            <h5 class="mt-20 mb-10 fw-600 text-grey-4 wow fadeIn animated">Contact</h5>
+                            <p class="wow fadeIn animated">
+                                <strong>Address: </strong>562 Wellington Road, Street 32, San Francisco
+                            </p>
+                            <p class="wow fadeIn animated">
+                                <strong>Phone: </strong>+01 2222 365 /(+91) 01 2345 6789
+                            </p>
+                            <p class="wow fadeIn animated">
+                                <strong>Hours: </strong>10:00 - 18:00, Mon - Sat
+                            </p>
+                            <h5 class="mb-10 mt-30 fw-600 text-grey-4 wow fadeIn animated">Follow Us</h5>
+                            <div class="mobile-social-icon wow fadeIn animated mb-sm-5 mb-md-0">
+                                <a href="#"><img src="assets/imgs/theme/icons/icon-facebook.svg" alt=""></a>
+                                <a href="#"><img src="assets/imgs/theme/icons/icon-twitter.svg" alt=""></a>
+                                <a href="#"><img src="assets/imgs/theme/icons/icon-instagram.svg" alt=""></a>
+                                <a href="#"><img src="assets/imgs/theme/icons/icon-pinterest.svg" alt=""></a>
+                                <a href="#"><img src="assets/imgs/theme/icons/icon-youtube.svg" alt=""></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-3">
+                        <h5 class="widget-title wow fadeIn animated">About</h5>
+                        <ul class="footer-list wow fadeIn animated mb-sm-5 mb-md-0">
+                            <li><a href="#">About Us</a></li>
+                            <li><a href="#">Delivery Information</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Terms &amp; Conditions</a></li>
+                            <li><a href="#">Contact Us</a></li>
+                            <li><a href="#">Support Center</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-2  col-md-3">
+                        <h5 class="widget-title wow fadeIn animated">My Account</h5>
+                        <ul class="footer-list wow fadeIn animated">
+                            <li><a href="#">Sign In</a></li>
+                            <li><a href="#">View Cart</a></li>
+                            <li><a href="#">My Wishlist</a></li>
+                            <li><a href="#">Track My Order</a></li>
+                            <li><a href="#">Help</a></li>
+                            <li><a href="#">Order</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-4">
+                        <h5 class="widget-title wow fadeIn animated">Install App</h5>
+                        <div class="row">
+                            <div class="col-md-8 col-lg-12">
+                                <p class="wow fadeIn animated">From App Store or Google Play</p>
+                                <div class="download-app wow fadeIn animated">
+                                    <a href="#" class="hover-up mb-sm-4 mb-lg-0"><img class="active"
+                                            src="/assets/imgs/theme/app-store.jpg" alt=""></a>
+                                    <a href="#" class="hover-up"><img src="/assets/imgs/theme/google-play.jpg"
+                                            alt=""></a>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-lg-12 mt-md-3 mt-lg-0">
+                                <p class="mb-20 wow fadeIn animated">Secured Payment Gateways</p>
+                                <img class="wow fadeIn animated" src="/assets/imgs/theme/payment-method.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="container pb-20 wow fadeIn animated">
+            <div class="row">
+                <div class="col-12 mb-20">
+                    <div class="footer-bottom"></div>
+                </div>
+                <div class="col-lg-6">
+                    <p class="float-md-left font-sm text-muted mb-0">&copy; 2022, <strong
+                            class="text-brand">Evara</strong> - HTML Ecommerce Template </p>
+                </div>
+                <div class="col-lg-6">
+                    <p class="text-lg-end text-start font-sm text-muted mb-0">
+                        Designed by <a href="http://alithemes.com/" target="_blank">Alithemes.com</a>. All rights
+                        reserved
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script>
+        async function formSubmit() {
+          const selectedAddress = document.querySelector('input[name="selectedAddress"]:checked');
+          if (!selectedAddress) {
+            alert('Please select an address');
+            return;
+          }
+      
+          // Assuming COD is the only payment option
+          const paymentMethod = 'Cash on Delivery';
+        
+          const body = {
+            selectedAddress: selectedAddress.value,
+            paymentMethod: paymentMethod,
+          };
+      
+          // Send the request to the server to place the order
+          const response = await fetch('/place-order', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(body)
+          });
+      
+          if (response.ok) {
+            // Redirect to the order success page
+            window.location.href = '/ordersuccess';
+          } else {
+            const errorData = await response.text();
+            alert('Error: ' + errorData);
+          }
+        }
+      </script>
+      
+    <!-- Vendor JS-->
+    <script src="/assets/js/vendor/modernizr-3.6.0.min.js"></script>
+    <script src="/assets/js/vendor/jquery-3.6.0.min.js"></script>
+    <script src="/assets/js/vendor/jquery-migrate-3.3.0.min.js"></script>
+    <script src="/assets/js/vendor/bootstrap.bundle.min.js"></script>
+    <script src="/assets/js/plugins/slick.js"></script>
+    <script src="/assets/js/plugins/jquery.syotimer.min.js"></script>
+    <script src="/assets/js/plugins/wow.js"></script>
+    <script src="/assets/js/plugins/jquery-ui.js"></script>
+    <script src="/assets/js/plugins/perfect-scrollbar.js"></script>
+    <script src="/assets/js/plugins/magnific-popup.js"></script>
+    <script src="/assets/js/plugins/select2.min.js"></script>
+    <script src="/assets/js/plugins/waypoints.js"></script>
+    <script src="/assets/js/plugins/counterup.js"></script>
+    <script src="/assets/js/plugins/jquery.countdown.min.js"></script>
+    <script src="/assets/js/plugins/images-loaded.js"></script>
+    <script src="/assets/js/plugins/isotope.js"></script>
+    <script src="/assets/js/plugins/scrollup.js"></script>
+    <script src="/assets/js/plugins/jquery.vticker-min.js"></script>
+    <!-- Template  JS -->
+    <script src="/assets/js/maind134.js?v=3.4"></script>
+    <script src="/assets/js/shopd134.js?v=3.4"></script>
+</body>
+
+
+<!-- Mirrored from wp.alithemes.com/html/evara/evara-frontend/shop-checkout.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 15 Jul 2023 10:10:07 GMT -->
+
+</html>

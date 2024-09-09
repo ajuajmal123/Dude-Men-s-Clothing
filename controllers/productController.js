@@ -6,13 +6,13 @@ const { json } = require('body-parser');
 const sharp = require('sharp');
 const path = require("path");
 
-const add_product = async (req, res) => {
+/* const add_product = async (req, res) => {
     try {
         // Additional validation for numerical fields
         const stock = parseInt(req.body.stock);
         const prod_price = parseFloat(req.body.prod_price);
         const sellig_price = parseFloat(req.body.sellig_price);
-
+        
         if (
             isNaN(stock) ||
             isNaN(prod_price) ||
@@ -27,6 +27,16 @@ const add_product = async (req, res) => {
                     error:
                         "Stock, Actual Price, and Selling Price must be numerical and greater than 0.",
                 });
+        }
+        //validation for size
+        const size=parseInt(req.body.size)
+        if(size<=0){
+            return res 
+            .status(400)
+            .json({
+                error:
+                "Size should be in positive value"
+            })
         }
 
         // Validate the number of images uploaded
@@ -75,6 +85,69 @@ const add_product = async (req, res) => {
     } catch (error) {
         res.status(400).send(error);
     }
+}; */
+
+const add_product = async (req, res) => {
+    try {
+        let sizes;
+        try {
+            sizes = JSON.parse(req.body.sizes);
+        } catch (error) {
+            console.error("JSON Parsing Error:", error.message);
+            return res.status(400).json({ error: "Invalid sizes format." });
+        }
+
+        // Validate sizes
+        for (const sizeObj of sizes) {
+            if (typeof sizeObj !== 'object' || !sizeObj.size || !sizeObj.stock) {
+                return res.status(400).json({ error: "Invalid sizes format. Each size must include 'size' and 'stock'." });
+            }
+            const stock = parseInt(sizeObj.stock, 10);
+            if (isNaN(stock) || stock <= 0) {
+                return res.status(400).json({ error: "Stock should be a positive number." });
+            }
+        }
+
+        // Validate number of images
+        if (!req.files || req.files.length < 2) {
+            return res.status(400).json({ error: "At least 2 secondary images are required." });
+        }
+
+        let PrimaryImage;
+        let secondaryImages = [];
+        req.files.forEach((e) => {
+            if (e.fieldname === 'primary-image') {
+                PrimaryImage = {
+                    name: e.filename,
+                    path: e.path,
+                };
+            } else {
+                secondaryImages.push({
+                    name: e.filename,
+                    path: e.path,
+                });
+            }
+        });
+
+        const product = new Product({
+            product_name: req.body.product_name,
+            brand_name: req.body.brand_name,
+            description: req.body.description,
+            category_id: req.body.category,
+            sizes: sizes,
+            actual_price: req.body.prod_price,
+            selling_price: req.body.sellig_price,
+            color: req.body.color,
+            primary_image: PrimaryImage,
+            secondary_images: secondaryImages,
+        });
+
+        await product.save();
+        res.redirect("/admin/product");
+    } catch (error) {
+        console.error("Error saving product:", error.message);
+        res.status(400).json({ error: "There was an error processing your request." });
+    }
 };
 
 //render Product
@@ -110,6 +183,7 @@ const getAllProducts = async (skip, perPage) => {
         {
             $match: {
                 delete: false,
+                
             },
         },
         {
@@ -140,7 +214,7 @@ const getAllProducts = async (skip, perPage) => {
                 actual_price: 1,
                 selling_price: 1,
                 color: 1,
-                size: 1,
+                sizes: 1,
                 status: 1,
                 description: 1,
             },
@@ -172,6 +246,8 @@ const findProduct = async (product_id) => {
         {
             $match: {
                 _id: new mongoose.Types.ObjectId(product_id),
+                delete:false
+                //status:true
             },
         },
         {
@@ -203,7 +279,7 @@ const findProduct = async (product_id) => {
                 selling_price: 1,
                 actual_price: 1,
                 color: 1,
-                size: 1,
+                sizes: 1,
                 status: 1,
                 description: 1,
                 GST: 1,
@@ -216,7 +292,7 @@ const findProduct = async (product_id) => {
 };
 
 const getCategory = async (name) => {
-    const categories = await Category.find({ cat_name: { $ne: name } });
+    const categories = await Category.find({ cat_name: { $ne: name }});
     return categories;
 };
 
@@ -228,24 +304,17 @@ const render_edit_product = async (req, res) => {
     res.render("edit-product", { admin: true, obj, category: category });
 };
 
-//update product
+
 const update_product = async (req, res) => {
     try {
-
-        const {
-            product_name,
-            brand_name,
-            description,
-            stock,
-            prod_price,
-            sellig_price,
-            color,
-            size,
-            status,
-            imagesToDelete
-        } = req.body;
-
-        // Parse imagesToDelete
+           
+            const { sizes, stocks,product_name,
+                brand_name,
+                description, prod_price,
+                sellig_price,
+                color, status,
+                imagesToDelete} = req.body;
+                  // Parse imagesToDelete
         let imagesToDeleteParsed = [];
         try {
             if (imagesToDelete) {
@@ -282,9 +351,22 @@ const update_product = async (req, res) => {
                 }
             }
         }
+                const sizeStockPairs = sizes.map((size, index) => {
+                    const stock = parseInt(stocks[index], 10);
+                    if (isNaN(stock) || stock <= 0 || isNaN(size) || size <= 0) {
+                        req.flash("error", "Size and stock must be greater than 0.");
+                        return null;
+                    }
+                    return { size: parseInt(size, 10), stock };
+                });
+        
+                if (sizeStockPairs.includes(null)) {
+                    return res.redirect(`/admin/edit-product/${req.body.id}`);
+                }
+        
 
-        const product = await Product.findOne({ _id: req.body.id });
 
+        //const product = await Product.findOne({ _id: req.body.id });
         if (req.files != null) {
             // Handle primary image update
             let primaryImage = req.files.primaryImage;
@@ -345,27 +427,25 @@ const update_product = async (req, res) => {
             }
 
         });
+        const updatedProduct = {
+            stocks,product_name,
+            brand_name,
+            description, prod_price,
+            sellig_price,
+            color, status,
+            imagesToDelete ,
+            sizes: sizeStockPairs
+        };
 
-        const categoryID = new mongoose.Types.ObjectId(req.body.category);
-
-        product.product_name = product_name;
-        product.brand_name = brand_name;
-        product.description = description;
-        product.category_id = categoryID;
-        product.stock = stock;
-        product.actual_price = prod_price;
-        product.selling_price = sellig_price;
-        product.color = color;
-        product.size = size;
-        product.status = status;
-        //await product.save();
-        await Product.findByIdAndUpdate({ _id: req.body.id }, product);
-        req.flash("success", "product editted successfully");
+        
+        await Product.findByIdAndUpdate({ _id: req.body.id }, updatedProduct);
+        req.flash("success", "Product updated successfully");
         res.redirect("/admin/product");
     } catch (err) {
         console.log(err);
     }
 };
+
 
 //delete product
 const deleteProduct = async (req, res) => {
@@ -376,6 +456,7 @@ const deleteProduct = async (req, res) => {
     res.redirect("/admin/product");
 };
 
+
 module.exports = {
     render_product_page,
     render_new_product,
@@ -384,3 +465,4 @@ module.exports = {
     update_product,
     deleteProduct,
 };
+

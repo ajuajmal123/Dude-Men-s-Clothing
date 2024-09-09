@@ -249,17 +249,22 @@
                                             <input type="text" name="color" value="<%= obj.color %>"
                                                 class="form-control">
                                         </div>
-                                        <div class="form-group col-md-6">
-                                            <label for="" class="fw-bold mb-2">Size</label>
-                                            <input type="text" name="size" value="<%= obj.size %>" class="form-control">
-                                        </div>
+                                  
 
                                         <input type="hidden" name="id" value="<%= obj._id %>" class="form-control">
 
-                                        <div class="form-group col-md-6">
-                                            <label for="" class="fw-bold mb-2">Stock</label>
-                                            <input type="number" name="stock" value="<%= obj.stock %>"
-                                                class="form-control">
+                                        <div class="form-group mb-4">
+                                            <label for="" class="fw-bold mb-2">Size and Stock</label>
+                                            <div id="size-stock-container">
+                                                <% obj.sizes.forEach(function(sizeStock) { %>
+                                                    <div class="size-stock-item d-flex mb-2">
+                                                        <input type="text" name="sizes[]" value="<%= sizeStock.size %>" placeholder="Size" class="form-control me-2">
+                                                        <input type="number" name="stocks[]" value="<%= sizeStock.stock %>" placeholder="Stock" class="form-control me-2">
+                                                        <button type="button" class="btn btn-danger btn-remove-size-stock">Remove</button>
+                                                    </div>
+                                                <% }) %>
+                                            </div>
+                                            <button type="button" id="add-size-stock" class="btn btn-secondary mt-2">Add Size</button>
                                         </div>
                                         <div class="form-group col-md-6 d-flex flex-column">
                                             <label for="" class="fw-bold mb-2">Category Name</label>
@@ -372,6 +377,32 @@
         </section>
 
         <script>
+            document.getElementById('add-size-stock').addEventListener('click', function() {
+                const container = document.getElementById('size-stock-container');
+                const newItem = document.createElement('div');
+                newItem.className = 'size-stock-item d-flex mb-2';
+                newItem.innerHTML = `
+                    <input type="text" name="sizes[]" placeholder="Size" class="form-control me-2">
+                    <input type="number" name="stocks[]" placeholder="Stock" class="form-control me-2">
+                    <button type="button" class="btn btn-danger btn-remove-size-stock">Remove</button>
+                `;
+                container.appendChild(newItem);
+        
+                // Add event listener to the remove button
+                newItem.querySelector('.btn-remove-size-stock').addEventListener('click', function() {
+                    container.removeChild(newItem);
+                });
+            });
+        
+            // Attach remove event listener to existing size-stock items
+            document.querySelectorAll('.btn-remove-size-stock').forEach(button => {
+                button.addEventListener('click', function() {
+                    const item = button.parentElement;
+                    item.parentElement.removeChild(item);
+                });
+            });
+        </script>
+        <script>
             let imagesToDelete = [];
 
             function previewImg(event) {
@@ -431,7 +462,7 @@
                     inp.setAttribute("id", addImgCount);
                     inp.setAttribute(
                         "onchange",
-                        `previewImg(event,'${addImgCount}','prod_img_2')`
+                        previewImg(event,'${addImgCount}','prod_img_2')
                     );
                     inpWrap.appendChild(inp);
 
@@ -440,7 +471,7 @@
                     dlt.setAttribute("style", "cursor: pointer;")
                     dlt.setAttribute(
                         "onclick",
-                        `deleteImg('${addImgCount}','sec_img','${addImgCount}')`
+                        deleteImg('${addImgCount}','sec_img','${addImgCount}')
                     );
                     inpWrap.appendChild(dlt);
                     addImgCount++;

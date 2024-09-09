@@ -87,6 +87,26 @@
                         </div> <!-- form-group// -->
                     </form>
                     <p class="text-center small text-muted mb-15">or sign up with</p>
+                    <% if(typeof message!=='undefined' ){ %>
+
+                        <p style="color: green;">
+                            <%= message %>
+                        </p>
+                        <% } %>
+
+                            <% if(typeof errmessage!=='undefined' ){ %>
+
+                                <p style="color: red;">
+                                    <%= errmessage %>
+                                </p>
+                                <% } %>
+
+                                    <% if(typeof successMessage!=='undefined' ){ %>
+
+                                        <p style="color: green">
+                                            <%= successMessage %>
+                                        </p>
+                                        <% } %>
                     <div class="d-grid gap-3 mb-4">
                         <a href="#" class="btn w-100 btn-light font-sm">
                             <svg aria-hidden="true" class="icon-svg" width="20" height="20" viewBox="0 0 20 20">

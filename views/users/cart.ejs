@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+
+
+<!-- Mirrored from wp.alithemes.com/html/evara/evara-frontend/shop-cart.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 15 Jul 2023 10:10:07 GMT -->
+
+<head>
+    <meta charset="utf-8">
+    <title>Dude Men's Clothing</title>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:title" content="">
+    <meta property="og:type" content="">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="assets/imgs/theme/titlelogo.jpg">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="assets/css/maind134.css?v=3.4">
+</head>
+
+<body>
+    <header class="header-area header-style-1 header-height-2">
+        <div class="header-top header-top-ptb-1 d-none d-lg-block">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-xl-3 col-lg-4">
+                        <div class="header-info">
+                            <ul>
+                                <li><i class="fi-rs-smartphone"></i> <a href="#">(+01) - 2345 - 6789</a></li>
+                                <li><i class="fi-rs-marker"></i><a href="page-contact.html">Our location</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-4">
+                        <div class="text-center">
+                            <div id="news-flash" class="d-inline-block">
+                                <ul>
+                                    <li>Get great devices up to 50% off </li>
+                                    <li>Super Value Deals - Save more with coupons</li>
+                                    <li>Trendy 25silver jewelry, save up 35% off today </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-4">
+                        <div class="header-info header-info-right">
+                            <ul>
+                                <li>
+                                    <a class="language-dropdown-active" href="#"> <i class="fi-rs-world"></i> English <i
+                                            class="fi-rs-angle-small-down"></i></a>
+                                    <ul class="language-dropdown">
+                                        <li><a href="#"><img src="/assets/imgs/theme/flag-fr.png" alt="">Français</a>
+                                        </li>
+                                        <li><a href="#"><img src="/assets/imgs/theme/flag-dt.png" alt="">Deutsch</a>
+                                        </li>
+                                        <li><a href="#"><img src="/assets/imgs/theme/flag-ru.png" alt="">Pусский</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                  
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header-middle header-middle-ptb-1 d-none d-lg-block">
+            <div class="container">
+                <div class="header-wrap">
+                    <div class="logo logo-width-1">
+                        <a href="/"><img src="/assets/imgs/theme/mainlogo.png" alt="logo"></a>
+                    </div>
+                    <div class="header-right">
+                        <div class="search-style-2">
+                            <form action="#">
+                                <select class="select-active">
+                                    <option>All Categories</option>
+
+                                    <option>Too;s & Equipments</option>
+                                    <option>Hardware</option>
+                                    <option>Electricals</option>
+
+                                </select>
+                                <input type="text" placeholder="Search for items...">
+                            </form>
+                        </div>
+                        <div class="header-action-right">
+                            <div class="header-action-2">
+                           
+                                <div class="header-action-icon-2">
+                                    <a class="mini-cart-icon" href="#">
+                                        <img alt="Evara" src="assets/imgs/theme/icons/icon-cart.svg">
+                                        <span class="pro-count blue">
+                                            <%= totalQuantities %>
+                                        </span>
+                                    </a>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header-bottom header-bottom-bg-color sticky-bar">
+            <div class="container">
+                <div class="header-wrap header-space-between position-relative">
+                    <div class="logo logo-width-1 d-block d-lg-none">
+                        <a href="/"><img src="assets/imgs/theme/mainlogo.png" alt="logo"></a>
+                    </div>
+                    <div class="header-nav d-none d-lg-flex">
+
+                        <div class="main-menu main-menu-padding-1 main-menu-lh-2 d-none d-lg-block">
+                            <nav>
+                                <ul>
+                                    <li><a class="active" href="/">Home </a>
+
+                                    </li>
+
+                                    <li><a href="#">Shop <i class="fi-rs-angle-down"></i></a>
+                                        <ul class="sub-menu">
+
+                                            <li><a href="/allproducts">All Products</a></li>
+
+                                            <li><a href="/filter">Filter</a></li>
+                                            <li><a href="/wishlist"> Wishlist</a></li>
+                                            <li><a href="/cart">Cart</a></li>
+
+                                        </ul>
+                                    </li>
+
+
+                                    <li><a href="#">Pages <i class="fi-rs-angle-down"></i></a>
+                                        <ul class="sub-menu">
+
+                                           
+                                          
+                                </ul>
+                                </li>
+                                <li>
+                                    <a href="#">Contact</a>
+                                </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+
+                    <p class="mobile-promotion">Happy <span class="text-brand">Mother's Day</span>. Big Sale Up to 40%
+                    </p>
+
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="page-header breadcrumb-wrap">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a href="/" rel="nofollow">Home</a>
+                    <span></span> Shop
+                    <span></span> Your Cart
+                </div>
+            </div>
+        </div>
+
+        <section class="mt-50 mb-50">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="table-responsive">
+                            <table class="table shopping-summery text-center clean">
+                                <thead>
+                                    <tr class="main-heading">
+                                        <th scope="col">Image</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Size</th>
+                                        <th scope="col">Quantity</th>
+                                        <th scope="col">Price</th>
+                                        <th scope="col">Remove</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <% cartItems.forEach(item=> { %>
+                                        <tr>
+                                            <td class="image product-thumbnail"><img
+                                                    src="/admin-assets/imgs/items/<%= item.productId.primary_image.name %>"
+                                                    alt="<%= item.productId.product_name %>"></td>
+                                            <td class="product-des product-name">
+                                                <h5 class="product-name"><a href="shop-product-right.html">
+                                                        <%= item.productId.product_name %>
+                                                    </a></h5>
+
+                                            </td>
+                                            <td class="size" data-title="Size">
+                                                <%= item.size %>
+                                              </td>
+                                                <td>
+                                                    <input type="number" id="quantity-<%= item.productId._id %>-<%= item.size %>"
+                                                           name="quantity" value="<%= item.quantity %>" style="width: 55px;" readonly>
+                                                    <button onclick="updateQuantity('<%= item.productId._id %>', '<%= item.size %>', 'decrease')"
+                                                            class="btn btn-sm btn-primary ms-2">-</button>
+                                                    <button onclick="updateQuantity('<%= item.productId._id %>', '<%= item.size %>', 'increase')"
+                                                            class="btn btn-sm btn-primary ms-1">+</button>
+                                                </td>
+                                                    <td class="price" data-title="Price" id="price-<%= item.productId._id %>-<%= item.size %>">
+                                                        <span>$<%= (item.productId.selling_price * item.quantity).toFixed(2) %></span>
+                                                    </td>
+                                            <td class="action" data-title="Remove"><a
+                                                    href="/remove-from-cart/<%= item.productId._id %>"
+                                                    class="text-muted"><i class="fi-rs-trash"></i></a></td>
+                                        </tr>
+                                        <% }); %>
+                                </tbody>
+
+
+
+
+                            </table>
+                        </div>
+                        <div class="cart-action text-end">
+                            <a href="/allproducts" class="btn "><i class="fi-rs-shopping-bag mr-10"></i>Continue
+                                Shopping</a>
+                        </div>
+                        <div class="divider center_icon mt-50 mb-50"><i class="fi-rs-fingerprint"></i></div>
+                        <div class="col-lg-6 col-md-12">
+                            <div class="border p-md-4 p-30 border-radius cart-totals">
+                                <div class="heading_s1 mb-3">
+                                    <h4>Cart Totals</h4>
+                                </div>
+                           <div class="table-responsive">
+    <table class="table">
+        <tbody>
+            <tr>
+                <td class="cart_total_label">Total Quantities</td>
+                <td class="cart_total_amount"><span id="totalQuantities"
+                        class="font-lg fw-900 text-brand">
+                        <%= totalQuantities %>
+                    </span></td>
+            </tr>
+            <tr>
+                <td class="cart_total_label">Total Price</td>
+                <td class="cart_total_amount"><strong><span id="subtotal"
+                            class="font-xl fw-900 text-brand">$<%= totalPrice.toFixed(2) %></span></strong></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<a href="#" id="checkout-button" class="btn"> <i class="fi-rs-box-alt mr-10"></i> Proceed To CheckOut</a>
+
+<form id="checkout-form" action="/checkout" method="GET" style="display: none;"></form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="main">
+
+        <section class="section-padding footer-mid">
+            <div class="container pt-15 pb-20">
+                <div class="row">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="widget-about font-md mb-md-5 mb-lg-0">
+                            <div class="logo logo-width-1 wow fadeIn animated">
+                                <a href="/"><img src="/assets/imgs/theme/mainlogo.png" alt="logo"></a>
+                            </div>
+                            <h5 class="mt-20 mb-10 fw-600 text-grey-4 wow fadeIn animated">Contact</h5>
+                            <p class="wow fadeIn animated">
+                                <strong>Address: </strong>562 Wellington Road, Street 32, San Francisco
+                            </p>
+                            <p class="wow fadeIn animated">
+                                <strong>Phone: </strong>+01 2222 365 /(+91) 01 2345 6789
+                            </p>
+                            <p class="wow fadeIn animated">
+                                <strong>Hours: </strong>10:00 - 18:00, Mon - Sat
+                            </p>
+                            <h5 class="mb-10 mt-30 fw-600 text-grey-4 wow fadeIn animated">Follow Us</h5>
+                            <div class="mobile-social-icon wow fadeIn animated mb-sm-5 mb-md-0">
+                                <a href="#"><img src="/assets/imgs/theme/icons/icon-facebook.svg" alt=""></a>
+                                <a href="#"><img src="/assets/imgs/theme/icons/icon-twitter.svg" alt=""></a>
+                                <a href="#"><img src="/assets/imgs/theme/icons/icon-instagram.svg" alt=""></a>
+                                <a href="#"><img src="/assets/imgs/theme/icons/icon-pinterest.svg" alt=""></a>
+                                <a href="#"><img src="/assets/imgs/theme/icons/icon-youtube.svg" alt=""></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-3">
+                        <h5 class="widget-title wow fadeIn animated">About</h5>
+                        <ul class="footer-list wow fadeIn animated mb-sm-5 mb-md-0">
+                            <li><a href="#">About Us</a></li>
+                            <li><a href="#">Delivery Information</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Terms &amp; Conditions</a></li>
+                            <li><a href="#">Contact Us</a></li>
+                            <li><a href="#">Support Center</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-2  col-md-3">
+                        <h5 class="widget-title wow fadeIn animated">My Account</h5>
+                        <ul class="footer-list wow fadeIn animated">
+                            <li><a href="/login">Sign In</a></li>
+                            <li><a href="/cart">View Cart</a></li>
+                            <li><a href="#">My Wishlist</a></li>
+                            <li><a href="#">Track My Order</a></li>
+                            <li><a href="#">Help</a></li>
+                            <li><a href="#">Order</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-4">
+                        <h5 class="widget-title wow fadeIn animated">Install App</h5>
+                        <div class="row">
+                            <div class="col-md-8 col-lg-12">
+                                <p class="wow fadeIn animated">From App Store or Google Play</p>
+                                <div class="download-app wow fadeIn animated">
+                                    <a href="#" class="hover-up mb-sm-4 mb-lg-0"><img class="active"
+                                            src="/assets/imgs/theme/app-store.jpg" alt=""></a>
+                                    <a href="#" class="hover-up"><img src="/assets/imgs/theme/google-play.jpg"
+                                            alt=""></a>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-lg-12 mt-md-3 mt-lg-0">
+                                <p class="mb-20 wow fadeIn animated">Secured Payment Gateways</p>
+                                <img class="wow fadeIn animated" src="/assets/imgs/theme/payment-method.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="container pb-20 wow fadeIn animated">
+            <div class="row">
+                <div class="col-12 mb-20">
+                    <div class="footer-bottom"></div>
+                </div>
+                <div class="col-lg-6">
+                    <p class="float-md-left font-sm text-muted mb-0">&copy; 2022, <strong
+                            class="text-brand">Evara</strong> - HTML Ecommerce Template </p>
+                </div>
+                <div class="col-lg-6">
+                    <p class="text-lg-end text-start font-sm text-muted mb-0">
+                        Designed by <a href="http://alithemes.com/" target="_blank">Alithemes.com</a>. All rights
+                        reserved
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+   <script>
+    async function validateStock() {
+    const quantities = document.querySelectorAll('input[name="quantity"]');
+    let validationFailed = false;
+    let errorMessage = '';
+    
+    for (let i = 0; i < quantities.length; i++) {
+        const quantityInput = quantities[i];
+        const productId = quantityInput.id.split('-')[1]; // Assuming ID format is "quantity-productId-size"
+        const size = quantityInput.id.split('-')[2]; // Extract size
+        const quantity = parseInt(quantityInput.value);
+
+        try {
+            const response = await fetch(`/api/check-stock/${productId}`);
+            const productData = await response.json();
+
+            if (productData.success && productData.stock < quantity) {
+                validationFailed = true;
+                errorMessage += `Requested quantity for ${productData.product_name} (${size}) exceeds available stock.\n`;
+            }
+        } catch (error) {
+            console.error('Error checking stock:', error);
+            alert('An error occurred while checking the stock. Please try again later.');
+            return false;
+        }
+    }
+
+    if (validationFailed) {
+        alert(errorMessage);
+        return false;
+    }
+
+    return true;
+}
+
+   </script>
+  <!-- <script>
+ 
+ async function updateQuantity(productId, size, operator) {
+    event.preventDefault();
+
+    try {
+        // Make a request to the server to update the quantity
+        const response = await fetch('/update-quantity', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ productId, size, operator }),
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            // Update the quantity field in the UI
+            const quantityInput = document.getElementById(`quantity-${productId}-${size}`);
+            if (quantityInput) {
+                quantityInput.value = data.productQuantity;
+            } else {
+                console.error('Quantity input not found!');
+            }
+
+            // Update the price for the specific product in the UI
+            const priceElement = document.getElementById(`price-${productId}-${size}`);
+            if (priceElement) {
+                priceElement.innerText = `$${data.productPrice.toFixed(2)}`;
+            } else {
+                console.error('Price element not found!');
+            }
+
+            // Optional: Update the total price in the cart summary, if you have such a feature
+            const totalPriceElement = document.getElementById('total-price');
+            if (totalPriceElement) {
+                totalPriceElement.innerText = `$${data.totalCartPrice.toFixed(2)}`;
+            }
+        } else {
+            alert(data.message);
+        }
+    } catch (error) {
+        console.error('Error updating quantity:', error);
+    }
+}
+
+  </script>
+
+ -->
+  <script>
+    async function updateQuantity(productId, size, operator) {
+    try {
+        event.preventDefault();
+
+        const response = await axios.post('/update-quantity', { productId, size, operator });
+
+        if (response.data.success) {
+            const quantityInput = document.getElementById(`quantity-${productId}-${size}`);
+            const priceElement = document.getElementById(`price-${productId}-${size}`);
+            const totalQuantitiesElement = document.getElementById('totalQuantities');
+            const subtotalElement = document.getElementById('subtotal');
+
+            if (quantityInput && priceElement && totalQuantitiesElement && subtotalElement) {
+                quantityInput.value = response.data.productQuantity;
+                priceElement.innerText = '$' + response.data.productPrice.toFixed(2);
+
+                totalQuantitiesElement.innerText = response.data.totalQuantities;
+                subtotalElement.innerText = '$' + response.data.totalPrice.toFixed(2);
+            }
+        } else {
+            alert(response.data.message);
+        }
+    } catch (error) {
+        console.error('Error updating quantity:', error);
+    }
+}
+  </script>
+  <script>
+    document.getElementById('checkout-button').addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent the default anchor behavior
+        document.getElementById('checkout-form').submit(); // Submit the hidden form
+    });
+</script>
+    <!-- Vendor JS-->
+    <script src="assets/js/vendor/modernizr-3.6.0.min.js"></script>
+    <script src="assets/js/vendor/jquery-3.6.0.min.js"></script>
+    <script src="assets/js/vendor/jquery-migrate-3.3.0.min.js"></script>
+    <script src="assets/js/vendor/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/plugins/slick.js"></script>
+    <script src="assets/js/plugins/jquery.syotimer.min.js"></script>
+    <script src="assets/js/plugins/wow.js"></script>
+    <script src="assets/js/plugins/jquery-ui.js"></script>
+    <script src="assets/js/plugins/perfect-scrollbar.js"></script>
+    <script src="assets/js/plugins/magnific-popup.js"></script>
+    <script src="assets/js/plugins/select2.min.js"></script>
+    <script src="assets/js/plugins/waypoints.js"></script>
+    <script src="assets/js/plugins/counterup.js"></script>
+    <script src="assets/js/plugins/jquery.countdown.min.js"></script>
+    <script src="assets/js/plugins/images-loaded.js"></script>
+    <script src="assets/js/plugins/isotope.js"></script>
+    <script src="assets/js/plugins/scrollup.js"></script>
+    <script src="assets/js/plugins/jquery.vticker-min.js"></script>
+    <!-- Template  JS -->
+    <script src="assets/js/maind134.js?v=3.4"></script>
+    <script src="assets/js/shopd134.js?v=3.4"></script>
+</body>
+
+
+<!-- Mirrored from wp.alithemes.com/html/evara/evara-frontend/shop-cart.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 15 Jul 2023 10:10:07 GMT -->
+
+</html>

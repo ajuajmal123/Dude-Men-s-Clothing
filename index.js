@@ -1,24 +1,26 @@
 const mongoose= require('mongoose')
 require('dotenv').config()
  const config= require('../Dude/config/config')
-mongoose.connect('mongodb://127.0.0.1:27017/Dude')
 
+mongoose.connect(process.env.MONGODB_URI)
 const express= require('express')
 
+const app=express()
 const path=require('path')
 
 const session=require('express-session')
 
 const passport=require('./config/passport')
 const flash= require('connect-flash')
-const app=express()
+
 
 const PORT=3000|| process.env.PORT
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
-    secret:config.sessionSecret,
+    secret:process.env.SESSION_SECRET,
     resave:false,
-    saveUninitialized:false,
+    saveUninitialized:true
+
 }))
 app.use(passport.initialize())
 app.use(passport.session())

@@ -27,7 +27,7 @@ unique:true
 },
 is_admin:{
     type:Number,
-    required:true
+    required:false
 },
 blocked: {
      type: Number,

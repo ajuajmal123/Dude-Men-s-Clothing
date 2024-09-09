@@ -1,7 +1,6 @@
 <!DOCTYPE HTML>
 <html lang="en">
 
-
 <!-- Mirrored from wp.alithemes.com/html/evara/evara-backend/page-form-product-1.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 01 Aug 2021 15:33:31 GMT -->
 <head>
     <meta charset="utf-8">
@@ -267,14 +266,21 @@ border-color: #0056b3;
                             <label for="" class="fw-bold mb-2">Color</label>
                             <input type="text" name="color" class="form-control" required>
                         </div>
-                        <div class="form-group col-md-6">
-                            <label for="" class="fw-bold mb-2">Stock</label>
-                            <input type="text" name="stock" class="form-control" required>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="" class="fw-bold mb-2">Size</label>
-                            <input type="text" name="size" class="form-control" required>
-                        </div>
+                     
+                        <div id="sizeStockContainer">
+    <div class="row mb-2 size-stock-item">
+        <div class="form-group col-md-6">
+            <label for="size" class="fw-bold mb-2">Size</label>
+            <input type="text" name="sizes[]" class="form-control" required>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="stock" class="fw-bold mb-2">Stock</label>
+            <input type="number" name="stocks[]" class="form-control" required>
+        </div>
+    </div>
+</div>
+<button type="button" id="addSizeStock" class="btn btn-secondary mb-4">Add Another Size</button>
+
                         <div class="form-group col-md-6 d-flex flex-column">
                             <label for="" class="fw-bold mb-2">Category Name</label>
                             <select class="form-select" name="category" required>
@@ -331,6 +337,8 @@ border-color: #0056b3;
             </div>
         </footer>
     </main>
+
+
     <script>
         const form = document.getElementById("addproduct");
   let totalimages = 0;
@@ -545,38 +553,79 @@ return;
   primaryimageInput.addEventListener("change", primaryimageupload);
    
 </script>
+
+
 <script>
-const addproduct = document.getElementById('addproduct');
-
-addproduct.addEventListener('submit', async (event) => {
-  event.preventDefault();
-
-  try {
-    const formData = new FormData(addproduct);
-    const response = await fetch('/admin/new-product', {
-      method: 'POST',
-      body: formData
+    // JavaScript to dynamically add size and stock fields
+    document.getElementById('addSizeStock').addEventListener('click', function() {
+        const container = document.getElementById('sizeStockContainer');
+        const newSizeStock = document.createElement('div');
+        newSizeStock.classList.add('row', 'mb-2', 'size-stock-item');
+        newSizeStock.innerHTML = `
+            <div class="form-group col-md-6">
+                <label for="size" class="fw-bold mb-2">Size</label>
+                <input type="text" name="sizes[]" class="form-control" required>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="stock" class="fw-bold mb-2">Stock</label>
+                <input type="number" name="stocks[]" class="form-control" required>
+            </div>
+        `;
+        container.appendChild(newSizeStock);
     });
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      displayErrorMessage(errorData.error);
-    } else {
-      window.location.href = '/admin/product';
+    const addproduct = document.getElementById('addproduct');
+
+    addproduct.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const sizesArray = Array.from(document.querySelectorAll('input[name="sizes[]"]')).map((input, index) => ({
+        size: input.value,
+        stock: document.querySelectorAll('input[name="stocks[]"]')[index].value
+    }));
+
+    const sizesJSON = JSON.stringify(sizesArray);
+    console.log('Sizes JSON:', sizesJSON);
+
+    const formData = new FormData(addproduct);
+
+    // Remove these if already added to avoid duplication
+    formData.delete('sizes[]');
+    formData.delete('stocks[]');
+
+    // Append the sizes JSON string
+    formData.append('sizes', sizesJSON);
+
+    // Debugging: Log the FormData contents
+    for (let [key, value] of formData.entries()) {
+        console.log(key, value);
     }
-  } catch (error) {
-    console.error('Error:', error.message);
-    displayErrorMessage('An error occurred. Please try again.');
-  }
+
+    try {
+        const response = await fetch('/admin/new-product', {
+            method: 'POST',
+            body: formData
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            displayErrorMessage(errorData.error);
+        } else {
+            window.location.href = '/admin/product';
+        }
+    } catch (error) {
+        console.error('Error:', error.message);
+        displayErrorMessage('An error occurred. Please try again.');
+    }
 });
 
-function displayErrorMessage(message) {
-  const errorMessageElement = document.getElementById('errorMessage');
-  errorMessageElement.innerText = message;
-  errorMessageElement.style.display = 'block';
-}
-
+    function displayErrorMessage(message) {
+        const errorMessageElement = document.getElementById('errorMessage');
+        errorMessageElement.innerText = message;
+        errorMessageElement.style.display = 'block';
+    }
 </script>
+
 
     <script src="/admin-assets/js/vendors/jquery-3.6.0.min.js"></script>
     <script src="/admin-assets/js/vendors/bootstrap.bundle.min.js"></script>

@@ -49,7 +49,8 @@ admin_route.post('/new-product',auth.isLogin,upload.any(),productController.add_
 
 admin_route.get('/edit-product/:id',auth.isLogin,productController.render_edit_product)
 
-admin_route.post('/update-product',auth.isLogin,upload.fields([{name:"images"},{name:"primaryImage"}]),productController.update_product)
+//admin_route.post('/update-product',auth.isLogin,upload.fields([{name:"images"},{name:"primaryImage"}]),productController.update_product)
+admin_route.post('/update-product', auth.isLogin, upload.array('images'), productController.update_product);
 
 admin_route.get('/softdelete_product/:id',auth.isLogin,productController.deleteProduct)
 module.exports = admin_route

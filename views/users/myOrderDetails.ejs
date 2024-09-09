@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+
+
+<!-- Mirrored from wp.alithemes.com/html/evara/evara-frontend/page-account.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 15 Jul 2023 10:11:15 GMT -->
+
+<head>
+    <meta charset="utf-8">
+    <title>Bolt & Wire</title>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:title" content="">
+    <meta property="og:type" content="">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="assets/imgs/theme/titlelogo.jpg">
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="/assets/css/maind134.css?v=3.4">
+</head>
+
+<body>
+
+    <div class="container">
+        <section class="content-main">
+            <div class="content-header">
+                <div class="container">
+                    <h2 class="content-title card-title">Order detail</h2>
+
+                </div>
+            </div>
+            <div class="card">
+                <header class="card-header">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6 col-md-6 mb-lg-0 mb-15">
+                            <span>
+                                <i class="material-icons md-calendar_today"></i> <b>
+                                    <%= order.createdAt.toLocaleDateString() %>
+                                </b>
+                            </span> <br>
+                            <small class="text-muted">Order ID: <%= order._id %></small>
+                        </div>
+
+                        <% order.items.forEach(item=> { %>
+                            <div class="col-lg-6 col-md-6 ms-auto text-md-end">
+                                <% if(item.deliveryStatus==="Delivered" ){%>
+
+                                    <button class="btn btn-light" id="print">Download Invoice</button>
+                                    <% } %>
+                            </div>
+                            <% }) %>
+                    </div>
+                </header> <!-- card-header end// -->
+                <div class="card-body">
+                    <div class="row mb-50 mt-20 order-info-wrap">
+                        <div class="col-md-4">
+                            <article class="icontext align-items-start">
+                                <span class="icon icon-sm rounded-circle bg-primary-light">
+                                    <i class="text-primary material-icons md-person"></i>
+                                </span>
+                                <div class="text">
+                                    <h6 class="mb-1">Customer</h6>
+                                    <p class="mb-1">
+                                        <strong>
+                                            <%= order.userId.name %>
+                                        </strong> <br><strong>Phone : <%= order.userId.phone %> </strong>
+                                    </p>
+                                </div>
+                            </article>
+                        </div> <!-- col// -->
+                        <div class="col-md-4">
+                            <article class="icontext align-items-start">
+                                <span class="icon icon-sm rounded-circle bg-primary-light">
+                                    <i class="text-primary material-icons md-local_shipping"></i>
+                                </span>
+                                <div class="text">
+                                    <h6 class="mb-1">Order Info</h6>
+                                    <p class="mb-1">
+                                        Pay method: <%= order.paymentMethod %> <br> Status: <%= order.status %>
+                                    </p>
+
+
+                                </div>
+                            </article>
+                        </div> <!-- col// -->
+                        <div class="col-md-4">
+                            <article class="icontext align-items-start">
+                                <span class="icon icon-sm rounded-circle bg-primary-light">
+                                    <i class="text-primary material-icons md-place"></i>
+                                </span>
+                                <div class="text">
+                                    <h6 class="mb-1">Deliver to</h6>
+                                    <p class="mb-1">
+                                        <%= order.address.name %>
+                                            <p>
+                                                <%= order.address.address %>
+                                            </p>
+                                            <%= order.address.city %>,
+                                                <%= order.address.district %>,
+                                                    <%= order.address.state %>,
+                                                        <p>Pincode:<%= order.address.pincode %>
+                                                        </p>
+                                    </p>
+                                </div>
+                            </article>
+                        </div> <!-- col// -->
+                    </div> <!-- row // -->
+                    <div class="row">
+                        <div class="col-lg-7">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Order No:</th>
+                                            <th width="40%">Product</th>
+                                            <th width="20%">Unit Price</th>
+                                            <th width="20%">Quantity</th>
+                                            <% if(order.couponDiscount>0){ %>
+                                                <th width="20%">Coupon Discount</th>
+                                                <th width="20%" class="text-end">Total</th>
+                                                <% } %>
+                                                    <% if(order.couponDiscount==0){ %>
+                                                        <th width="20%" class="text-end">Total</th>
+                                                        <% } %>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>
+                                                <a class="itemside" href="#">
+                                                    <% order.items.forEach(item=> { %>
+                                                        <div class="left">
+                                                            <img src="/admin-assets/imgs/items/<%= item.productId.primary_image.name %>"
+                                                                class="img-fluid" style="width: 130px; height: 130px;"
+                                                                alt="Product Image">
+                                                        </div>
+                                                        <% }) %>
+                                                            <div class="info">
+                                                                <%= selectedItem.productId.product_name %>
+                                                            </div>
+                                                </a>
+                                            </td>
+                                            <td>$<%= selectedItem.productId.selling_price.toFixed(2) %>
+                                            </td>
+                                            <td>
+                                                <%= selectedItem.quantity %>
+                                            </td>
+                                            <% if(order.couponDiscount>0){ %>
+                                                <th width="20%"><%= order.couponDiscount %>%</th>
+                                                <th width="20%" class="text-end">$<%= (selectedItem.price).toFixed(2)- (selectedItem.price * (order.couponDiscount/100)).toFixed(2) %></th>
+                                                <% } %>
+                                                <% if(order.couponDiscount==0){ %>
+                                            <td class="text-end">$<%= (selectedItem.price).toFixed(2) %></td>
+                                            <% } %>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div> <!-- table-responsive// -->
+                        </div> <!-- col// -->
+                    </div>
+                </div> <!-- card-body end// -->
+            </div>
+
+            <!-- card end// -->
+        </section> <!-- content-main end// -->
+    </div>
+    <script>
+        document.getElementById('print').addEventListener('click', function () {
+            window.print();
+        });
+    </script>
+
+    <!-- Vendor JS-->
+    <script src="/assets/js/vendor/modernizr-3.6.0.min.js"></script>
+    <script src="/assets/js/vendor/jquery-3.6.0.min.js"></script>
+    <script src="/assets/js/vendor/jquery-migrate-3.3.0.min.js"></script>
+    <script src="/assets/js/vendor/bootstrap.bundle.min.js"></script>
+    <script src="/assets/js/plugins/slick.js"></script>
+    <script src="/assets/js/plugins/jquery.syotimer.min.js"></script>
+    <script src="/assets/js/plugins/wow.js"></script>
+    <script src="/assets/js/plugins/jquery-ui.js"></script>
+    <script src="/assets/js/plugins/perfect-scrollbar.js"></script>
+    <script src="/assets/js/plugins/magnific-popup.js"></script>
+    <script src="/assets/js/plugins/select2.min.js"></script>
+    <script src="/assets/js/plugins/waypoints.js"></script>
+    <script src="/assets/js/plugins/counterup.js"></script>
+    <script src="/assets/js/plugins/jquery.countdown.min.js"></script>
+    <script src="/assets/js/plugins/images-loaded.js"></script>
+    <script src="/assets/js/plugins/isotope.js"></script>
+    <script src="/assets/js/plugins/scrollup.js"></script>
+    <script src="/assets/js/plugins/jquery.vticker-min.js"></script>
+    <script src="/assets/js/plugins/jquery.theia.sticky.js"></script>
+    <!-- Template  JS -->
+    <script src="/assets/js/maind134.js?v=3.4"></script>
+
+
+</body>
+
+
+<!-- Mirrored from wp.alithemes.com/html/evara/evara-frontend/page-account.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 15 Jul 2023 10:11:15 GMT -->
+
+</html>

@@ -1,16 +1,32 @@
 const Category = require('../models/categoryModel')
 
 const createCategory = async (req, res) => {
-  const category = await Category.findOne({ cat_name: req.body.cat_name });
-  if (category) {
-    req.flash("error", "Category Already Exist!");
-    res.redirect("/admin/new-category");
-  } else {
-    await Category.create(req.body);
-    req.flash("success", "New Category Added Succefully");
+  try {
+    const { cat_name, description } = req.body;
+
+    // Validate category name format
+    const catRegex = /^(?![-\s]+$)[A-Za-z]+(?:[-\s][A-Za-z]+)*$/;
+    if (!catRegex.test(cat_name)) {
+      return res.render("new-category", { errmessage: "Invalid category name format!" });
+    }
+
+    // Check if category already exists
+    const existingCategory = await Category.findOne({ cat_name });
+    if (existingCategory) {
+      return res.render('new-category', { errmessage: "Category Already Exists!" });
+    }
+
+    // Create new category
+    await Category.create({ cat_name, description, cat_status: req.body.cat_status });
+
+    // Redirect to category list page
     res.redirect("/admin/category");
+  } catch (error) {
+    console.error(error);
+    res.status(500).render("new-category", { errmessage: "An error occurred while creating the category." });
   }
 };
+
 
 const render_Edit_Category = async (req, res) => {
   const admin = res.locals.admin
@@ -28,28 +44,40 @@ const getcategory = (cat_id) => {
   });
 };
 
+
 const UpdateCategory = async (req, res) => {
-  let category = await getcategory(req.body._id).then((category) => category);
-  if (category) {
-    const id = req.body._id;
-    const checkCategoty = await Category.findOne({
-      cat_name: req.body.cat_name,
-    });
-    if (checkCategoty) {
-      req.flash("error", "Category Already Exists");
-      res.redirect(`/admin/edit_category/${id}`);
-    } else {
-      delete req.body._id;
-      const newData = req.body;
-      const updated = await Category.findOneAndUpdate({ _id: id }, newData, {
-        new: true,
-      });
-      req.flash("success", "Category Updated Successfully");
-      res.redirect("/admin/category");
+  try {
+    const { _id, cat_name, cat_status, description } = req.body;
+
+    // Fetch the existing category
+    let category = await getcategory(_id);
+
+    if (!category) {
+      return res.status(404).json({ error: "Category not found." });
     }
+
+    // Check if the new category name already exists
+    const checkCategory = await Category.findOne({ cat_name });
+
+    if (checkCategory && checkCategory._id.toString() !== _id.toString()) {
+      // Redirect back to edit if a category with the same name exists
+      return res.redirect(`/admin/edit_category/${_id}`);
+    }
+
+    // Prepare update data
+    const updatedData = { cat_name, cat_status, description };
+
+    // Update category
+    await Category.findOneAndUpdate({ _id }, updatedData, { new: true });
+
+    // Redirect to category list page after successful update
+    res.redirect("/admin/category");
+  } catch (error) {
+    // Handle any errors
+    console.error(error);
+    res.status(500).json({ error: "Internal server error." });
   }
 };
-
 
 //get all categories
 const getAllCategories = async () => {
