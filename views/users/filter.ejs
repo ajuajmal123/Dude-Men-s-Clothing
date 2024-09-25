@@ -15,7 +15,7 @@
     <meta property="og:url" content="">
     <meta property="og:image" content="">
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="assets/imgs/theme/titlelogo.jpg">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/imgs/theme/logo1.png">
     <!-- Template CSS -->
     <link rel="stylesheet" href="assets/css/maind134.css?v=3.4">
 </head>
@@ -73,7 +73,7 @@
 
                                 <% } else { %>
                                     <!-- If user is not logged in, show login button -->
-                                    <li><a href="/signup">Log In / Sign Up</a></li>
+                                    <li><a href="/register">Log In / Sign Up</a></li>
                                     <% } %>
 
                                         </li>
@@ -87,7 +87,7 @@
             <div class="container">
                 <div class="header-wrap">
                     <div class="logo logo-width-1">
-                        <a href="/"><img src="assets/imgs/theme/mainlogo.png" alt="logo"></a>
+                        <a href="/"><img src="assets/imgs/theme/logo1.png" alt="logo"></a>
                     </div>
                     <div class="header-right">
 
@@ -129,7 +129,7 @@
                                         <ul class="sub-menu">
 
                                             <li><a href="/myaccount">My Account</a></li>
-                                            <li><a href="/signup">login/register</a></li>
+                                            <li><a href="/register">login/register</a></li>
 
                                         </ul>
                                     </li>
@@ -166,7 +166,7 @@
         <div class="mobile-header-wrapper-inner">
             <div class="mobile-header-top">
                 <div class="mobile-header-logo">
-                    <a href="/"><img src="assets/imgs/theme/mainlogo.png" alt="logo"></a>
+                    <a href="/"><img src="assets/imgs/theme/logo1.png" alt="logo"></a>
                 </div>
                 <div class="mobile-menu-close close-style-wrap close-style-position-inherit">
                     <button class="close-style search-close">
@@ -199,7 +199,7 @@
                             <ul class="dropdown">
 
                                 <li><a href="/myaccount">My Account</a></li>
-                                <li><a href="/signup">login/register</a></li>
+                                <li><a href="/register">login/register</a></li>
 
                             </ul>
                         </li>
@@ -226,7 +226,7 @@
 
                         <% } else { %>
                             <!-- If user is not logged in, show login button -->
-                            <li><a href="/signup">Log In / Sign Up</a></li>
+                            <li><a href="/register">Log In / Sign Up</a></li>
                             <% } %>
 
                                 </li>
@@ -248,140 +248,149 @@
     </div>
     <main class="main">
         <div class="page-header breadcrumb-wrap">
-          <div class="container">
-            <div class="breadcrumb">
-              <a href="/" rel="nofollow">Home</a>
-              <span></span> Shop
-              <span></span> Filters
+            <div class="container">
+                <div class="breadcrumb">
+                    <a href="/" rel="nofollow">Home</a>
+                    <span></span> Shop
+                    <span></span> Filters
+                </div>
             </div>
-          </div>
         </div>
         <section class="mt-50 mb-50">
-          <div class="container">
-            <div class="row">
-              <div class="col-lg-9">
-                <a class="shop-filter-toogle" href="#">
-                  <span class="fi-rs-filter mr-5"></span>
-                  Filters
-                  <i class="fi-rs-angle-small-down angle-down"></i>
-                  <i class="fi-rs-angle-small-up angle-up"></i>
-                </a>
-                <div class="shop-product-fillter-header">
-                  <div class="row">
-                    <div class="col-lg-2 col-md-4 mb-lg-0 mb-md-5 mb-sm-5">
-                      <!-- Categories -->
-                      <h5 class="mb-20">Categories</h5>
-                      <ul class="categor-list">
-                        <% categories.forEach(category => { %>
-                          <li><a href="#" class="category-link" data-category-id="<%= category._id %>">
-                            <%= category.cat_name %>
-                          </a></li>
-                        <% }); %>
-                      </ul>
-                    </div>
-                 
-                    <div class="col-lg-2 col-md-4 mb-lg-0 mb-md-5 mb-sm-5">
-                      <!-- Sort By -->
-                      <h5 class="mb-20">Sort By</h5>
-                      <ul class="list-filter">
-                        <li><a href="/filter?sortBy=lowToHigh">Price: Low to High</a></li>
-                        <li><a href="/filter?sortBy=highToLow">Price: High to Low</a></li>
-                        <li><a href="/filter?sortBy=aA-zZ">aA - zZ</a></li>
-                        <li><a href="/filter?sortBy=zZ-aA">zZ - aA</a></li>
-                        <li><a href="/filter?sortBy=newArrivals">New Arrivals</a></li>
-                      </ul>
-                      <!-- Colors -->
-                      <h5 class="mb-20">By Color</h5>
-                      <ul class="list-filter color-filter">
-                        <% uniqueColors.forEach(color => { %>
-                          <li><a href="#" class="color-link" data-color-name="<%= color %>">
-                            <%= color %>
-                          </a></li>
-                        <% }); %>
-                      </ul>
-                    </div>
-                    <div class="col-lg-2 col-md-4 mb-lg-0 mb-md-5 mb-sm-5">
-                      <h5 class="mb-20">Price range</h5>
-                      <ul class="categor-list">
-                        <li class="cat-item"><a href="#">All</a></li>
-                        <li class="cat-item"><a href="/filter?priceRange=0-100">$0 - $100</a></li>
-                        <li class="cat-item"><a href="/filter?priceRange=101-500">$101 - $500</a></li>
-                        <li class="cat-item"><a href="/filter?priceRange=501-700">$501 - $700</a></li>
-                        <li class="cat-item"><a href="/filter?priceRange=701-1000">$701 - $1000</a></li>
-                        <li class="cat-item"><a href="/filter?priceRange=1001-1500">$1001 - $1500</a></li>
-                        <li class="cat-item"><a href="/filter?priceRange=1501-2000">$1501 - $2000</a></li>
-                      </ul>
-                    </div>
-                    <div class="col-lg-2 col-md-4 mb-lg-0 mb-md-5 mb-sm-5">
-                      <h5 class="mb-20">By Review</h5>
-                      <div class="product-rate-cover">
-                        <div class="product-rate d-inline-block">
-                          <div class="product-rating" style="width:100%"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-9">
+                        <a class="shop-filter-toogle" href="#">
+                            <span class="fi-rs-filter mr-5"></span>
+                            Filters
+                            <i class="fi-rs-angle-small-down angle-down"></i>
+                            <i class="fi-rs-angle-small-up angle-up"></i>
+                        </a>
+                        <div class="shop-product-fillter-header">
+                            <div class="row">
+                                <div class="col-lg-2 col-md-4 mb-lg-0 mb-md-5 mb-sm-5">
+                                    <!-- Categories -->
+                                    <h5 class="mb-20">Categories</h5>
+                                    <ul class="categor-list">
+                                        <% categories.forEach(category=> { %>
+                                            <li><a href="#" class="category-link"
+                                                    data-category-id="<%= category._id %>">
+                                                    <%= category.cat_name %>
+                                                </a></li>
+                                            <% }); %>
+                                    </ul>
+                                </div>
+
+                                <div class="col-lg-2 col-md-4 mb-lg-0 mb-md-5 mb-sm-5">
+                                    <!-- Sort By -->
+                                    <h5 class="mb-20">Sort By</h5>
+                                    <ul class="list-filter">
+                                        <li><a href="/filter?sortBy=lowToHigh">Price: Low to High</a></li>
+                                        <li><a href="/filter?sortBy=highToLow">Price: High to Low</a></li>
+                                        <li><a href="/filter?sortBy=aA-zZ">aA - zZ</a></li>
+                                        <li><a href="/filter?sortBy=zZ-aA">zZ - aA</a></li>
+                                        <li><a href="/filter?sortBy=newArrivals">New Arrivals</a></li>
+                                    </ul>
+                                    <!-- Colors -->
+                                    <h5 class="mb-20">By Color</h5>
+                                    <ul class="list-filter color-filter">
+                                        <% uniqueColors.forEach(color=> { %>
+                                            <li><a href="#" class="color-link" data-color-name="<%= color %>">
+                                                    <%= color %>
+                                                </a></li>
+                                            <% }); %>
+                                    </ul>
+                                </div>
+                                <div class="col-lg-2 col-md-4 mb-lg-0 mb-md-5 mb-sm-5">
+                                    <h5 class="mb-20">Price range</h5>
+                                    <ul class="categor-list">
+                                        <li class="cat-item"><a href="#">All</a></li>
+                                        <li class="cat-item"><a href="/filter?priceRange=0-100">$0 - $100</a></li>
+                                        <li class="cat-item"><a href="/filter?priceRange=101-500">$101 - $500</a></li>
+                                        <li class="cat-item"><a href="/filter?priceRange=501-700">$501 - $700</a></li>
+                                        <li class="cat-item"><a href="/filter?priceRange=701-1000">$701 - $1000</a></li>
+                                        <li class="cat-item"><a href="/filter?priceRange=1001-1500">$1001 - $1500</a>
+                                        </li>
+                                        <li class="cat-item"><a href="/filter?priceRange=1501-2000">$1501 - $2000</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-lg-2 col-md-4 mb-lg-0 mb-md-5 mb-sm-5">
+                                    <h5 class="mb-20">By Review</h5>
+                                    <div class="product-rate-cover">
+                                        <div class="product-rate d-inline-block">
+                                            <div class="product-rating" style="width:100%"></div>
+                                        </div>
+                                        <span class="font-small ml-5 text-muted"> (25)</span>
+                                    </div>
+                                    <!-- Add more reviews as needed -->
+                                </div>
+                            </div>
                         </div>
-                        <span class="font-small ml-5 text-muted"> (25)</span>
-                      </div>
-                      <!-- Add more reviews as needed -->
                     </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-12">
-                <div class="shop-product-fillter">
-                 
-                  <div class="sort-by-product-area">
-                    <div class="sort-by-cover">
-                      <div class="sort-by-product-wrap">
-                        <div class="sort-by">
-                          <span><i class="fi-rs-apps-sort"></i>Sort by:</span>
+                    <div class="col-lg-12">
+                        <div class="shop-product-fillter">
+
+                            <div class="sort-by-product-area">
+                                <div class="sort-by-cover">
+                                    <div class="sort-by-product-wrap">
+                                        <div class="sort-by">
+                                            <span><i class="fi-rs-apps-sort"></i>Sort by:</span>
+                                        </div>
+                                        <div class="sort-by-dropdown-wrap">
+                                            <span> Products <i class="fi-rs-angle-small-down"></i></span>
+                                        </div>
+                                    </div>
+                                    <div class="sort-by-dropdown">
+                                        <ul>
+                                            <li><a href="/filter?sortBy=popularity">Popularity</a></li>
+                                            <li><a href="/filter?sortBy=averageRating">Average rating</a></li>
+                                            <li><a href="/filter?sortBy=lowToHigh">Price: Low to High</a></li>
+                                            <li><a href="/filter?sortBy=highToLow">Price: High to Low</a></li>
+                                            <li><a href="/filter?sortBy=featured">Featured</a></li>
+                                            <li><a href="/filter?sortBy=newArrivals">New Arrivals</a></li>
+                                            <li><a href="/filter?sortBy=aA-zZ">aA - zZ</a></li>
+                                            <li><a href="/filter?sortBy=zZ-aA">zZ - aA</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="sort-by-dropdown-wrap">
-                          <span> Products <i class="fi-rs-angle-small-down"></i></span>
+                        <div class="row product-grid-3">
+                            <% products.forEach(product=> { %>
+                                <div class="col-lg-4 col-md-4 col-6 col-sm-6">
+                                    <div class="product-cart-wrap mb-30">
+                                        <div class="product-img-action-wrap">
+                                            <div class="product-img product-img-zoom">
+                                                <a href="/product/<%= product._id %>">
+                                                    <img class="default-img"
+                                                        src="/admin-assets/imgs/items/<%= product.primary_image.name %>"
+                                                        alt="">
+                                                </a>
+                                            </div>
+
+
+                                        </div>
+                                        <div class="product-content-wrap">
+                                            <div class="product-category">
+                                                <a href="/category/<%= product.category_id._id %>">
+                                                    <%= product.category_id.cat_name %>
+                                                </a>
+                                            </div>
+                                            <h2><a href="/product/<%= product._id %>">
+                                                    <%= product.product_name %>
+                                                </a></h2>
+
+                                            <div class="product-price">
+                                                <span>$<%= product.selling_price %> </span>
+                                                <span class="old-price">$<%= product.actual_price %></span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <% }); %>
                         </div>
-                      </div>
-                      <div class="sort-by-dropdown">
-                        <ul>
-                          <li><a href="/filter?sortBy=popularity">Popularity</a></li>
-                          <li><a href="/filter?sortBy=averageRating">Average rating</a></li>
-                          <li><a href="/filter?sortBy=lowToHigh">Price: Low to High</a></li>
-                          <li><a href="/filter?sortBy=highToLow">Price: High to Low</a></li>
-                          <li><a href="/filter?sortBy=featured">Featured</a></li>
-                          <li><a href="/filter?sortBy=newArrivals">New Arrivals</a></li>
-                          <li><a href="/filter?sortBy=aA-zZ">aA - zZ</a></li>
-                          <li><a href="/filter?sortBy=zZ-aA">zZ - aA</a></li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="row product-grid-3">
-                  <% products.forEach(product => { %>
-                    <div class="col-lg-4 col-md-4 col-6 col-sm-6">
-                      <div class="product-cart-wrap mb-30">
-                        <div class="product-img-action-wrap">
-                          <div class="product-img product-img-zoom">
-                            <a href="/product/<%= product._id %>">
-                              <img class="default-img" src="/admin-assets/imgs/items/<%= product.primary_image.name %>" alt="">
-                            </a>
-                          </div>
-                          
-                          
-                        </div>
-                        <div class="product-content-wrap">
-                          <div class="product-category">
-                            <a href="/category/<%= product.category_id._id %>"><%= product.category_id.cat_name %></a>
-                          </div>
-                          <h2><a href="/product/<%= product._id %>"><%= product.product_name %></a></h2>
-                         
-                          <div class="product-price">
-                            <span>$<%= product.selling_price %> </span>
-                            <span class="old-price">$<%= product.actual_price %></span>
-                          </div>
-                         
-                        </div>
-                      </div>
-                    </div>
-                  <% }); %>
-                </div>
                         <!--pagination-->
                         <div class="pagination-area mt-15 mb-sm-5 mb-lg-0">
                             <nav aria-label="Page navigation example">
@@ -409,7 +418,7 @@
                     <div class="col-lg-4 col-md-6">
                         <div class="widget-about font-md mb-md-5 mb-lg-0">
                             <div class="logo logo-width-1 wow fadeIn animated">
-                                <a href="/"><img src="assets/imgs/theme/mainlogo.png" alt="logo"></a>
+                                <a href="/"><img src="assets/imgs/theme/logo1.png" alt="logo"></a>
                             </div>
                             <h5 class="mt-20 mb-10 fw-600 text-grey-4 wow fadeIn animated">Contact</h5>
                             <p class="wow fadeIn animated">
@@ -511,7 +520,7 @@
             });
         });
 
-       
+
 
         // AJAX request to fetch products based on the selected color
         document.querySelectorAll('.color-link').forEach(link => {

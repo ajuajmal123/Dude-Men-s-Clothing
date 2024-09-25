@@ -28,7 +28,7 @@ const get_searchedProducts = async (req, res) => {
       case "zZ-aA":
         sortCriteria.product_name = -1;
         break;
-      
+
     }
 
     const products = await Product.find(query).populate("category_id").sort(sortCriteria);
@@ -36,7 +36,7 @@ const get_searchedProducts = async (req, res) => {
 
     // Retrieve categories, and colors for filtering
     const categories = await Category.find({ cat_status: true });
-   
+
     const uniqueColors = await Product.distinct("color", { delete: false });
 
     const user = req.session.user_id;

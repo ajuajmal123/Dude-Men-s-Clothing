@@ -6,7 +6,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Bolt & Wire</title>
+    <title>Dude Men's Clothing</title>
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,7 +15,7 @@
     <meta property="og:url" content="">
     <meta property="og:image" content="">
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="/assets/imgs/theme/titlelogo.jpg">
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/imgs/theme/logo1.png">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <!-- Template CSS -->
     <link rel="stylesheet" href="/assets/css/maind134.css?v=3.4">
@@ -87,7 +87,7 @@
             <div class="container">
                 <div class="header-wrap">
                     <div class="logo logo-width-1">
-                        <a href="/"><img src="/assets/imgs/theme/mainlogo.png" alt="logo"></a>
+                        <a href="/"><img src="/assets/imgs/theme/logo1.png" alt="logo"></a>
                     </div>
                     <div class="header-right">
                         <div class="search-style-2">
@@ -138,7 +138,7 @@
             <div class="container">
                 <div class="header-wrap header-space-between position-relative">
                     <div class="logo logo-width-1 d-block d-lg-none">
-                        <a href="/"><img src="/assets/imgs/theme/mainlogo.png" alt="logo"></a>
+                        <a href="/"><img src="/assets/imgs/theme/logo1.png" alt="logo"></a>
                     </div>
                     <div class="header-nav d-none d-lg-flex">
 
@@ -215,7 +215,7 @@
         <div class="mobile-header-wrapper-inner">
             <div class="mobile-header-top">
                 <div class="mobile-header-logo">
-                    <a href="/"><img src="/assets/imgs/theme/mainlogo.png alt=" logo"></a>
+                    <a href="/"><img src="/assets/imgs/theme/logo1.png alt=" logo"></a>
                 </div>
                 <div class="mobile-menu-close close-style-wrap close-style-position-inherit">
                     <button class="close-style search-close">
@@ -329,45 +329,52 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <% if (wishlist && wishlist.length> 0) { %>
-                                        <% wishlist.forEach(item=> { %>
-                                            <tr>
-                                                <td class="image product-thumbnail"><img
-                                                        src="/admin-assets/imgs/items/<%= item.productId.primary_image.name %>"
-                                                        alt="#"></td>
-                                                <td class="product-des product-name">
-                                                    <h5 class="product-name"><a href="#">
-                                                            <%= item.productId.product_name %>
-                                                        </a></h5>
-
-                                                </td>
-                                                <td class="price" data-title="Price"><span>$<%=
-                                                            item.productId.selling_price %></span></td>
-                                                <td class="text-right" data-title="Cart">
-                                                    <form action="/add-to-cart/<%= item.productId._id %>" method="post"
-                                                        onsubmit="return addToCart(event)"
-                                                        data-product-id="<%= item.productId._id %>">
-                                                        <input type="hidden" name="fromWishlist" value="true">
-                                                        <button type="submit" class="btn btn-sm"><i
-                                                                class="fi-rs-shopping-bag mr-5"></i>Add to cart</button>
-                                                    </form>
-                                                </td>
-                                                <td class="action" data-title="Remove">
-                                                    <form action="/removefromwishlist" method="post"
-                                                        onsubmit="return removeFromWishlist(event, '<%= item.productId._id %>')">
-                                                        <button type="submit" class="btn btn-sm"><i
-                                                                class="fi-rs-trash"></i></button>
-                                                    </form>
-                                                </td>
-                                            </tr>
-                                            <% }); %>
-                                                <% } else { %>
-                                                    <tr>
-                                                        <td colspan="5">Your wishlist is empty</td>
-                                                    </tr>
-                                                    <% } %>
-                                </tbody>
-
+                                    <% if (wishlist && wishlist.length > 0) { %>
+                                      <% wishlist.forEach(item => { %>
+                                        <tr>
+                                          <td class="image product-thumbnail">
+                                            <img src="/admin-assets/imgs/items/<%= item.productId.primary_image.name %>" alt="#">
+                                          </td>
+                                          <td class="product-des product-name">
+                                            <h5 class="product-name"><a href="#"><%= item.productId.product_name %></a></h5>
+                                  
+                                            <!-- Size selection -->
+                                            <div class="size-selector">
+                                              <label for="size-<%= item.productId._id %>">Select Size:</label>
+                                              <select id="size-<%= item.productId._id %>" class="size-dropdown">
+                                                <option value="">Select a size</option>
+                                                <% item.productId.sizes.forEach(sizeObj => { %>
+                                                  <option value="<%= sizeObj.size %>"><%= sizeObj.size %> - <%= sizeObj.stock %> in stock</option>
+                                                <% }) %>
+                                              </select>
+                                            </div>
+                                          </td>
+                                          <td class="price" data-title="Price">
+                                            <span>$<%= item.productId.selling_price %></span>
+                                          </td>
+                                          <td class="text-right" data-title="Cart">
+                                            <form action="/add-to-cart/<%= item.productId._id %>" method="post" onsubmit="return addToCartFromWishlist(event, '<%= item.productId._id %>')" enctype="multipart/form-data">
+                                                <input type="hidden" name="fromWishlist" value="true">
+                                                <input type="hidden" name="selectedSize" id="wishlist-selected-size-<%= item.productId._id %>">
+                                                <button type="submit" class="btn btn-sm"><i class="fi-rs-shopping-bag mr-5"></i>Add to cart</button>
+                                              </form>
+                                              
+                                          </td>
+                                          <td class="action" data-title="Remove">
+                                            <form action="/removefromwishlist" method="post" onsubmit="return removeFromWishlist(event, '<%= item.productId._id %>')">
+                                              <button type="submit" class="btn btn-sm"><i class="fi-rs-trash"></i></button>
+                                            </form>
+                                          </td>
+                                        </tr>
+                                      <% }); %>
+                                    <% } else { %>
+                                      <tr>
+                                        <td colspan="5">Your wishlist is empty</td>
+                                      </tr>
+                                    <% } %>
+                                  </tbody>
+                                  
+                                  
                             </table>
                         </div>
                     </div>
@@ -384,7 +391,7 @@
                     <div class="col-lg-4 col-md-6">
                         <div class="widget-about font-md mb-md-5 mb-lg-0">
                             <div class="logo logo-width-1 wow fadeIn animated">
-                                <a href="/"><img src="assets/imgs/theme/mainlogo.png" alt="logo"></a>
+                                <a href="/"><img src="assets/imgs/theme/logo1.png" alt="logo"></a>
                             </div>
                             <h5 class="mt-20 mb-10 fw-600 text-grey-4 wow fadeIn animated">Contact</h5>
                             <p class="wow fadeIn animated">
@@ -467,36 +474,54 @@
             </div>
         </div>
     </footer>
-    <script>
-        async function addToCart(event) {
-            event.preventDefault(); // Prevent default form submission
+   
+<script>
+    async function addToCartFromWishlist(event, productId) {
+  event.preventDefault(); // Prevent default form submission
 
-            const form = event.target;
-            const formData = new FormData(form);
+  const sizeDropdown = document.getElementById(`size-${productId}`);
+  const selectedSize = sizeDropdown.value;
+  const hiddenSizeInput = document.getElementById(`wishlist-selected-size-${productId}`);
 
-            try {
-                const response = await fetch(form.action, {
-                    method: form.method,
-                    body: formData
-                });
+  if (!selectedSize) {
+    alert('Please select a size before adding to the cart.');
+    return false;
+  }
 
-                const responseData = await response.json();
+  hiddenSizeInput.value = selectedSize;
 
-                if (responseData.success) {
+  // Log to verify if the selected size is set
+  console.log('Selected size:', selectedSize);
 
-                    location.reload();
+  const form = event.target;
+  const formData = new FormData(form);
 
-                } else {
-                    // Product is out of stock or other error occurred, display error message
-                    alert(responseData.message);
-                }
-            } catch (error) {
-                console.error('Error adding product to cart:', error);
-                // Handle any errors that occur during the fetch request
-                alert('An error occurred while adding the product to cart. Please try again later.');
-            }
-        }
-    </script>
+  // Log form data to verify if selectedSize is included
+  for (let pair of formData.entries()) {
+    console.log(pair[0] + ': ' + pair[1]);
+  }
+
+  try {
+    const response = await fetch(form.action, {
+      method: form.method,
+      body: formData,
+    });
+
+    const responseData = await response.json();
+
+    if (responseData.success) {
+      location.reload(); // Reload on success
+    } else {
+      alert(responseData.message);
+    }
+  } catch (error) {
+    console.error('Error adding product to cart:', error);
+    alert('An error occurred while adding the product to cart. Please try again later.');
+  }
+}
+
+</script>
+      
     <script>
         async function removeFromWishlist(event, productId) {
             event.preventDefault();

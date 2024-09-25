@@ -15,7 +15,7 @@
     <meta property="og:url" content="">
     <meta property="og:image" content="">
     <!-- Favicon -->
-    <!-- <link rel="shortcut icon" type="image/x-icon" href="admin-assets/imgs/theme/titlelogo.jpg"> -->
+    <link rel="shortcut icon" type="image/x-icon" href="admin-assets/imgs/theme/logo1.png">
     <!-- Template CSS -->
     <link href="/admin-assets/css/main.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -249,7 +249,7 @@
                                             <input type="text" name="color" value="<%= obj.color %>"
                                                 class="form-control">
                                         </div>
-                                  
+
 
                                         <input type="hidden" name="id" value="<%= obj._id %>" class="form-control">
 
@@ -258,13 +258,18 @@
                                             <div id="size-stock-container">
                                                 <% obj.sizes.forEach(function(sizeStock) { %>
                                                     <div class="size-stock-item d-flex mb-2">
-                                                        <input type="text" name="sizes[]" value="<%= sizeStock.size %>" placeholder="Size" class="form-control me-2">
-                                                        <input type="number" name="stocks[]" value="<%= sizeStock.stock %>" placeholder="Stock" class="form-control me-2">
-                                                        <button type="button" class="btn btn-danger btn-remove-size-stock">Remove</button>
+                                                        <input type="text" name="sizes[]" value="<%= sizeStock.size %>"
+                                                            placeholder="Size" class="form-control me-2">
+                                                        <input type="number" name="stocks[]"
+                                                            value="<%= sizeStock.stock %>" placeholder="Stock"
+                                                            class="form-control me-2">
+                                                        <button type="button"
+                                                            class="btn btn-danger btn-remove-size-stock">Remove</button>
                                                     </div>
-                                                <% }) %>
+                                                    <% }) %>
                                             </div>
-                                            <button type="button" id="add-size-stock" class="btn btn-secondary mt-2">Add Size</button>
+                                            <button type="button" id="add-size-stock" class="btn btn-secondary mt-2">Add
+                                                Size</button>
                                         </div>
                                         <div class="form-group col-md-6 d-flex flex-column">
                                             <label for="" class="fw-bold mb-2">Category Name</label>
@@ -377,7 +382,7 @@
         </section>
 
         <script>
-            document.getElementById('add-size-stock').addEventListener('click', function() {
+            document.getElementById('add-size-stock').addEventListener('click', function () {
                 const container = document.getElementById('size-stock-container');
                 const newItem = document.createElement('div');
                 newItem.className = 'size-stock-item d-flex mb-2';
@@ -387,16 +392,16 @@
                     <button type="button" class="btn btn-danger btn-remove-size-stock">Remove</button>
                 `;
                 container.appendChild(newItem);
-        
+
                 // Add event listener to the remove button
-                newItem.querySelector('.btn-remove-size-stock').addEventListener('click', function() {
+                newItem.querySelector('.btn-remove-size-stock').addEventListener('click', function () {
                     container.removeChild(newItem);
                 });
             });
-        
+
             // Attach remove event listener to existing size-stock items
             document.querySelectorAll('.btn-remove-size-stock').forEach(button => {
-                button.addEventListener('click', function() {
+                button.addEventListener('click', function () {
                     const item = button.parentElement;
                     item.parentElement.removeChild(item);
                 });
@@ -462,7 +467,7 @@
                     inp.setAttribute("id", addImgCount);
                     inp.setAttribute(
                         "onchange",
-                        previewImg(event,'${addImgCount}','prod_img_2')
+                        previewImg(event, '${addImgCount}', 'prod_img_2')
                     );
                     inpWrap.appendChild(inp);
 
@@ -471,7 +476,7 @@
                     dlt.setAttribute("style", "cursor: pointer;")
                     dlt.setAttribute(
                         "onclick",
-                        deleteImg('${addImgCount}','sec_img','${addImgCount}')
+                        deleteImg('${addImgCount}', 'sec_img', '${addImgCount}')
                     );
                     inpWrap.appendChild(dlt);
                     addImgCount++;

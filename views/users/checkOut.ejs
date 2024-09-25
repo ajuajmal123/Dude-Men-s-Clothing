@@ -157,7 +157,7 @@ body {
 
                                 <% } else { %>
                                     <!-- If user is not logged in, show login button -->
-                                    <li><a href="/signup">Log In / Sign Up</a></li>
+                                    <li><a href="/register">Log In / Sign Up</a></li>
                                     <% } %>
 
                                         </li>
@@ -171,7 +171,7 @@ body {
             <div class="container">
                 <div class="header-wrap">
                     <div class="logo logo-width-1">
-                        <a href="/"><img src="/assets/imgs/theme/mainlogo.png" alt="logo"></a>
+                        <a href="/"><img src="/assets/imgs/theme/logo1.png" alt="logo"></a>
                     </div>
                     <div class="header-right">
 
@@ -227,7 +227,7 @@ body {
 
                                             <% } else { %>
                                                 <!-- If user is not logged in, show login button -->
-                                                <li><a href="/signup">Log In / Sign Up</a></li>
+                                                <li><a href="/register">Log In / Sign Up</a></li>
                                                 <% } %>
 
                                     </li>
@@ -300,7 +300,7 @@ body {
                                 <ul class="dropdown">
 
                                     <li><a href="/myaccount">My Account</a></li>
-                                    <li><a href="/signup">login/register</a></li>
+                                    <li><a href="/register">login/register</a></li>
 
                                 </ul>
                             </li>
@@ -344,7 +344,7 @@ body {
 
         <section class="mt-50 mb-50">
             <div class="container">
-             
+
                 <div class="row">
                     <div class="col-12">
                         <div class="divider mt-50 mb-50"></div>
@@ -355,120 +355,141 @@ body {
                 <div class="row">
                     <!-- Billing Details Section -->
                     <div class="col-md-6">
-                      <div class="mb-25">
-                        <h4>Billing Details</h4>
-                      </div>
-                      <div>
-                        <a href="/checkout-address">
-                          <input id="addAddress" class="btn user-btn" type="button" value="Add New Address">
-                        </a>
-                      </div>
-                      <div class="row">
-                        <% addresses.forEach((address, index) => { %>
-                          <div class="card mb-3 mb-lg-0">
-                            <div class="card-header col">
-                              <label>
-                                <input type="radio" id="selectedAddress<%= index %>" name="selectedAddress"
-                                  value="<%= address._id %>" <%= index === 0 ? 'checked' : '' %>>
-                              </label>
-                              <h5 class="mb-0">Address <%= index + 1 %></h5>
-                            </div>
-                            <div class="card-body">
-                              <p><%= address.name %></p>
-                              <address><%= address.address %></address>
-                              <p><%= address.city %>, <%= address.state %> - <%= address.pincode %></p>
-                              <p><%= address.mobile %></p>
-                              <a href="/edit-checkoutaddress/<%= address._id %>" class="btn-small">Edit</a>
-                            </div>
-                          </div>
-                        <% }) %>
-                      </div>
+                        <div class="mb-25">
+                            <h4>Billing Details</h4>
+                        </div>
+                        <div>
+                            <a href="/checkout-address">
+                                <input id="addAddress" class="btn user-btn" type="button" value="Add New Address">
+                            </a>
+                        </div>
+                        <div class="row">
+                            <% addresses.forEach((address, index)=> { %>
+                                <div class="card mb-3 mb-lg-0">
+                                    <div class="card-header col">
+                                        <label>
+                                            <input type="radio" id="selectedAddress<%= index %>" name="selectedAddress"
+                                                value="<%= address._id %>" <%=index===0 ? 'checked' : '' %>>
+                                        </label>
+                                        <h5 class="mb-0">Address <%= index + 1 %>
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <p>
+                                            <%= address.name %>
+                                        </p>
+                                        <address>
+                                            <%= address.address %>
+                                        </address>
+                                        <p>
+                                            <%= address.city %>, <%= address.state %> - <%= address.pincode %>
+                                        </p>
+                                        <p>
+                                            <%= address.mobile %>
+                                        </p>
+                                        <a href="/edit-checkoutaddress/<%= address._id %>" class="btn-small">Edit</a>
+                                    </div>
+                                </div>
+                                <% }) %>
+                        </div>
                     </div>
-                  
+
                     <!-- Orders Section -->
                     <div class="col-md-6">
-                      <div class="order_review">
-                        <div class="mb-20">
-                          <h4>Your Orders</h4>
-                        </div>
-                        <div class="table-responsive order_table text-center">
-                          <table class="table">
-                            <thead>
-                              <tr>
-                                <th colspan="2">Product</th>
-                                <th>Total</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <% cartItems.forEach(item => { %>
-                                <tr>
-                                  <td class="image product-thumbnail"><img src="/admin-assets/imgs/items/<%= item.productId.primary_image.name %>" alt="#"></td>
-                                  <td>
-                                    <h5><a href="shop-product-full.html"><%= item.productId.product_name %></a></h5>
-                                    <span class="product-qty">x <%= item.quantity %></span>
-                                  </td>
-                                  <td>$<%= item.price %></td>
-                                </tr>
-                              <% }) %>
-                              <tr>
-                                <th>Shipping</th>
-                                <td colspan="2"><em>Free Shipping</em></td>
-                              </tr>
-                              <tr>
-                                <th>Total</th>
-                                <td id="GrandTotal" colspan="2" class="product-subtotal"><span class="font-xl text-brand fw-900">$<%= subtotal.toFixed(2) %></span></td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
-                        <div class="panel-body">
-                          <p class="mb-30 font-sm">
-                          <h4>If you have a coupon code, please apply it below.</h4>
-                          </p>
-                          <div class="form-group">
-                            <input type="text" placeholder="Enter Coupon Code..." id="couponCode" name="couponCode" />
-                          </div>
-                          <div class="form-group">
-                            <a class="btn mr-10 mb-sm-15" id="applyCouponBtn" onclick="applyCoupon()">Apply Coupon</a>
-                          </div>
-                          <div id="couponNamePlaceholder"></div>
-                        </div>
-                        <div class="bt-1 border-color-1 mt-30 mb-30"></div>
-                  
-                        <!-- Payment Method Section -->
-                        <div class="payment_method">
-                          <div class="mb-25">
-                            <h5>Payment</h5>
-                          </div>
-                          <div class="payment_option">
-                            <div class="custome-radio">
-                              <input class="form-check-input" type="radio" name="payment_option" id="cashOnDelivery" value="Cash on Delivery">
-                              <label class="form-check-label" for="cashOnDelivery">Cash On Delivery</label>
+                        <div class="order_review">
+                            <div class="mb-20">
+                                <h4>Your Orders</h4>
                             </div>
-                            <div class="custome-radio">
-                              <input class="form-check-input" type="radio" name="payment_option" id="onlinePayment" value="Online" checked>
-                              <label class="form-check-label" for="onlinePayment">Online Payment</label>
+                            <div class="table-responsive order_table text-center">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th colspan="2">Product</th>
+                                            <th>Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% cartItems.forEach(item=> { %>
+                                            <tr>
+                                                <td class="image product-thumbnail"><img
+                                                        src="/admin-assets/imgs/items/<%= item.productId.primary_image.name %>"
+                                                        alt="#"></td>
+                                                <td>
+                                                    <h5><a href="shop-product-full.html">
+                                                            <%= item.productId.product_name %>
+                                                        </a></h5>
+                                                    <span class="product-qty">x <%= item.quantity %></span>
+                                                </td>
+                                                <td>$<%= item.price %>
+                                                </td>
+                                            </tr>
+                                            <% }) %>
+                                                <tr>
+                                                    <th>Shipping</th>
+                                                    <td colspan="2"><em>Free Shipping</em></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Total</th>
+                                                    <td id="GrandTotal" colspan="2" class="product-subtotal"><span
+                                                            class="font-xl text-brand fw-900">$<%= subtotal.toFixed(2)
+                                                                %></span></td>
+                                                </tr>
+                                    </tbody>
+                                </table>
                             </div>
-                            <div class="custome-radio">
-                              <input class="form-check-input" type="radio" name="payment_option" id="walletPayment" value="Wallet">
-                              <label class="form-check-label" for="walletPayment">Wallet</label>
+                            <div class="panel-body">
+                                <p class="mb-30 font-sm">
+                                <h4>If you have a coupon code, please apply it below.</h4>
+                                </p>
+                                <div class="form-group">
+                                    <input type="text" placeholder="Enter Coupon Code..." id="couponCode"
+                                        name="couponCode" />
+                                </div>
+                                <div class="form-group">
+                                    <a class="btn mr-10 mb-sm-15" id="applyCouponBtn" onclick="applyCoupon()">Apply
+                                        Coupon</a>
+                                </div>
+                                <div id="couponNamePlaceholder"></div>
                             </div>
-                          </div>
-                          <p id="codMessage" class="text-danger" style="display: none;">COD is not available.</p>
+                            <div class="bt-1 border-color-1 mt-30 mb-30"></div>
+
+                            <!-- Payment Method Section -->
+                            <div class="payment_method">
+                                <div class="mb-25">
+                                    <h5>Payment</h5>
+                                </div>
+                                <div class="payment_option">
+                                    <div class="custome-radio">
+                                        <input class="form-check-input" type="radio" name="payment_option"
+                                            id="cashOnDelivery" value="Cash on Delivery">
+                                        <label class="form-check-label" for="cashOnDelivery">Cash On Delivery</label>
+                                    </div>
+                                    <div class="custome-radio">
+                                        <input class="form-check-input" type="radio" name="payment_option"
+                                            id="onlinePayment" value="Online" checked>
+                                        <label class="form-check-label" for="onlinePayment">Online Payment</label>
+                                    </div>
+                                    <div class="custome-radio">
+                                        <input class="form-check-input" type="radio" name="payment_option"
+                                            id="walletPayment" value="Wallet">
+                                        <label class="form-check-label" for="walletPayment">Wallet</label>
+                                    </div>
+                                </div>
+                                <p id="codMessage" class="text-danger" style="display: none;">COD is not available.</p>
+                            </div>
+                            <!-- Place Order button -->
+                            <button onclick="formSubmit()" class="btn btn-fill-out btn-block mt-30">Place Order</button>
                         </div>
-                        <!-- Place Order button -->
-                        <button onclick="formSubmit()" class="btn btn-fill-out btn-block mt-30">Place Order</button>
-                      </div>
                     </div>
-                  </div>
-                  <form id="hiddenForm" action="/place-order" method="POST" style="display: none;">
+                </div>
+                <form id="hiddenForm" action="/place-order" method="POST" style="display: none;">
                     <!-- Hidden input fields for selected address and payment method -->
-                    
+
                     <input type="hidden" id="selectedAddressInput" name="selectedAddress">
                     <input type="hidden" id="paymentMethodInput" name="paymentMethod">
                     <input type="hidden" name="couponCode" id="couponCodeInput">
-                  </form>
-                  
+                </form>
+
 
             </div>
         </section>
@@ -483,7 +504,7 @@ body {
                     <div class="col-lg-4 col-md-6">
                         <div class="widget-about font-md mb-md-5 mb-lg-0">
                             <div class="logo logo-width-1 wow fadeIn animated">
-                                <a href="/"><img src="/assets/imgs/theme/mainlogo.png" alt="logo"></a>
+                                <a href="/"><img src="/assets/imgs/theme/logo1.png" alt="logo"></a>
                             </div>
                             <h5 class="mt-20 mb-10 fw-600 text-grey-4 wow fadeIn animated">Contact</h5>
                             <p class="wow fadeIn animated">
@@ -566,6 +587,7 @@ body {
             </div>
         </div>
     </footer>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <script>
         async function formSubmit() {
           const selectedAddress = document.querySelector('input[name="selectedAddress"]:checked');
@@ -574,33 +596,176 @@ body {
             return;
           }
       
-          // Assuming COD is the only payment option
-          const paymentMethod = 'Cash on Delivery';
-        
-          const body = {
-            selectedAddress: selectedAddress.value,
-            paymentMethod: paymentMethod,
-          };
-      
-          // Send the request to the server to place the order
-          const response = await fetch('/place-order', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(body)
-          });
-      
-          if (response.ok) {
-            // Redirect to the order success page
-            window.location.href = '/ordersuccess';
-          } else {
-            const errorData = await response.text();
-            alert('Error: ' + errorData);
+          const paymentMethod = document.querySelector('input[name="payment_option"]:checked');
+          if (!paymentMethod) {
+            alert('Please select a payment method');
+            return;
           }
+      
+          const couponCode = document.getElementById('couponCode').value;
+      
+          if (paymentMethod.value === 'Online') {
+            const body = {
+              selectedAddress: selectedAddress.value,
+              paymentMethod: paymentMethod.value
+            };
+      
+            const response = await fetch('/place-order', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(body)
+            });
+      
+            const data = await response.json();
+            if (data.success) {
+              const options = {
+                key: 'rzp_test_nT0B9ngSa0Vkv3',
+                amount: data.amount,
+                currency: 'INR',
+                order_id: data.orderId,
+                name: 'Dude',
+                description: 'Thank You',
+                handler: async function (response) {
+                  await verifyPayment(response);
+                }
+              };
+              const rzp = new Razorpay(options);
+              rzp.open();
+            } else {
+              alert('Failed to create Razorpay order');
+            }
+          } else {
+            document.getElementById('selectedAddressInput').value = selectedAddress.value;
+            document.getElementById('paymentMethodInput').value = paymentMethod.value;
+          
+            document.getElementById('hiddenForm').submit();
+          }
+        }
+      
+        const verifyPayment = async (response) => {
+          const res = await fetch("/verify-payment", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ response }),
+          });
+          
+          const data = await res.json();
+          if (data.success) {
+            location.assign("/ordersuccess");
+          }else {
+    alert('Payment verification failed');
+  }
         }
       </script>
       
+  
+      <script>
+        async function applyCoupon() {
+            const couponCode = document.getElementById('couponCode').value;
+            const grandTotalElement = document.getElementById('GrandTotal');
+            const selectedAmountText = grandTotalElement.innerText;
+            const selectedAmount = parseFloat(selectedAmountText.replace('$', '')); // Extract numeric value
+
+            try {
+                const couponCodeInput = document.getElementById('couponCode');
+                const selectedAmountInput = document.getElementById('GrandTotal');
+
+                const response = await fetch('/applyCoupon', {
+                    method: 'post',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ couponCode, selectedAmount })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to apply coupon.');
+                }
+
+                const data = await response.json();
+                if (data.used) {
+                    alert(data.message);
+                }
+                if (data.success) {
+                    const couponName = data.couponName;
+                    const couponid = data._id;
+                    const discountAmount = data.discountAmount;
+                    const originalTotal = parseFloat(document.getElementById('GrandTotal').innerText.replace('$', ''));
+                    const discountPercent = parseFloat(discountAmount) / 100; // Convert discount amount to percentage
+                    const discountedTotal = originalTotal * (1 - discountPercent); // Applying discount    
+
+                    // Display the coupon name with a cross button
+                    document.getElementById('couponNamePlaceholder').innerHTML = `
+                <span style="color: green;">Coupon Applied: ${couponName}</span>
+                <button id="removeCouponBtn" style="background: none; border: none; cursor: pointer;">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+
+                    // Add event listener to the remove coupon button
+                    document.getElementById('removeCouponBtn').addEventListener('click', function () {
+                        fetch('/removeCoupon', {
+                            method: 'POST', // Assuming you want to send a POST request
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({ couponCode }), // You can include any data if required
+                        })
+                            .then(response => {
+                                if (response.ok) {
+                                    // Reload the page after successful removal
+                                    location.reload(); // Reload the page to remove the coupon
+                                } else {
+                                    console.error('Failed to remove coupon');
+                                    // Handle the error if needed
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Error:', error);
+                                // Handle the error if needed
+                            });
+                    });
+
+                    // Update the total price display
+                    document.getElementById('GrandTotal').innerText = '$' + discountedTotal.toFixed(2);
+                    couponCodeInput.readOnly = true;
+                    checkCODAvailability()
+                } else {
+                    alert(data.message);
+                }
+            } catch (error) {
+                console.error('Error applying coupon:', error);
+                // Handle error display or logging
+            }
+        }
+
+    </script>
+<script>
+
+    // Function to check if Cash on Delivery should be disabled and show message
+    function checkCODAvailability() {
+        var total = parseFloat(document.getElementById('GrandTotal').innerText.replace('$', ''));
+        var codRadio = document.getElementById('cashOnDelivery');
+        var codMessage = document.getElementById('codMessage'); // Get the message element
+
+        // Check if total is greater than or equal to the threshold
+        if (total >= 1000) {
+            codRadio.disabled = true; // Disable COD option
+            codMessage.style.display = 'block'; // Show the message
+        } else {
+            codRadio.disabled = false; // Enable COD option
+            codMessage.style.display = 'none'; // Hide the message
+        }
+    }
+
+    // Call the function initially and whenever the total changes
+    window.onload = function () {
+        checkCODAvailability();
+    };
+</script>
+
     <!-- Vendor JS-->
     <script src="/assets/js/vendor/modernizr-3.6.0.min.js"></script>
     <script src="/assets/js/vendor/jquery-3.6.0.min.js"></script>

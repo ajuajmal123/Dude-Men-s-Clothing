@@ -5,7 +5,7 @@ const bcrypt = require("bcrypt");
 
 const loadLogin = async (req, res) => {
   try {
-    res.render("login");
+    res.render("admin/login");
   } catch (error) {
     console.log(error.message);
   }
@@ -20,17 +20,17 @@ const confirmLogin = async (req, res) => {
       const passwordMatch = await bcrypt.compare(password, userData.password);
       if (passwordMatch) {
         if (userData.is_admin === 0) {
-          res.render("login", { errmessage: "Incorrect email or password" });
+          res.render("admin/login", { errmessage: "Incorrect email or password" });
         } else {
           req.session.admin_id = userData._id;
 
           res.redirect("/admin/dashboard");
         }
       } else {
-        res.render("login", { errmessage: "Incorrect email or password" });
+        res.render("admin/login", { errmessage: "Incorrect email or password" });
       }
     } else {
-      res.render("login", { errmessage: "Incorrect email or password" });
+      res.render("admin/login", { errmessage: "Incorrect email or password" });
     }
 
   } catch (error) {
@@ -42,7 +42,7 @@ const loadDashbord = async (req, res) => {
   try {
 
     const userData = req.session.admin_id //await User.findById({_id:req.session.user_id});
-    res.render('dashboard', { admin: userData });
+    res.render('admin/dashboard', { admin: userData });
   } catch (error) {
     console.log(error.message);
   }
@@ -72,7 +72,7 @@ const userList = async (req, res) => {
         { mobile: { $regex: ".*" + search + ".*", $options: "i" } },
       ],
     });
-    res.render("userlist", { users: usersData, search: search });
+    res.render("admin/userlist", { users: usersData, search: search });
   } catch (error) {
     console.log(error.message);
   }

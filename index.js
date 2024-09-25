@@ -1,25 +1,28 @@
-const mongoose= require('mongoose')
+const mongoose = require('mongoose')
 require('dotenv').config()
- const config= require('../Dude/config/config')
+const config = require('../Dude/config/config')
 
 mongoose.connect(process.env.MONGODB_URI)
-const express= require('express')
+const express = require('express')
 
-const app=express()
-const path=require('path')
+const app = express()
 
-const session=require('express-session')
+const path = require('path')
 
-const passport=require('./config/passport')
-const flash= require('connect-flash')
+const session = require('express-session')
 
+const passport = require('./config/passport')
+const flash = require('connect-flash')
 
-const PORT=3000|| process.env.PORT
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+
+const PORT = 3000 || process.env.PORT
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
-    secret:process.env.SESSION_SECRET,
-    resave:false,
-    saveUninitialized:true
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true
 
 }))
 app.use(passport.initialize())
@@ -30,21 +33,21 @@ app.use((req, res, next) => {
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
     next();
-  });
+});
 
 
 
 //for user routes
-const user_route=require('./routes/userRoutes')
-app.use('/',user_route)
+const user_route = require('./routes/userRoutes')
+app.use('/', user_route)
 
 
 //for Admin routes
-const admin_route=require('./routes/adminRouts')
-app.use('/admin',admin_route)
+const admin_route = require('./routes/adminRouts')
+app.use('/admin', admin_route)
 
 
 
-app.listen(PORT,()=>{
+app.listen(PORT, () => {
     console.log('Server is running');
 })

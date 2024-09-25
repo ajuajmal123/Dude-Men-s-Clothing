@@ -72,7 +72,7 @@
 
                                 <% } else { %>
                                     <!-- If user is not logged in, show login button -->
-                                    <li><a href="/signup">Log In / Sign Up</a></li>
+                                    <li><a href="/register">Log In / Sign Up</a></li>
                                     <% } %>
 
                                         </li>
@@ -487,52 +487,60 @@
 
                                     <div class="container mt-9">
                                         <form action="/add-address" method="POST">
-                                          <div class="form-row">
-                                            <div class="form-group col-md-6">
-                                              <h4>Add your Address</h4>
+                                            <div class="form-row">
+                                                <div class="form-group col-md-6">
+                                                    <h4>Add your Address</h4>
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label for="name">Name</label>
+                                                    <input type="text" id="name" name="name" class="form-control"
+                                                        placeholder="Enter your name" required>
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label for="mobile">Mobile No.</label>
+                                                    <input type="tel" id="mobile" name="mobile" class="form-control"
+                                                        placeholder="Enter your mobile number" required>
+                                                </div>
                                             </div>
-                                            <div class="form-group col-md-6">
-                                              <label for="name">Name</label>
-                                              <input type="text" id="name" name="name" class="form-control" placeholder="Enter your name" required>
+                                            <div class="form-group text-area">
+                                                <label for="address">Address</label>
+                                                <textarea id="address" name="address" class="form-control"
+                                                    placeholder="Enter your address" rows="3" required></textarea>
                                             </div>
-                                            <div class="form-group col-md-6">
-                                              <label for="mobile">Mobile No.</label>
-                                              <input type="tel" id="mobile" name="mobile" class="form-control" placeholder="Enter your mobile number" required>
+                                            <div class="form-row">
+                                                <div class="form-group col-md-3">
+                                                    <label for="pincode">Pin Code</label>
+                                                    <input type="text" id="pincode" name="pincode" class="form-control"
+                                                        placeholder="Enter your pin code" required>
+                                                </div>
+                                                <div class="form-group col-md-3">
+                                                    <label for="state">State</label>
+                                                    <input type="text" id="state" name="state" class="form-control"
+                                                        placeholder="Enter your state" required>
+                                                </div>
+                                                <div class="form-group col-md-3">
+                                                    <label for="district">District</label>
+                                                    <input type="text" id="district" name="district"
+                                                        class="form-control" placeholder="Enter your district" required>
+                                                </div>
+                                                <div class="form-group col-md-3">
+                                                    <label for="city">City</label>
+                                                    <input type="text" id="city" name="city" class="form-control"
+                                                        placeholder="Enter your city" required>
+                                                </div>
                                             </div>
-                                          </div>
-                                          <div class="form-group text-area">
-                                            <label for="address">Address</label>
-                                            <textarea id="address" name="address" class="form-control" placeholder="Enter your address" rows="3" required></textarea>
-                                          </div>
-                                          <div class="form-row">
-                                            <div class="form-group col-md-3">
-                                              <label for="pincode">Pin Code</label>
-                                              <input type="text" id="pincode" name="pincode" class="form-control" placeholder="Enter your pin code" required>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="isDefault"
+                                                    name="isDefault">
+                                                <label class="form-check-label" for="isDefault">
+                                                    Set as default address
+                                                </label>
                                             </div>
-                                            <div class="form-group col-md-3">
-                                              <label for="state">State</label>
-                                              <input type="text" id="state" name="state" class="form-control" placeholder="Enter your state" required>
-                                            </div>
-                                            <div class="form-group col-md-3">
-                                              <label for="district">District</label>
-                                              <input type="text" id="district" name="district" class="form-control" placeholder="Enter your district" required>
-                                            </div>
-                                            <div class="form-group col-md-3">
-                                              <label for="city">City</label>
-                                              <input type="text" id="city" name="city" class="form-control" placeholder="Enter your city" required>
-                                            </div>
-                                          </div>
-                                          <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="isDefault" name="isDefault">
-                                            <label class="form-check-label" for="isDefault">
-                                              Set as default address
-                                            </label>
-                                          </div>
-                                          <button type="submit" class="btn probut">Submit</button>
+                                            <button type="submit" class="btn probut">Submit</button>
                                         </form>
-                                      </div>
-                                      
-                                      
+                                    </div>
+
+
 
 
                                 </div>

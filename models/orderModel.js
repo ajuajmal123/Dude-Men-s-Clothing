@@ -11,31 +11,31 @@ const orderSchema = new Schema({
         name: {
             type: String,
             required: true
-          },
-          mobile: {
-            type: Number, 
+        },
+        mobile: {
+            type: Number,
             required: true
-          },
-          address: {
+        },
+        address: {
             type: String,
             required: true
-          },
-          pincode: {
-            type: Number, 
+        },
+        pincode: {
+            type: Number,
             required: true
-          },
-          state: {
+        },
+        state: {
             type: String,
             required: true
-          },
-          district: {
+        },
+        district: {
             type: String,
             required: true
-          },
-          city: {
+        },
+        city: {
             type: String,
             required: true
-          }
+        }
     },
     items: [
         {
@@ -46,23 +46,23 @@ const orderSchema = new Schema({
             },
             deliveryStatus: {
                 type: String,
-                enum: ['Payment Pending', 'Processing', 'Cancelled', 'Delivered' , 'Returned','Return Requested'], 
-                default: 'Processing' 
+                enum: ['Payment Pending', 'Processing', 'Cancelled', 'Delivered', 'Returned', 'Return Requested'],
+                default: 'Processing'
             },
             quantity: {
                 type: Number,
                 required: true,
-                default: 1 
+                default: 1
             },
-            price:{
-                type:Number,
-                default:0
+            price: {
+                type: Number,
+                default: 0
             },
             returnReason: {
                 type: String,
                 default: ''
             }
-           
+
         }
     ],
     paymentMethod: {
@@ -75,19 +75,19 @@ const orderSchema = new Schema({
         default: 0
     },
     couponDiscount: {
-         type: Number,
-        
-         },
+        type: Number,
+
+    },
     totalAmount: {
         type: Number,
         required: true
     },
     status: {
         type: String,
-        enum: ['paid', 'unpaid','pending','retry done'],
+        enum: ['paid', 'unpaid', 'pending', 'retry done'],
         default: 'unpaid'
     },
-  
+
     createdAt: {
         type: Date,
         default: Date.now

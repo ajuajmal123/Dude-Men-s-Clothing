@@ -15,7 +15,7 @@
     <meta property="og:url" content="">
     <meta property="og:image" content="">
     <!-- Favicon -->
-    <!-- <link rel="shortcut icon" type="image/x-icon" href="/admin-assets/imgs/theme/titlelogo.jpg"> -->
+    <link rel="shortcut icon" type="image/x-icon" href="/admin-assets/imgs/theme/logo1.png">
     <!-- Template CSS -->
     <link href="/admin-assets/css/main.css" rel="stylesheet" type="text/css" />
 </head>
@@ -189,7 +189,7 @@
                 </ul>
             </div>
         </header>
-       <!--  <div style="width: 80%;" class="container py-5 w mb-5 new-category">
+        <!--  <div style="width: 80%;" class="container py-5 w mb-5 new-category">
             <div class="div h3 text-second fw-bold">Edit Category</div>
             <form action="/admin/update_category" method="post">
                 <div class="form-group">
@@ -229,18 +229,18 @@
                         value="<%= category.description %>" required>
                 </div>
                 <div class="form-group">
-                    <input type="hidden" name="_id" class="form-control" id="category_id"
-                        value="<%= category._id %>">
+                    <input type="hidden" name="_id" class="form-control" id="category_id" value="<%= category._id %>">
                 </div>
                 <div class="form-group">
                     <label class="fw-bold" for="cat_status">Status</label>
                     <select class="form-select" name="cat_status" id="cat_status" aria-label="Default select example">
-                        <option value="true" <%= category.cat_status ? 'selected' : '' %>>Listed</option>
-                        <option value="false" <%= !category.cat_status ? 'selected' : '' %>>Unlisted</option>
+                        <option value="true" <%=category.cat_status ? 'selected' : '' %>>Listed</option>
+                        <option value="false" <%=!category.cat_status ? 'selected' : '' %>>Unlisted</option>
                     </select>
                 </div>
                 <div class="text-center text-lg-start mt-4 d-flex">
-                    <button type="submit" class="btn add-btn btn-lg" style="display:block; padding:0.5em 2rem">Update</button>
+                    <button type="submit" class="btn add-btn btn-lg"
+                        style="display:block; padding:0.5em 2rem">Update</button>
                     <button type="reset" class="btn button-cancel btn-lg px-5 mx-3">CLEAR</button>
                 </div>
             </form>

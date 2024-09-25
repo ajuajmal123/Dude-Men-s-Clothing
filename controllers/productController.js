@@ -183,7 +183,7 @@ const getAllProducts = async (skip, perPage) => {
         {
             $match: {
                 delete: false,
-                
+
             },
         },
         {
@@ -246,7 +246,7 @@ const findProduct = async (product_id) => {
         {
             $match: {
                 _id: new mongoose.Types.ObjectId(product_id),
-                delete:false
+                delete: false
                 //status:true
             },
         },
@@ -292,7 +292,7 @@ const findProduct = async (product_id) => {
 };
 
 const getCategory = async (name) => {
-    const categories = await Category.find({ cat_name: { $ne: name }});
+    const categories = await Category.find({ cat_name: { $ne: name } });
     return categories;
 };
 
@@ -307,14 +307,14 @@ const render_edit_product = async (req, res) => {
 
 const update_product = async (req, res) => {
     try {
-           
-            const { sizes, stocks,product_name,
-                brand_name,
-                description, prod_price,
-                sellig_price,
-                color, status,
-                imagesToDelete} = req.body;
-                  // Parse imagesToDelete
+
+        const { sizes, stocks, product_name,
+            brand_name,
+            description, prod_price,
+            sellig_price,
+            color, status,
+            imagesToDelete } = req.body;
+        // Parse imagesToDelete
         let imagesToDeleteParsed = [];
         try {
             if (imagesToDelete) {
@@ -351,19 +351,19 @@ const update_product = async (req, res) => {
                 }
             }
         }
-                const sizeStockPairs = sizes.map((size, index) => {
-                    const stock = parseInt(stocks[index], 10);
-                    if (isNaN(stock) || stock <= 0 || isNaN(size) || size <= 0) {
-                        req.flash("error", "Size and stock must be greater than 0.");
-                        return null;
-                    }
-                    return { size: parseInt(size, 10), stock };
-                });
-        
-                if (sizeStockPairs.includes(null)) {
-                    return res.redirect(`/admin/edit-product/${req.body.id}`);
-                }
-        
+        const sizeStockPairs = sizes.map((size, index) => {
+            const stock = parseInt(stocks[index], 10);
+            if (isNaN(stock) || stock <= 0 || isNaN(size) || size <= 0) {
+                req.flash("error", "Size and stock must be greater than 0.");
+                return null;
+            }
+            return { size: parseInt(size, 10), stock };
+        });
+
+        if (sizeStockPairs.includes(null)) {
+            return res.redirect(`/admin/edit-product/${req.body.id}`);
+        }
+
 
 
         //const product = await Product.findOne({ _id: req.body.id });
@@ -428,16 +428,16 @@ const update_product = async (req, res) => {
 
         });
         const updatedProduct = {
-            stocks,product_name,
+            stocks, product_name,
             brand_name,
             description, prod_price,
             sellig_price,
             color, status,
-            imagesToDelete ,
+            imagesToDelete,
             sizes: sizeStockPairs
         };
 
-        
+
         await Product.findByIdAndUpdate({ _id: req.body.id }, updatedProduct);
         req.flash("success", "Product updated successfully");
         res.redirect("/admin/product");

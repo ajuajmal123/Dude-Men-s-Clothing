@@ -15,7 +15,7 @@
     <meta property="og:url" content="">
     <meta property="og:image" content="">
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="assets/imgs/theme/titlelogo.jpg">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/imgs/theme/logo1.png">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <!-- Template CSS -->
     <link rel="stylesheet" href="assets/css/maind134.css?v=3.4">
@@ -61,7 +61,7 @@
                                     </ul>
                                 </li>
                                 <li>
-                                  
+
                                 </li>
                             </ul>
                         </div>
@@ -73,7 +73,7 @@
             <div class="container">
                 <div class="header-wrap">
                     <div class="logo logo-width-1">
-                        <a href="/"><img src="/assets/imgs/theme/mainlogo.png" alt="logo"></a>
+                        <a href="/"><img src="/assets/imgs/theme/logo1.png" alt="logo"></a>
                     </div>
                     <div class="header-right">
                         <div class="search-style-2">
@@ -91,7 +91,15 @@
                         </div>
                         <div class="header-action-right">
                             <div class="header-action-2">
-                           
+                                <div class="header-action-icon-2">
+                                    <a href="/wishlist">
+                                        <img class="svgInject" alt="Evara"
+                                            src="/assets/imgs/theme/icons/icon-heart.svg">
+                                        <span class="pro-count blue">
+                                            <%= totalWish %>
+                                        </span>
+                                    </a>
+                                </div>
                                 <div class="header-action-icon-2">
                                     <a class="mini-cart-icon" href="#">
                                         <img alt="Evara" src="assets/imgs/theme/icons/icon-cart.svg">
@@ -111,7 +119,7 @@
             <div class="container">
                 <div class="header-wrap header-space-between position-relative">
                     <div class="logo logo-width-1 d-block d-lg-none">
-                        <a href="/"><img src="assets/imgs/theme/mainlogo.png" alt="logo"></a>
+                        <a href="/"><img src="assets/imgs/theme/logo1.png" alt="logo"></a>
                     </div>
                     <div class="header-nav d-none d-lg-flex">
 
@@ -138,13 +146,13 @@
                                     <li><a href="#">Pages <i class="fi-rs-angle-down"></i></a>
                                         <ul class="sub-menu">
 
-                                           
-                                          
-                                </ul>
-                                </li>
-                                <li>
-                                    <a href="#">Contact</a>
-                                </li>
+
+
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="#">Contact</a>
+                                    </li>
                                 </ul>
                             </nav>
                         </div>
@@ -200,18 +208,24 @@
                                             </td>
                                             <td class="size" data-title="Size">
                                                 <%= item.size %>
-                                              </td>
-                                                <td>
-                                                    <input type="number" id="quantity-<%= item.productId._id %>-<%= item.size %>"
-                                                           name="quantity" value="<%= item.quantity %>" style="width: 55px;" readonly>
-                                                    <button onclick="updateQuantity('<%= item.productId._id %>', '<%= item.size %>', 'decrease')"
-                                                            class="btn btn-sm btn-primary ms-2">-</button>
-                                                    <button onclick="updateQuantity('<%= item.productId._id %>', '<%= item.size %>', 'increase')"
-                                                            class="btn btn-sm btn-primary ms-1">+</button>
-                                                </td>
-                                                    <td class="price" data-title="Price" id="price-<%= item.productId._id %>-<%= item.size %>">
-                                                        <span>$<%= (item.productId.selling_price * item.quantity).toFixed(2) %></span>
-                                                    </td>
+                                            </td>
+                                            <td>
+                                                <input type="number"
+                                                    id="quantity-<%= item.productId._id %>-<%= item.size %>"
+                                                    name="quantity" value="<%= item.quantity %>" style="width: 55px;"
+                                                    readonly>
+                                                <button
+                                                    onclick="updateQuantity('<%= item.productId._id %>', '<%= item.size %>', 'decrease')"
+                                                    class="btn btn-sm btn-primary ms-2">-</button>
+                                                <button
+                                                    onclick="updateQuantity('<%= item.productId._id %>', '<%= item.size %>', 'increase')"
+                                                    class="btn btn-sm btn-primary ms-1">+</button>
+                                            </td>
+                                            <td class="price" data-title="Price"
+                                                id="price-<%= item.productId._id %>-<%= item.size %>">
+                                                <span>$<%= (item.productId.selling_price * item.quantity).toFixed(2) %>
+                                                </span>
+                                            </td>
                                             <td class="action" data-title="Remove"><a
                                                     href="/remove-from-cart/<%= item.productId._id %>"
                                                     class="text-muted"><i class="fi-rs-trash"></i></a></td>
@@ -234,28 +248,30 @@
                                 <div class="heading_s1 mb-3">
                                     <h4>Cart Totals</h4>
                                 </div>
-                           <div class="table-responsive">
-    <table class="table">
-        <tbody>
-            <tr>
-                <td class="cart_total_label">Total Quantities</td>
-                <td class="cart_total_amount"><span id="totalQuantities"
-                        class="font-lg fw-900 text-brand">
-                        <%= totalQuantities %>
-                    </span></td>
-            </tr>
-            <tr>
-                <td class="cart_total_label">Total Price</td>
-                <td class="cart_total_amount"><strong><span id="subtotal"
-                            class="font-xl fw-900 text-brand">$<%= totalPrice.toFixed(2) %></span></strong></td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <tbody>
+                                            <tr>
+                                                <td class="cart_total_label">Total Quantities</td>
+                                                <td class="cart_total_amount"><span id="totalQuantities"
+                                                        class="font-lg fw-900 text-brand">
+                                                        <%= totalQuantities %>
+                                                    </span></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="cart_total_label">Total Price</td>
+                                                <td class="cart_total_amount"><strong><span id="subtotal"
+                                                            class="font-xl fw-900 text-brand">$<%= totalPrice.toFixed(2)
+                                                                %></span></strong></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
 
-<a href="#" id="checkout-button" class="btn"> <i class="fi-rs-box-alt mr-10"></i> Proceed To CheckOut</a>
+                                <a href="#" id="checkout-button" class="btn"> <i class="fi-rs-box-alt mr-10"></i>
+                                    Proceed To CheckOut</a>
 
-<form id="checkout-form" action="/checkout" method="GET" style="display: none;"></form>
+                                <form id="checkout-form" action="/checkout" method="GET" style="display: none;"></form>
                             </div>
                         </div>
                     </div>
@@ -271,7 +287,7 @@
                     <div class="col-lg-4 col-md-6">
                         <div class="widget-about font-md mb-md-5 mb-lg-0">
                             <div class="logo logo-width-1 wow fadeIn animated">
-                                <a href="/"><img src="/assets/imgs/theme/mainlogo.png" alt="logo"></a>
+                                <a href="/"><img src="/assets/imgs/theme/logo1.png" alt="logo"></a>
                             </div>
                             <h5 class="mt-20 mb-10 fw-600 text-grey-4 wow fadeIn animated">Contact</h5>
                             <p class="wow fadeIn animated">
@@ -307,7 +323,7 @@
                     <div class="col-lg-2  col-md-3">
                         <h5 class="widget-title wow fadeIn animated">My Account</h5>
                         <ul class="footer-list wow fadeIn animated">
-                            <li><a href="/login">Sign In</a></li>
+                            <li><a href="/register">Sign In</a></li>
                             <li><a href="/cart">View Cart</a></li>
                             <li><a href="#">My Wishlist</a></li>
                             <li><a href="#">Track My Order</a></li>
@@ -354,126 +370,77 @@
             </div>
         </div>
     </footer>
-   <script>
-    async function validateStock() {
-    const quantities = document.querySelectorAll('input[name="quantity"]');
-    let validationFailed = false;
-    let errorMessage = '';
-    
-    for (let i = 0; i < quantities.length; i++) {
-        const quantityInput = quantities[i];
-        const productId = quantityInput.id.split('-')[1]; // Assuming ID format is "quantity-productId-size"
-        const size = quantityInput.id.split('-')[2]; // Extract size
-        const quantity = parseInt(quantityInput.value);
+    <script>
+        async function validateStock() {
+            const quantities = document.querySelectorAll('input[name="quantity"]');
+            let validationFailed = false;
+            let errorMessage = '';
 
-        try {
-            const response = await fetch(`/api/check-stock/${productId}`);
-            const productData = await response.json();
+            for (let i = 0; i < quantities.length; i++) {
+                const quantityInput = quantities[i];
+                const productId = quantityInput.id.split('-')[1]; // Assuming ID format is "quantity-productId-size"
+                const size = quantityInput.id.split('-')[2]; // Extract size
+                const quantity = parseInt(quantityInput.value);
 
-            if (productData.success && productData.stock < quantity) {
-                validationFailed = true;
-                errorMessage += `Requested quantity for ${productData.product_name} (${size}) exceeds available stock.\n`;
+                try {
+                    const response = await fetch(`/api/check-stock/${productId}`);
+                    const productData = await response.json();
+
+                    if (productData.success && productData.stock < quantity) {
+                        validationFailed = true;
+                        errorMessage += `Requested quantity for ${productData.product_name} (${size}) exceeds available stock.\n`;
+                    }
+                } catch (error) {
+                    console.error('Error checking stock:', error);
+                    alert('An error occurred while checking the stock. Please try again later.');
+                    return false;
+                }
             }
-        } catch (error) {
-            console.error('Error checking stock:', error);
-            alert('An error occurred while checking the stock. Please try again later.');
-            return false;
+
+            if (validationFailed) {
+                alert(errorMessage);
+                return false;
+            }
+
+            return true;
         }
-    }
 
-    if (validationFailed) {
-        alert(errorMessage);
-        return false;
-    }
+    </script>
 
-    return true;
-}
+    <script>
+        async function updateQuantity(productId, size, operator) {
+            try {
+                event.preventDefault();
 
-   </script>
-  <!-- <script>
- 
- async function updateQuantity(productId, size, operator) {
-    event.preventDefault();
+                const response = await axios.post('/update-quantity', { productId, size, operator });
 
-    try {
-        // Make a request to the server to update the quantity
-        const response = await fetch('/update-quantity', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ productId, size, operator }),
+                if (response.data.success) {
+                    const quantityInput = document.getElementById(`quantity-${productId}-${size}`);
+                    const priceElement = document.getElementById(`price-${productId}-${size}`);
+                    const totalQuantitiesElement = document.getElementById('totalQuantities');
+                    const subtotalElement = document.getElementById('subtotal');
+
+                    if (quantityInput && priceElement && totalQuantitiesElement && subtotalElement) {
+                        quantityInput.value = response.data.productQuantity;
+                        priceElement.innerText = '$' + response.data.productPrice.toFixed(2);
+
+                        totalQuantitiesElement.innerText = response.data.totalQuantities;
+                        subtotalElement.innerText = '$' + response.data.totalPrice.toFixed(2);
+                    }
+                } else {
+                    alert(response.data.message);
+                }
+            } catch (error) {
+                console.error('Error updating quantity:', error);
+            }
+        }
+    </script>
+    <script>
+        document.getElementById('checkout-button').addEventListener('click', function (event) {
+            event.preventDefault(); // Prevent the default anchor behavior
+            document.getElementById('checkout-form').submit(); // Submit the hidden form
         });
-
-        const data = await response.json();
-
-        if (data.success) {
-            // Update the quantity field in the UI
-            const quantityInput = document.getElementById(`quantity-${productId}-${size}`);
-            if (quantityInput) {
-                quantityInput.value = data.productQuantity;
-            } else {
-                console.error('Quantity input not found!');
-            }
-
-            // Update the price for the specific product in the UI
-            const priceElement = document.getElementById(`price-${productId}-${size}`);
-            if (priceElement) {
-                priceElement.innerText = `$${data.productPrice.toFixed(2)}`;
-            } else {
-                console.error('Price element not found!');
-            }
-
-            // Optional: Update the total price in the cart summary, if you have such a feature
-            const totalPriceElement = document.getElementById('total-price');
-            if (totalPriceElement) {
-                totalPriceElement.innerText = `$${data.totalCartPrice.toFixed(2)}`;
-            }
-        } else {
-            alert(data.message);
-        }
-    } catch (error) {
-        console.error('Error updating quantity:', error);
-    }
-}
-
-  </script>
-
- -->
-  <script>
-    async function updateQuantity(productId, size, operator) {
-    try {
-        event.preventDefault();
-
-        const response = await axios.post('/update-quantity', { productId, size, operator });
-
-        if (response.data.success) {
-            const quantityInput = document.getElementById(`quantity-${productId}-${size}`);
-            const priceElement = document.getElementById(`price-${productId}-${size}`);
-            const totalQuantitiesElement = document.getElementById('totalQuantities');
-            const subtotalElement = document.getElementById('subtotal');
-
-            if (quantityInput && priceElement && totalQuantitiesElement && subtotalElement) {
-                quantityInput.value = response.data.productQuantity;
-                priceElement.innerText = '$' + response.data.productPrice.toFixed(2);
-
-                totalQuantitiesElement.innerText = response.data.totalQuantities;
-                subtotalElement.innerText = '$' + response.data.totalPrice.toFixed(2);
-            }
-        } else {
-            alert(response.data.message);
-        }
-    } catch (error) {
-        console.error('Error updating quantity:', error);
-    }
-}
-  </script>
-  <script>
-    document.getElementById('checkout-button').addEventListener('click', function(event) {
-        event.preventDefault(); // Prevent the default anchor behavior
-        document.getElementById('checkout-form').submit(); // Submit the hidden form
-    });
-</script>
+    </script>
     <!-- Vendor JS-->
     <script src="assets/js/vendor/modernizr-3.6.0.min.js"></script>
     <script src="assets/js/vendor/jquery-3.6.0.min.js"></script>
