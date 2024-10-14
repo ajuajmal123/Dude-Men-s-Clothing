@@ -7,6 +7,7 @@ const userController = require('../controllers/userController')
 const myAccountController = require("../controllers/myAccountController");
 const searchController = require('../controllers/searchController')
 const userProductController = require('../controllers/userProductController')
+const couponController = require('../controllers/couponController')
 const auth = require('../middleware/auth')
 const nocache = require('nocache')
 const passport = require('passport')
@@ -77,9 +78,12 @@ user_route.get('/edit-checkoutaddress/:id', auth.isLogin, userProductController.
 user_route.post('/edit-checkoutaddress/:id', auth.isLogin, userProductController.editCheckoutAddress);
 
 //order
+user_route.post('/applyCoupon', couponController.applyCoupon)
+user_route.post('/removeCoupon',couponController.removeCoupon)
 user_route.post('/place-order', auth.isLogin, userProductController.placeOrder);
 user_route.post('/verify-payment',auth.isLogin,userProductController.verifyPayment)
 user_route.get('/ordersuccess', auth.isLogin, userProductController.renderOrderSuccess);
+
 
 //wishlist 
 user_route.get('/wishlist', userProductController.renderWishlist);

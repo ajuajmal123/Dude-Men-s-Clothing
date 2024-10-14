@@ -6,7 +6,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Bolt & Wire</title>
+    <title>Dude Men's Clothing</title>
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,7 +15,7 @@
     <meta property="og:url" content="">
     <meta property="og:image" content="">
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="assets/imgs/theme/logo1.png">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/imgs/theme/titlelogo.jpg">
     <!-- Template CSS -->
     <link rel="stylesheet" href="/assets/css/maind134.css?v=3.4">
 </head>
@@ -64,7 +64,7 @@
                                     <p class="mb-1">
                                         <strong>
                                             <%= order.userId.name %>
-                                        </strong> <br><strong>Phone : <%= order.userId.phone %> </strong>
+                                        </strong> <br><strong>Phone : <%= order.address.mobile %> </strong>
                                     </p>
                                 </div>
                             </article>
@@ -148,17 +148,12 @@
                                                 <%= selectedItem.quantity %>
                                             </td>
                                             <% if(order.couponDiscount>0){ %>
-                                                <th width="20%">
-                                                    <%= order.couponDiscount %>%
-                                                </th>
-                                                <th width="20%" class="text-end">$<%= (selectedItem.price).toFixed(2)-
-                                                        (selectedItem.price * (order.couponDiscount/100)).toFixed(2) %>
-                                                </th>
+                                                <th width="20%"><%= order.couponDiscount %>%</th>
+                                                <th width="20%" class="text-end">$<%= (selectedItem.price).toFixed(2)- (selectedItem.price * (order.couponDiscount/100)).toFixed(2) %></th>
                                                 <% } %>
-                                                    <% if(order.couponDiscount==0){ %>
-                                                        <td class="text-end">$<%= (selectedItem.price).toFixed(2) %>
-                                                        </td>
-                                                        <% } %>
+                                                <% if(order.couponDiscount==0){ %>
+                                            <td class="text-end">$<%= (selectedItem.price).toFixed(2) %></td>
+                                            <% } %>
                                         </tr>
                                     </tbody>
                                 </table>

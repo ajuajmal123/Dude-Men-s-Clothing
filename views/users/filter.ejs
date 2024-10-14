@@ -281,17 +281,8 @@
                                     </ul>
                                 </div>
 
+                                  <!-- Colors -->
                                 <div class="col-lg-2 col-md-4 mb-lg-0 mb-md-5 mb-sm-5">
-                                    <!-- Sort By -->
-                                    <h5 class="mb-20">Sort By</h5>
-                                    <ul class="list-filter">
-                                        <li><a href="/filter?sortBy=lowToHigh">Price: Low to High</a></li>
-                                        <li><a href="/filter?sortBy=highToLow">Price: High to Low</a></li>
-                                        <li><a href="/filter?sortBy=aA-zZ">aA - zZ</a></li>
-                                        <li><a href="/filter?sortBy=zZ-aA">zZ - aA</a></li>
-                                        <li><a href="/filter?sortBy=newArrivals">New Arrivals</a></li>
-                                    </ul>
-                                    <!-- Colors -->
                                     <h5 class="mb-20">By Color</h5>
                                     <ul class="list-filter color-filter">
                                         <% uniqueColors.forEach(color=> { %>
@@ -301,18 +292,18 @@
                                             <% }); %>
                                     </ul>
                                 </div>
+                              
                                 <div class="col-lg-2 col-md-4 mb-lg-0 mb-md-5 mb-sm-5">
                                     <h5 class="mb-20">Price range</h5>
                                     <ul class="categor-list">
-                                        <li class="cat-item"><a href="#">All</a></li>
-                                        <li class="cat-item"><a href="/filter?priceRange=0-100">$0 - $100</a></li>
-                                        <li class="cat-item"><a href="/filter?priceRange=101-500">$101 - $500</a></li>
+                                       
+                
+                                        <li class="cat-item"><a href="/filter?priceRange=101-500">$100 - $500</a></li>
                                         <li class="cat-item"><a href="/filter?priceRange=501-700">$501 - $700</a></li>
                                         <li class="cat-item"><a href="/filter?priceRange=701-1000">$701 - $1000</a></li>
-                                        <li class="cat-item"><a href="/filter?priceRange=1001-1500">$1001 - $1500</a>
-                                        </li>
-                                        <li class="cat-item"><a href="/filter?priceRange=1501-2000">$1501 - $2000</a>
-                                        </li>
+                                        <li class="cat-item"><a href="/filter?priceRange=1001-1500">$1001 - $1500</a></li>
+                                        
+                                
                                     </ul>
                                 </div>
                                 <div class="col-lg-2 col-md-4 mb-lg-0 mb-md-5 mb-sm-5">
@@ -343,12 +334,9 @@
                                     </div>
                                     <div class="sort-by-dropdown">
                                         <ul>
-                                            <li><a href="/filter?sortBy=popularity">Popularity</a></li>
-                                            <li><a href="/filter?sortBy=averageRating">Average rating</a></li>
+                                            <li><a href="/filter?sortBy=newArrivals">New Arrivals</a></li>
                                             <li><a href="/filter?sortBy=lowToHigh">Price: Low to High</a></li>
                                             <li><a href="/filter?sortBy=highToLow">Price: High to Low</a></li>
-                                            <li><a href="/filter?sortBy=featured">Featured</a></li>
-                                            <li><a href="/filter?sortBy=newArrivals">New Arrivals</a></li>
                                             <li><a href="/filter?sortBy=aA-zZ">aA - zZ</a></li>
                                             <li><a href="/filter?sortBy=zZ-aA">zZ - aA</a></li>
                                         </ul>

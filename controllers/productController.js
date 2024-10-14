@@ -6,86 +6,7 @@ const { json } = require('body-parser');
 const sharp = require('sharp');
 const path = require("path");
 
-/* const add_product = async (req, res) => {
-    try {
-        // Additional validation for numerical fields
-        const stock = parseInt(req.body.stock);
-        const prod_price = parseFloat(req.body.prod_price);
-        const sellig_price = parseFloat(req.body.sellig_price);
-        
-        if (
-            isNaN(stock) ||
-            isNaN(prod_price) ||
-            isNaN(sellig_price) ||
-            stock <= 0 ||
-            prod_price <= 0 ||
-            sellig_price <= 0
-        ) {
-            return res
-                .status(400)
-                .json({
-                    error:
-                        "Stock, Actual Price, and Selling Price must be numerical and greater than 0.",
-                });
-        }
-        //validation for size
-        const size=parseInt(req.body.size)
-        if(size<=0){
-            return res 
-            .status(400)
-            .json({
-                error:
-                "Size should be in positive value"
-            })
-        }
 
-        // Validate the number of images uploaded
-        if (!req.files || req.files.length < 2) {
-            return res
-                .status(400)
-                .json({ error: "At least 2 secondary images are required." });
-        }
-        let PrimaryImage;
-        let seconaryImages = [];
-        req.files.forEach((e) => {
-
-            if (e.fieldname === 'primary-image') {
-                PrimaryImage = {
-                    name: e.filename,
-                    path: e.path,
-                };
-            }
-            else {
-                let image = {
-                    name: e.filename,
-                    path: e.path
-                }
-                seconaryImages.push(image);
-            }
-        });
-
-        const product = new Product({
-            product_name: req.body.product_name,
-            brand_name: req.body.brand_name,
-            description: req.body.description,
-            category_id: req.body.category,
-            stock: req.body.stock,
-            actual_price: req.body.prod_price,
-            selling_price: req.body.sellig_price,
-            color: req.body.color,
-            size: req.body.size,
-            primary_image: PrimaryImage,
-            secondary_images: seconaryImages,
-        });
-
-        await product.save();
-
-
-        res.redirect("/admin/product");
-    } catch (error) {
-        res.status(400).send(error);
-    }
-}; */
 
 const add_product = async (req, res) => {
     try {
@@ -161,8 +82,9 @@ const render_product_page = async (req, res) => {
         const skip = (currentPage - 1) * perPage;
 
         const products = await getAllProducts(skip, perPage);
-
-        res.render("product", {
+       
+        
+        res.render("admin/product", {
             Admin: admin,
             products: products,
             success: req.flash("success")[0],
@@ -233,7 +155,7 @@ const getAllProducts = async (skip, perPage) => {
 const render_new_product = async (req, res) => {
     const admin = res.locals.admin;
     const category = await getAllCategories();
-    res.render("new-product", {
+    res.render("admin/new-product", {
         fullscreen: true,
         Admin: admin,
         category: category,
@@ -301,7 +223,7 @@ const render_edit_product = async (req, res) => {
     const product = await findProduct(req.params.id);
     const obj = product[0];
     const category = await getCategory(obj.category.cat_name);
-    res.render("edit-product", { admin: true, obj, category: category });
+    res.render("admin/edit-product", { admin: true, obj, category: category });
 };
 
 

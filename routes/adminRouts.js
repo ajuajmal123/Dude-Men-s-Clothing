@@ -6,11 +6,11 @@ const categoryController = require('../controllers/categoryController')
 const couponController = require('../controllers/couponController')
 const { upload } = require('../middleware/upload')
 const productController = require('../controllers/productController')
+const orderController=require('../controllers/orderController')
 const auth = require('../middleware/adminAuth')
 const nocache = require('nocache')
 
-/* admin_route.set('view engine', 'ejs')
-admin_route.set('views', './views/admin') */
+
 
 
 admin_route.use(express.json());
@@ -21,7 +21,7 @@ admin_route.use(express.static(path.join(__dirname, 'public')));
 
 admin_route.get('/', auth.isLogout, adminController.loadLogin)
 admin_route.post('/', auth.isLogout, adminController.confirmLogin);
-admin_route.get('/dashboard', auth.isLogin, adminController.loadDashbord);
+admin_route.get('/dashboard', auth.isLogin, adminController.loadDashboard);
 admin_route.get('/logout', auth.isLogin, adminController.adminLogout)
 admin_route.get('/userlist', auth.isLogin, adminController.userList)
 admin_route.post('/block/:id', auth.isLogin, adminController.updateUsers);
@@ -61,5 +61,19 @@ admin_route.post('/addCoupon', couponController.addCoupon)
 admin_route.get('/ToggleblockCoupon', couponController.ToggleblockCoupon)
 admin_route.post('/couponDelete', couponController.couponDelete)
 
+//order
+
+admin_route.get('/order',auth.isLogin,orderController.getOrderList)
+admin_route.post('/cancel',auth.isLogin,orderController.cancelOrder)
+admin_route.post('/update-status',auth.isLogin,orderController.updateStatus)
+admin_route.get('/orderdetails/:orderId',auth.isLogin,orderController.orderDetails)
+
+//offer
+admin_route.get('/adminOffers', adminController.adminOffers)
+admin_route.post('/applyAdminOffers', adminController.applyAdminOffers)
+
+//sales Report
+admin_route.get('/salesreport',adminController.salesReport)
+admin_route.post('/salesreportsearch',adminController.salesreportsearch)
 
 module.exports = admin_route

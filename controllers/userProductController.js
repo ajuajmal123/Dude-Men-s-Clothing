@@ -71,7 +71,16 @@ const allProducts = async (req, res) => {
           selling_price: -1,
         });
         break;
-
+        case "newArrivals":
+          const currentDate = new Date();
+          const oneWeekAgo = new Date(
+            currentDate.getTime() - 7 * 24 * 60 * 60 * 1000
+          );
+          sortProducts = await Product.find({
+            delete: false,
+            createdAt: { $gte: oneWeekAgo },
+          });
+          break;
       case "aA-zZ":
         sortProducts = await Product.find({ delete: false }).sort({
           product_name: 1,
@@ -129,7 +138,7 @@ const addToCart = async (req, res) => {
     const productId = req.params.productId;
     const quantity = parseInt(req.body.quantity) || 1;
     const selectedSize = req.body.selectedSize;
-
+    console.log('Selected size in request:', selectedSize); 
     if (!selectedSize) {
       return res.status(400).json({ success: false, message: "Size must be selected" });
     }
@@ -301,7 +310,7 @@ const renderCheckOut = async (req, res) => {
     // Fetch the user and cart details
     const user = await User.findById(userId);
     const cart = await Cart.findOne({ userId }).populate("products.productId");
-
+    const coupons= await Coupon.find({isActive: true})
     if (!cart || !cart.products.length) {
       // If the user's cart is empty, render an empty cart view
       return res.render("checkOut", {
@@ -310,6 +319,7 @@ const renderCheckOut = async (req, res) => {
         subtotal: 0,
         addresses: [],
         user,
+        coupons
       });
     }
 
@@ -332,6 +342,7 @@ const renderCheckOut = async (req, res) => {
       subtotal,
       addresses,
       user,
+      coupons
     });
   } catch (error) {
     console.error(error);

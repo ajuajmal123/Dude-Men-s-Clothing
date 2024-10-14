@@ -285,9 +285,16 @@ const loadHome = async (req, res) => {
   try {
   
     const userData = await User.findById({ _id: req.session.user_id });
+    var search = "";
+    if (req.query.search) {
+      search = req.query.search;
+    }
     const products = await Product.find({
       delete: false,
-      status: true
+      status: true,
+      $or: [
+        { product_name: { $regex: ".*" + search + ".*", $options: "i" } },
+      ],
     }).populate('category_id')
     let totalQuantities=0
     if (userData) {
@@ -305,7 +312,7 @@ const loadHome = async (req, res) => {
       totalWish=wish.length
     }
     
-    res.render('home', { user: userData, products,totalWish,totalQuantities })
+    res.render('home', { user: userData, products,totalWish,totalQuantities,search: search})
   } catch (error) {
     console.log(error.message);
   }
