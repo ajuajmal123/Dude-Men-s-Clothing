@@ -344,7 +344,29 @@ body {
 
         <section class="mt-50 mb-50">
             <div class="container">
-
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="available_coupons">
+                            <h5>Available Coupons</h5>
+                            <div class="row">
+                                <% coupons.forEach(coupon=> { %>
+                                    <div class="col-lg-2 col-md-4 mb-4">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h6 class="card-title">
+                                                    <%= coupon.couponCode %>
+                                                </h6>
+                                                <p class="card-text">
+                                                    <%= coupon.discountAmount %>% off
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <% }); %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-12">
                         <div class="divider mt-50 mb-50"></div>
@@ -607,7 +629,8 @@ body {
           if (paymentMethod.value === 'Online') {
             const body = {
               selectedAddress: selectedAddress.value,
-              paymentMethod: paymentMethod.value
+              paymentMethod: paymentMethod.value,
+              couponCode
             };
       
             const response = await fetch('/place-order', {
@@ -639,7 +662,7 @@ body {
           } else {
             document.getElementById('selectedAddressInput').value = selectedAddress.value;
             document.getElementById('paymentMethodInput').value = paymentMethod.value;
-          
+            ocument.getElementById('couponCodeInput').value = couponCode;
             document.getElementById('hiddenForm').submit();
           }
         }

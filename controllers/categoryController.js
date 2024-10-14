@@ -7,13 +7,13 @@ const createCategory = async (req, res) => {
     // Validate category name format
     const catRegex = /^(?![-\s]+$)[A-Za-z]+(?:[-\s][A-Za-z]+)*$/;
     if (!catRegex.test(cat_name)) {
-      return res.render("new-category", { errmessage: "Invalid category name format!" });
+      return res.render("admin/new-category", { errmessage: "Invalid category name format!" });
     }
 
     // Check if category already exists
     const existingCategory = await Category.findOne({ cat_name });
     if (existingCategory) {
-      return res.render('new-category', { errmessage: "Category Already Exists!" });
+      return res.render('admin/new-category', { errmessage: "Category Already Exists!" });
     }
 
     // Create new category
@@ -23,7 +23,7 @@ const createCategory = async (req, res) => {
     res.redirect("/admin/category");
   } catch (error) {
     console.error(error);
-    res.status(500).render("new-category", { errmessage: "An error occurred while creating the category." });
+    res.status(500).render("/admin/new-category", { errmessage: "An error occurred while creating the category." });
   }
 };
 
@@ -33,7 +33,7 @@ const render_Edit_Category = async (req, res) => {
   const category = await getcategory(req.params.id).then(
     (category) => category
   );
-  res.render("edit-category", { category: category });
+  res.render("admin/edit-category", { category: category });
 };
 
 //get category by id
@@ -106,7 +106,7 @@ const render_category_page = async (req, res) => {
     return obj;
   });
   const admin = res.locals.admin;
-  res.render("category", {
+  res.render("admin/category", {
     admin: true,
     categories: categories,
     Admin: admin,
@@ -117,7 +117,7 @@ const render_category_page = async (req, res) => {
 //render new category form
 const render_new_category = (req, res) => {
   const admin = res.locals.admin;
-  res.render("new-category", { admin: true, Admin: admin });
+  res.render("admin/new-category", { admin: true, Admin: admin });
 };
 
 

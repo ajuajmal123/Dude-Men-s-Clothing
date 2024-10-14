@@ -359,6 +359,7 @@
                                                 <button type="submit" class="btn btn-sm"><i class="fi-rs-shopping-bag mr-5"></i>Add to cart</button>
                                               </form>
                                               
+                                              
                                           </td>
                                           <td class="action" data-title="Remove">
                                             <form action="/removefromwishlist" method="post" onsubmit="return removeFromWishlist(event, '<%= item.productId._id %>')">
@@ -522,6 +523,7 @@
 
 </script>
       
+
     <script>
         async function removeFromWishlist(event, productId) {
             event.preventDefault();

@@ -76,13 +76,7 @@ const removeCoupon = async (req, res) => {
       { new: true } // To return the updated document
     );
 
-    if (updatedCoupon) {
-      console.log("Coupon updated successfully:", updatedCoupon);
-      // Handle success if needed
-    } else {
-      console.log("Coupon not found or user not redeemed it:", couponCode);
-      // Handle not found or user not redeemed the coupon
-    }
+
 
     res.redirect("/admin/coupon");
   } catch (error) {

@@ -95,15 +95,10 @@
                     </div>
                     <div class="header-right">
                         <div class="search-style-2">
-                            <form action="#">
-                                <select class="select-active">
-                                    <option>All Categories</option>
-                                    <option>Crew Neck</option>
-                                    <option>V-Neck</option>
-                                    <option>Henley Neck</option>
-                                    <option>Polo T-Shirt</option>
-                                </select>
-                                <input type="text" placeholder="Search for items...">
+                            <form class="search-container d-flex p-0" action="/" method="get">
+                                <input type="text" class="flex-grow-1" placeholder="search..." name="search"
+                                    value="<%= search %>" /><button
+                                    class="btn btn-primary h-100 rounded-start-0">Search</button>
                             </form>
                         </div>
 
@@ -255,10 +250,11 @@
                 </div>
             </div>
             <div class="mobile-header-content-area">
-                <div class="mobile-search search-style-3 mobile-header-border">
-                    <form action="#">
-                        <input type="text" placeholder="Search for items…">
-                        <button type="submit"><i class="fi-rs-search"></i></button>
+                <div class="search-style-2">
+                    <form class="search-container d-flex p-0" action="/" method="get">
+                        <input type="text" class="flex-grow-1" placeholder="search..." name="search"
+                            value="<%= search %>" /><button
+                            class="btn btn-primary h-100 rounded-start-0">Search</button>
                     </form>
                 </div>
                 <div class="mobile-menu-wrap mobile-header-border">
@@ -476,31 +472,29 @@
                         <div class="widget-category mb-30">
                             <h5 class="section-title style-1 mb-30 wow fadeIn animated">Category</h5>
                             <ul class="categories">
-                                <li><a href="shop-grid-right.html">Crew Neck</a></li>
-                                <li><a href="shop-grid-right.html">V-Neck</a></li>
-                                <li><a href="shop-grid-right.html">Henley Neck</a></li>
-                                <li><a href="shop-grid-right.html">Polo T-Shirt</a></li>
-
-
+                                <li><a href="/filter">Crew Neck</a></li>
+                                <li><a href="/filter">V-Neck</a></li>
+                                <li><a href="/filter">Henley Neck</a></li>
+                                <li><a href="/filter">Polo T-Shirt</a></li>
                             </ul>
                         </div>
                         <div class="widget-category mb-30">
                             <h5 class="section-title style-1 mb-30 wow fadeIn animated">Sort by</h5>
-                            <ul class="categories">
-                                <li><a href="shop-grid-right.html">Popularity</a></li>
-                                <li><a href="shop-grid-right.html">Average rating</a></li>
-                                <li><a href="shop-grid-right.html">Price: Low to High</a></li>
-                                <li><a href="shop-grid-right.html">Price: High to Low</a></li>
+                            <ul>
+                                <li><a href="/allproducts?sortBy=lowToHigh">Price: Low to High</a></li>
+                                <li><a href="/allproducts?sortBy=highToLow">Price: High to Low</a></li>
+                                <li><a href="/allproducts?sortBy=newArrivals">New Arrivals</a></li>
+                                <li><a href="/allproducts?sortBy=aA-zZ">aA - zZ</a></li>
+                                <li><a href="/allproducts?sortBy=zZ-aA">zZ - aA</a></li>
                             </ul>
                         </div>
                         <div class="widget-category mb-30">
                             <h5 class="section-title style-1 mb-30 wow fadeIn animated">Price Range</h5>
                             <ul class="categories">
-                                <li><a href="shop-grid-right.html">$0-$200</a></li>
-                                <li><a href="shop-grid-right.html">$200-$400</a></li>
-                                <li><a href="shop-grid-right.html">$400-$600</a></li>
-                                <li><a href="shop-grid-right.html">$600-$800</a></li>
-                                <li><a href="shop-grid-right.html">800$+</a></li>
+                                <li class="cat-item"><a href="/filter?priceRange=101-500">$100 - $500</a></li>
+                                <li class="cat-item"><a href="/filter?priceRange=501-700">$501 - $700</a></li>
+                                <li class="cat-item"><a href="/filter?priceRange=701-1000">$701 - $1000</a></li>
+                                <li class="cat-item"><a href="/filter?priceRange=1001-1500">$1001 - $1500</a></li>
                             </ul>
                         </div>
 
@@ -537,15 +531,7 @@
                                                                 alt="">
                                                         </a>
                                                     </div>
-                                                    <div class="product-action-1">
-                                                        <a aria-label="Quick view" class="action-btn hover-up"
-                                                            data-bs-toggle="modal" data-bs-target="#quickViewModal"><i
-                                                                class="fi-rs-eye"></i></a>
-                                                        <a aria-label="Add To Wishlist" class="action-btn hover-up"
-                                                            href="shop-wishlist.html"><i class="fi-rs-heart"></i></a>
-                                                        <a aria-label="Compare" class="action-btn hover-up"
-                                                            href="shop-compare.html"><i class="fi-rs-shuffle"></i></a>
-                                                    </div>
+                                              
                                                     <div
                                                         class="product-badges product-badges-position product-badges-mrg">
                                                         <span class="hot">Hot</span>
@@ -570,11 +556,7 @@
                                                         <span>$<%= product.selling_price %> </span>
                                                         <span class="old-price">$<%= product.actual_price %></span>
                                                     </div>
-                                                    <div class="product-action-1 show">
-                                                        <a aria-label="Add To Cart" class="action-btn hover-up"
-                                                            href="shop-cart.html"><i
-                                                                class="fi-rs-shopping-bag-add"></i></a>
-                                                    </div>
+                                                  
                                                 </div>
                                             </div>
                                         </div>
