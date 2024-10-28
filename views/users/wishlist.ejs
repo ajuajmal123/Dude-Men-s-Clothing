@@ -21,27 +21,26 @@
     <link rel="stylesheet" href="/assets/css/maind134.css?v=3.4">
     <style>
         .styled-button {
-    background-color: rgb(8, 129, 120); 
-    color: #fff; 
-    border: none; 
-    padding: 10px 20px;
-    border-radius: 5px; 
-    font-size: 16px; 
-    font-weight: bold; 
-    cursor: pointer; 
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
+            background-color: rgb(8, 129, 120);
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
 
-.styled-button:hover {
-    background-color: rgb(4, 105, 99,); 
-    transform: scale(1.05); 
-}
+        .styled-button:hover {
+            background-color: rgb(4, 105, 99, );
+            transform: scale(1.05);
+        }
 
-.styled-button:active {
-    background-color: rgb(3, 85, 80); 
-    transform: scale(0.98);
-}
-
+        .styled-button:active {
+            background-color: rgb(3, 85, 80);
+            transform: scale(0.98);
+        }
     </style>
 </head>
 
@@ -390,11 +389,11 @@
                                                 <td class="text-right" data-title="Cart">
 
                                                     <button class="add-to-cart styled-button"
-                                                    data-product-id="<%= item.productId._id %>"
-                                                    data-size-select-id="sizeSelect-<%= item._id %>">
-                                                Add to Cart
-                                            </button>
-                                            
+                                                        data-product-id="<%= item.productId._id %>"
+                                                        data-size-select-id="sizeSelect-<%= item._id %>">
+                                                        Add to Cart
+                                                    </button>
+
                                                 </td>
 
                                                 <td class="action" data-title="Remove">
@@ -522,53 +521,54 @@
             </div>
         </div>
     </footer>
-<script>
-    document.querySelectorAll('.add-to-cart').forEach(button => {
-    button.addEventListener('click', function (event) {
-        const productId = event.target.getAttribute('data-product-id');
-        const sizeSelectId = event.target.getAttribute('data-size-select-id');
-        const sizeSelect = document.getElementById(sizeSelectId);
-        const selectedSize = sizeSelect ? sizeSelect.value : '';
+    <script>
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', function (event) {
+                const productId = event.target.getAttribute('data-product-id');
+                const sizeSelectId = event.target.getAttribute('data-size-select-id');
+                const sizeSelect = document.getElementById(sizeSelectId);
+                const selectedSize = sizeSelect ? sizeSelect.value : '';
 
-        console.log("Selected size:", selectedSize);
+                console.log("Selected size:", selectedSize);
 
-        if (!selectedSize) {
-            alert('Please select a size before adding to cart');
-            return;
-        }
-
-        fetch(`add-to-cart/${productId}`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json',
-                'X-Requested-With': 'fetch'  // Custom header to signal an AJAX request from Wishlist
-             },
-            body: JSON.stringify({ selectedSize }),
-            credentials: "include"
-        })
-            .then(response => {
-                if (!response.ok) {
-                    if (response.status === 401) {
-                        throw new Error('Error');
-                    }
-                    throw new Error(`HTTP error! status: ${response.status}`);
+                if (!selectedSize) {
+                    alert('Please select a size before adding to cart');
+                    return;
                 }
-                return response.json();
-            })
-            .then(data => {
-                if (data.success) {
-                    window.location.href = '/cart';
-                } else {
-                    alert(data.message || 'Error adding to cart');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert(error.message || 'Error adding to cart. ');
+
+                fetch(`add-to-cart/${productId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Requested-With': 'fetch'  // Custom header to signal an AJAX request from Wishlist
+                    },
+                    body: JSON.stringify({ selectedSize }),
+                    credentials: "include"
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            if (response.status === 401) {
+                                throw new Error('Error');
+                            }
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.success) {
+                            window.location.href = '/cart';
+                        } else {
+                            alert(data.message || 'Error adding to cart');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert(error.message || 'Error adding to cart. ');
+                    });
             });
-    });
-});
+        });
 
-</script>
+    </script>
 
 
 

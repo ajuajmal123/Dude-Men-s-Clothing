@@ -5,7 +5,7 @@ const Product = require("../models/productModel");
 const Order = require("../models/orderModel");
 const Coupon = require("../models/couponModel");
 const Category = require("../models/categoryModel");
-const cron=require('node-cron')
+const cron = require('node-cron')
 const loadLogin = async (req, res) => {
   try {
     res.render("admin/login");
@@ -362,7 +362,7 @@ const checkingAdminOffers = async () => {
       }
     }
 
-  
+
   } catch (error) {
     console.error("Error checking and resetting expired offers:", error);
   }
@@ -376,7 +376,7 @@ const salesReport = async (req, res) => {
       .populate("userId");
 
     // Filter out orders where no item is delivered
-    const deliveredOrders = orders.filter(order => 
+    const deliveredOrders = orders.filter(order =>
       order.items.some(item => item.deliveryStatus === 'Delivered')
     );
 
@@ -399,7 +399,7 @@ const salesreportsearch = async (req, res) => {
       .populate("userId");
 
     // Filter out orders where no item is delivered
-    const deliveredOrders = orders.filter(order => 
+    const deliveredOrders = orders.filter(order =>
       order.items.some(item => item.deliveryStatus === 'Delivered')
     );
 

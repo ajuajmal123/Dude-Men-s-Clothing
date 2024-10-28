@@ -59,8 +59,8 @@ user_route.post('/add-address', auth.isLogin, myAccountController.addAddress)
 user_route.get('/edit-address/:id', auth.isLogin, myAccountController.editAddressPage);
 user_route.post('/edit-address/:id', auth.isLogin, myAccountController.editAddress);
 user_route.post('/delete-address/:addressId', auth.isLogin, myAccountController.deleteAddress);
-user_route.post('/cancel-order',auth.isLogin,myAccountController.cancelMyOrder)
-user_route.post('/updateOrderStatus',myAccountController.updateOrderStatus)
+user_route.post('/cancel-order', auth.isLogin, myAccountController.cancelMyOrder)
+user_route.post('/updateOrderStatus', myAccountController.updateOrderStatus)
 user_route.get('/myorderdetails/:orderId', auth.isLogin, myAccountController.myOrderDetails)
 
 user_route.post('/addTowallet', myAccountController.addTowallet)
@@ -79,9 +79,9 @@ user_route.post('/edit-checkoutaddress/:id', auth.isLogin, userProductController
 
 //order
 user_route.post('/applyCoupon', couponController.applyCoupon)
-user_route.post('/removeCoupon',couponController.removeCoupon)
+user_route.post('/removeCoupon', couponController.removeCoupon)
 user_route.post('/place-order', auth.isLogin, userProductController.placeOrder);
-user_route.post('/verify-payment',auth.isLogin,userProductController.verifyPayment)
+user_route.post('/verify-payment', auth.isLogin, userProductController.verifyPayment)
 user_route.get('/ordersuccess', auth.isLogin, userProductController.renderOrderSuccess);
 
 

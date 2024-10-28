@@ -216,18 +216,18 @@ body {
 
                                             <li><!-- In your navigation bar or header section -->
 
-                                               
-                                                    
-                                         
+
+
+
                                             <li><a href="/logout">Logout</a></li>
 
-                                        
+
 
                                     </li>
 
                                 </ul>
                                 </li>
-                                
+
                                 </ul>
                             </nav>
                         </div>
@@ -304,7 +304,7 @@ body {
                     <div class="single-mobile-header-info mt-30">
                         <a href="page-contact.html"> Our location </a>
                     </div>
-                   
+
                     <div class="single-mobile-header-info">
                         <a href="#">(+01) - 2345 - 6789 </a>
                     </div>
@@ -601,79 +601,79 @@ body {
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <script>
         async function formSubmit() {
-          const selectedAddress = document.querySelector('input[name="selectedAddress"]:checked');
-          if (!selectedAddress) {
-            alert('Please select an address');
-            return;
-          }
-      
-          const paymentMethod = document.querySelector('input[name="payment_option"]:checked');
-          if (!paymentMethod) {
-            alert('Please select a payment method');
-            return;
-          }
-      
-          const couponCode = document.getElementById('couponCode').value;
-      
-          if (paymentMethod.value === 'Online') {
-            const body = {
-              selectedAddress: selectedAddress.value,
-              paymentMethod: paymentMethod.value,
-              couponCode
-            };
-      
-            const response = await fetch('/place-order', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify(body)
-            });
-      
-            const data = await response.json();
-            if (data.success) {
-              const options = {
-                key: 'rzp_test_nT0B9ngSa0Vkv3',
-                amount: data.amount,
-                currency: 'INR',
-                order_id: data.orderId,
-                name: 'Dude',
-                description: 'Thank You',
-                handler: async function (response) {
-                  await verifyPayment(response);
-                }
-              };
-              const rzp = new Razorpay(options);
-              rzp.open();
-            } else {
-              alert('Failed to create Razorpay order');
+            const selectedAddress = document.querySelector('input[name="selectedAddress"]:checked');
+            if (!selectedAddress) {
+                alert('Please select an address');
+                return;
             }
-          } else {
-            document.getElementById('selectedAddressInput').value = selectedAddress.value;
-            document.getElementById('paymentMethodInput').value = paymentMethod.value;
-            ocument.getElementById('couponCodeInput').value = couponCode;
-            document.getElementById('hiddenForm').submit();
-          }
+
+            const paymentMethod = document.querySelector('input[name="payment_option"]:checked');
+            if (!paymentMethod) {
+                alert('Please select a payment method');
+                return;
+            }
+
+            const couponCode = document.getElementById('couponCode').value;
+
+            if (paymentMethod.value === 'Online') {
+                const body = {
+                    selectedAddress: selectedAddress.value,
+                    paymentMethod: paymentMethod.value,
+                    couponCode
+                };
+
+                const response = await fetch('/place-order', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(body)
+                });
+
+                const data = await response.json();
+                if (data.success) {
+                    const options = {
+                        key: 'rzp_test_nT0B9ngSa0Vkv3',
+                        amount: data.amount,
+                        currency: 'INR',
+                        order_id: data.orderId,
+                        name: 'Dude',
+                        description: 'Thank You',
+                        handler: async function (response) {
+                            await verifyPayment(response);
+                        }
+                    };
+                    const rzp = new Razorpay(options);
+                    rzp.open();
+                } else {
+                    alert('Failed to create Razorpay order');
+                }
+            } else {
+                document.getElementById('selectedAddressInput').value = selectedAddress.value;
+                document.getElementById('paymentMethodInput').value = paymentMethod.value;
+                ocument.getElementById('couponCodeInput').value = couponCode;
+                document.getElementById('hiddenForm').submit();
+            }
         }
-      
+
         const verifyPayment = async (response) => {
-          const res = await fetch("/verify-payment", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ response }),
-          });
-          
-          const data = await res.json();
-          if (data.success) {
-            location.assign("/ordersuccess");
-          }else {
-    alert('Payment verification failed');
-  }
+            const res = await fetch("/verify-payment", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ response }),
+            });
+
+            const data = await res.json();
+            if (data.success) {
+                location.assign("/ordersuccess");
+            } else {
+                alert('Payment verification failed');
+            }
         }
-      </script>
-      
-  
-      <script>
+    </script>
+
+
+    <script>
         async function applyCoupon() {
             const couponCode = document.getElementById('couponCode').value;
             const grandTotalElement = document.getElementById('GrandTotal');
@@ -754,29 +754,29 @@ body {
         }
 
     </script>
-<script>
+    <script>
 
-    // Function to check if Cash on Delivery should be disabled and show message
-    function checkCODAvailability() {
-        var total = parseFloat(document.getElementById('GrandTotal').innerText.replace('$', ''));
-        var codRadio = document.getElementById('cashOnDelivery');
-        var codMessage = document.getElementById('codMessage'); // Get the message element
+        // Function to check if Cash on Delivery should be disabled and show message
+        function checkCODAvailability() {
+            var total = parseFloat(document.getElementById('GrandTotal').innerText.replace('$', ''));
+            var codRadio = document.getElementById('cashOnDelivery');
+            var codMessage = document.getElementById('codMessage'); // Get the message element
 
-        // Check if total is greater than or equal to the threshold
-        if (total >= 1000) {
-            codRadio.disabled = true; // Disable COD option
-            codMessage.style.display = 'block'; // Show the message
-        } else {
-            codRadio.disabled = false; // Enable COD option
-            codMessage.style.display = 'none'; // Hide the message
+            // Check if total is greater than or equal to the threshold
+            if (total >= 1000) {
+                codRadio.disabled = true; // Disable COD option
+                codMessage.style.display = 'block'; // Show the message
+            } else {
+                codRadio.disabled = false; // Enable COD option
+                codMessage.style.display = 'none'; // Hide the message
+            }
         }
-    }
 
-    // Call the function initially and whenever the total changes
-    window.onload = function () {
-        checkCODAvailability();
-    };
-</script>
+        // Call the function initially and whenever the total changes
+        window.onload = function () {
+            checkCODAvailability();
+        };
+    </script>
 
     <!-- Vendor JS-->
     <script src="/assets/js/vendor/modernizr-3.6.0.min.js"></script>

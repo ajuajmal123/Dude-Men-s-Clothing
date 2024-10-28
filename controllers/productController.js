@@ -82,8 +82,8 @@ const render_product_page = async (req, res) => {
         const skip = (currentPage - 1) * perPage;
 
         const products = await getAllProducts(skip, perPage);
-       
-        
+
+
         res.render("admin/product", {
             Admin: admin,
             products: products,
@@ -279,7 +279,7 @@ const update_product = async (req, res) => {
                 req.flash("error", "Size and stock must be greater than 0.");
                 return null;
             }
-            return { size , stock };
+            return { size, stock };
         });
 
         if (sizeStockPairs.includes(null)) {

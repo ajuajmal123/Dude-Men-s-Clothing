@@ -48,5 +48,5 @@ const checkBlock = async (req, res, next) => {
 module.exports = {
   isLogin,
   isLogout,
-checkBlock
+  checkBlock
 };

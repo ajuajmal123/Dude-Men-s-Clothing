@@ -59,7 +59,7 @@
                     </a>
                     <div class="submenu">
                         <a href="/admin/order">Order list</a>
-                  
+
                     </div>
                 </li>
                 <li class="menu-item has-submenu">
@@ -69,30 +69,30 @@
                     <div class="submenu">
 
                         <a href="/admin/userlist" class="active">Users list</a>
-                 
+
                     </div>
                 </li>
                 <li class="menu-item"></li>
                 <a class="menu-link" href="/admin/coupon"> <i class="icon material-icons md-shopping_cart"></i>
                     <span class="text">Coupons</span>
                 </a>
-            </li>
-            <li class="menu-item">
-            <a class="menu-link" href="/admin/adminOffers">
-                <i class="icon material-icons md-local_offer"></i>
-                <span class="text"> Offer </span>
-              </a>
-            </li>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/adminOffers">
+                        <i class="icon material-icons md-local_offer"></i>
+                        <span class="text"> Offer </span>
+                    </a>
+                </li>
             </ul>
             <hr>
-            
+
             <br>
             <br>
         </nav>
     </aside>
     <main class="main-wrap">
         <header class="main-header navbar">
-          
+
             <div class="col-nav ms-auto">
                 <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside"> <i
                         class="material-icons md-apps"></i> </button>
@@ -126,7 +126,7 @@
                         <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount"
                             aria-expanded="false"> Admin</a>
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
-                         
+
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item text-danger" href="/admin/logout"><i
                                     class="material-icons md-exit_to_app"></i>Logout</a>
@@ -138,18 +138,19 @@
         <section class="content-main">
             <div class="content-header">
                 <h2 class="content-title">Users list</h2>
-                
+
             </div>
             <div class="card mb-4">
                 <header class="card-header">
-                  
+
                 </header> <!-- card-header end// -->
                 <form class="search-container d-flex p-0 w-50 ms-auto" action="/admin/userlist" method="get">
-                    <input type="text" class="flex-grow-1" placeholder="search..." name="search" value="<%= search %>"style="font-size: 15px; text-align: right;" />
-                    
+                    <input type="text" class="flex-grow-1" placeholder="search..." name="search" value="<%= search %>"
+                        style="font-size: 15px; text-align: right;" />
+
                     <button class="btn btn-primary h-100 rounded-start-0">Search</button>
                 </form>
-                
+
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-hover">
@@ -158,7 +159,7 @@
                                     <th scope="col">Sr Num</th>
                                     <th scope="col">Name</th>
                                     <th scope="col">Email</th>
-                                    
+
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -175,7 +176,7 @@
                                             <td>
                                                 <%= user.email%>
                                             </td>
-                                           
+
                                             <td>
                                                 <%= user.blocked? 'Blocked' :'Active' %>
                                             </td>
@@ -199,7 +200,7 @@
                         </table> <!-- table-responsive.// -->
                     </div>
                 </div> <!-- card-body end// -->
-            </div> 
+            </div>
 
         </section> <!-- content-main end// -->
         <footer class="main-footer font-xs">
