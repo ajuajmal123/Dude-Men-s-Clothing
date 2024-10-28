@@ -6,7 +6,7 @@ const categoryController = require('../controllers/categoryController')
 const couponController = require('../controllers/couponController')
 const { upload } = require('../middleware/upload')
 const productController = require('../controllers/productController')
-const orderController=require('../controllers/orderController')
+const orderController = require('../controllers/orderController')
 const auth = require('../middleware/adminAuth')
 const nocache = require('nocache')
 
@@ -56,24 +56,24 @@ admin_route.post('/update-product', auth.isLogin, upload.array('images'), produc
 admin_route.get('/softdelete_product/:id', auth.isLogin, productController.deleteProduct)
 
 //coupon
-admin_route.get('/coupon',couponController.loadCoupon)
+admin_route.get('/coupon', couponController.loadCoupon)
 admin_route.post('/addCoupon', couponController.addCoupon)
 admin_route.get('/ToggleblockCoupon', couponController.ToggleblockCoupon)
 admin_route.post('/couponDelete', couponController.couponDelete)
 
 //order
 
-admin_route.get('/order',auth.isLogin,orderController.getOrderList)
-admin_route.post('/cancel',auth.isLogin,orderController.cancelOrder)
-admin_route.post('/update-status',auth.isLogin,orderController.updateStatus)
-admin_route.get('/orderdetails/:orderId',auth.isLogin,orderController.orderDetails)
+admin_route.get('/order', auth.isLogin, orderController.getOrderList)
+admin_route.post('/cancel', auth.isLogin, orderController.cancelOrder)
+admin_route.post('/update-status', auth.isLogin, orderController.updateStatus)
+admin_route.get('/orderdetails/:orderId', auth.isLogin, orderController.orderDetails)
 
 //offer
 admin_route.get('/adminOffers', adminController.adminOffers)
 admin_route.post('/applyAdminOffers', adminController.applyAdminOffers)
 
 //sales Report
-admin_route.get('/salesreport',adminController.salesReport)
-admin_route.post('/salesreportsearch',adminController.salesreportsearch)
+admin_route.get('/salesreport', adminController.salesReport)
+admin_route.post('/salesreportsearch', adminController.salesreportsearch)
 
 module.exports = admin_route

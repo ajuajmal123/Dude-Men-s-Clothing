@@ -156,10 +156,10 @@
 
                                 <li><a href="#">Pages <i class="fi-rs-angle-down"></i></a>
                                     <ul class="sub-menu">
-                                    
+
                                         <li><a href="/myaccount">My Account</a></li>
                                         <li><a href="/logout">logout</a></li>
-                                      
+
                                     </ul>
                                 </li>
 
@@ -167,7 +167,7 @@
                         </nav>
                     </div>
                     <div class="header-action-right">
-                     
+
                         <div class="header-action-2">
                             <div class="header-action-icon-2">
                                 <a href="/wishlist">
@@ -481,261 +481,303 @@
                                                             <div class="card-header">
                                                                 <h5 class="mb-0">Your Orders</h5>
                                                             </div>
-                                                             <div class="card-body">
-                                                <% if (orders.length> 0) { %>
-                                                    <% orders.forEach(order=> { %>
-                                                        <% if (order.status !== 'retry done') { %>
-                                                        <div class="container-fluid">
-                                                            <div class="order-details">
-                                                                <% order.items.forEach(item=> { %>
-                                                                    <div class="row">
-                                                                        <div class="col">
-                                                                            <div class="card mb-4 shadow-sm">
-                                                                                <div class="row">
-                                                                                    <div class="col-md-4">
-                                                                                        <img src="/admin-assets/imgs/items/<%= item.productId.primary_image.name %>"
-                                                                                            class="img-fluid"
-                                                                                            style="width: 130px; height: 130px;"
-                                                                                            alt="Product Image">
-                                                                                    </div>
-                                                                                    <div class="col-md-5">
-                                                                                        <div class="card-body">
-                                                                                            <h5 class="card-title">
-                                                                                                <strong>
-                                                                                                    <%= item.productId.product_name
-                                                                                                        %>
-                                                                                                </strong></h5>
-                                                                                            <h6 class="card-text">
-                                                                                                Quantity: <strong>
-                                                                                                    <%= item.quantity %>
-                                                                                                </strong></h6>
-                                                                                            <% if(order.couponDiscount>
-                                                                                                0){ %>
-                                                                                                <h6 class="card-text">
-                                                                                                    Amount: <strong>
-                                                                                                        <%=(item.quantity
-                                                                                                            *
-                                                                                                            item.productId.selling_price)-
-                                                                                                            (item.quantity
-                                                                                                            *
-                                                                                                            item.productId.selling_price
-                                                                                                            *
-                                                                                                            (order.couponDiscount/100))
-                                                                                                            %>
-                                                                                                    </strong></h6>
-                                                                                                <% } %>
-                                                                                                    <% if(order.couponDiscount==0){
-                                                                                                        %>
-                                                                                                        <h6
-                                                                                                            class="card-text">
-                                                                                                            Amount:
-                                                                                                            <strong>
-                                                                                                                <%= item.quantity
-                                                                                                                    *
-                                                                                                                    item.productId.selling_price
+                                                            <div class="card-body">
+                                                                <% if (orders.length> 0) { %>
+                                                                    <% orders.forEach(order=> { %>
+                                                                        <% if (order.status !=='retry done' ) { %>
+                                                                            <div class="container-fluid">
+                                                                                <div class="order-details">
+                                                                                    <% order.items.forEach(item=> { %>
+                                                                                        <div class="row">
+                                                                                            <div class="col">
+                                                                                                <div
+                                                                                                    class="card mb-4 shadow-sm">
+                                                                                                    <div class="row">
+                                                                                                        <div
+                                                                                                            class="col-md-4">
+                                                                                                            <img src="/admin-assets/imgs/items/<%= item.productId.primary_image.name %>"
+                                                                                                                class="img-fluid"
+                                                                                                                style="width: 130px; height: 130px;"
+                                                                                                                alt="Product Image">
+                                                                                                        </div>
+                                                                                                        <div
+                                                                                                            class="col-md-5">
+                                                                                                            <div
+                                                                                                                class="card-body">
+                                                                                                                <h5
+                                                                                                                    class="card-title">
+                                                                                                                    <strong>
+                                                                                                                        <%= item.productId.product_name
+                                                                                                                            %>
+                                                                                                                    </strong>
+                                                                                                                </h5>
+                                                                                                                <h6
+                                                                                                                    class="card-text">
+                                                                                                                    Quantity:
+                                                                                                                    <strong>
+                                                                                                                        <%= item.quantity
+                                                                                                                            %>
+                                                                                                                    </strong>
+                                                                                                                </h6>
+                                                                                                                <%
+                                                                                                                    if(order.couponDiscount>
+                                                                                                                    0){
                                                                                                                     %>
-                                                                                                            </strong>
-                                                                                                        </h6>
-                                                                                                        <% } %><h6 class="card-text"
-                                                                                                        style="color: <%= item.deliveryStatus === 'Cancelled' ? 'red' : (item.deliveryStatus === 'Delivered' ? 'green' : 'inherit') %>">
-                                                                                                    
-                                                                                                                <strong>
-                                                                                                                    <%= item.deliveryStatus
+                                                                                                                    <h6
+                                                                                                                        class="card-text">
+                                                                                                                        Amount:
+                                                                                                                        <strong>
+                                                                                                                            <%=(item.quantity
+                                                                                                                                *
+                                                                                                                                item.productId.selling_price)-
+                                                                                                                                (item.quantity
+                                                                                                                                *
+                                                                                                                                item.productId.selling_price
+                                                                                                                                *
+                                                                                                                                (order.couponDiscount/100))
+                                                                                                                                %>
+                                                                                                                        </strong>
+                                                                                                                    </h6>
+                                                                                                                    <% }
                                                                                                                         %>
-                                                                                                                </strong>
-                                                                                                            </h6>
+                                                                                                                        <% if(order.couponDiscount==0){
+                                                                                                                            %>
+                                                                                                                            <h6
+                                                                                                                                class="card-text">
+                                                                                                                                Amount:
+                                                                                                                                <strong>
+                                                                                                                                    <%= item.quantity
+                                                                                                                                        *
+                                                                                                                                        item.productId.selling_price
+                                                                                                                                        %>
+                                                                                                                                </strong>
+                                                                                                                            </h6>
+                                                                                                                            <% }
+                                                                                                                                %>
+                                                                                                                                <h6 class="card-text"
+                                                                                                                                    style="color: <%= item.deliveryStatus === 'Cancelled' ? 'red' : (item.deliveryStatus === 'Delivered' ? 'green' : 'inherit') %>">
 
-                                                                                                           <% if(item.deliveryStatus !== 'Payment Pending'){%> 
-                                                                                                            <button>
-                                                                                                                <a
-                                                                                                                    href="/myorderdetails/<%= order._id %>?productId=<%= item.productId._id %>">Details</a>
-                                                                                                            </button>
-                                                                                                            <% }  %>
+                                                                                                                                    <strong>
+                                                                                                                                        <%= item.deliveryStatus
+                                                                                                                                            %>
+                                                                                                                                    </strong>
+                                                                                                                                </h6>
 
+                                                                                                                                <% if(item.deliveryStatus
+                                                                                                                                    !=='Payment Pending'
+                                                                                                                                    ){%>
+                                                                                                                                    <button>
+                                                                                                                                        <a
+                                                                                                                                            href="/myorderdetails/<%= order._id %>?productId=<%= item.productId._id %>">Details</a>
+                                                                                                                                    </button>
+                                                                                                                                    <% }
+                                                                                                                                        %>
+
+                                                                                                            </div>
+
+                                                                                                        </div>
+                                                                                                        <div
+                                                                                                            class="col-md-3 d-flex align-items-center">
+                                                                                                            <% if
+                                                                                                                (item.deliveryStatus=='Processing'
+                                                                                                                ) { %>
+                                                                                                                <button
+                                                                                                                    onclick="cancelMyOrder('<%= order._id%>', '<%= item.productId._id %>','<%= item.quantity%>')"
+                                                                                                                    type="button"
+                                                                                                                    class="btn btn-danger btn-sm">Cancel</button>
+                                                                                                                <% } %>
+                                                                                                                    <% if(item.deliveryStatus=='Delivered'
+                                                                                                                        ){
+                                                                                                                        %>
+
+                                                                                                                        <textarea
+                                                                                                                            id="return-reason-<%= order._id %>-<%= item.productId._id %>"
+                                                                                                                            placeholder="Reason"
+                                                                                                                            class="form-control"></textarea>
+
+                                                                                                                        <button
+                                                                                                                            onclick="returnMyOrder( '<%= order._id%>','<%= item.productId._id %>','<%= item.quantity%>')"
+                                                                                                                            type="button"
+                                                                                                                            class="btn btn-danger btn-sm">Return</button>
+                                                                                                                        <% }
+                                                                                                                            %>
+
+                                                                                                                            <% if(order.status=='pending'
+                                                                                                                                ){
+                                                                                                                                %>
+                                                                                                                                <button
+                                                                                                                                    onclick="payNow('<%= order._id %>')"
+                                                                                                                                    type="button"
+                                                                                                                                    class="btn btn-danger btn-sm">Pay
+                                                                                                                                    Now</button>
+                                                                                                                                <% }
+                                                                                                                                    %>
+                                                                                                        </div>
+
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
                                                                                         </div>
-
-                                                                                    </div>
-                                                                                    <div
-                                                                                        class="col-md-3 d-flex align-items-center">
-                                                                                        <% if
-                                                                                            (item.deliveryStatus=='Processing'
-                                                                                            ) { %>
-                                                                                            <button
-                                                                                                onclick="cancelMyOrder('<%= order._id%>', '<%= item.productId._id %>','<%= item.quantity%>')"
-                                                                                                type="button"
-                                                                                                class="btn btn-danger btn-sm">Cancel</button>
-                                                                                            <% } %>
-                                                                                                <% if(item.deliveryStatus=='Delivered'
-                                                                                                    ){ %>
-                                                                                                        
-                                                        <textarea id="return-reason-<%= order._id %>-<%= item.productId._id %>" 
-                                                                  placeholder="Reason" 
-                                                                  class="form-control"></textarea>
-                                                    
-                                                                                                    <button
-                                                                                                        onclick="returnMyOrder( '<%= order._id%>','<%= item.productId._id %>','<%= item.quantity%>')"
-                                                                                                        type="button"
-                                                                                                        class="btn btn-danger btn-sm">Return</button>
-                                                                                                    <% } %>
-
-                                                                                                    <% if(order.status=='pending'
-                                                                                                    ){ %>
-                                                                                                    <button
-                                                                                                        onclick="payNow('<%= order._id %>')"
-                                                                                                        type="button"
-                                                                                                        class="btn btn-danger btn-sm">Pay Now</button>
-                                                                                                    <% } %>
-                                                                                    </div>
-
+                                                                                        <% }) %>
                                                                                 </div>
                                                                             </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <% }) %>
-                                                            </div>
-                                                        </div>
-                                                        <%}%>
-                                                        <% }) %>
+                                                                            <%}%>
+                                                                                <% }) %>
 
-                                                            <!-- Pagination markup -->
-                                                            <div class="pagination-container">
-                                                                <ul class="pagination justify-content-center">
-                                                                    <% if (currentPage !==1) { %>
-                                                                        <li class="page-item">
-                                                                            <a class="page-link" href="?page=1">&laquo;
-                                                                                First</a>
-                                                                        </li>
-                                                                        <li class="page-item">
-                                                                            <a class="page-link"
-                                                                                href="?page=<%= currentPage - 1 %>">&lsaquo;
-                                                                                Prev</a>
-                                                                        </li>
-                                                                        <% } %>
+                                                                                    <!-- Pagination markup -->
+                                                                                    <div class="pagination-container">
+                                                                                        <ul
+                                                                                            class="pagination justify-content-center">
+                                                                                            <% if (currentPage !==1) {
+                                                                                                %>
+                                                                                                <li class="page-item">
+                                                                                                    <a class="page-link"
+                                                                                                        href="?page=1">&laquo;
+                                                                                                        First</a>
+                                                                                                </li>
+                                                                                                <li class="page-item">
+                                                                                                    <a class="page-link"
+                                                                                                        href="?page=<%= currentPage - 1 %>">&lsaquo;
+                                                                                                        Prev</a>
+                                                                                                </li>
+                                                                                                <% } %>
 
-                                                                            <% for(let i=1; i <=totalPages; i++) { %>
-                                                                                <li
-                                                                                    class="page-item <%= i === currentPage ? 'active' : '' %>">
-                                                                                    <a class="page-link"
-                                                                                        href="?page=<%= i %>">
-                                                                                        <%= i %>
-                                                                                    </a>
-                                                                                </li>
-                                                                                <% } %>
+                                                                                                    <% for(let i=1; i
+                                                                                                        <=totalPages;
+                                                                                                        i++) { %>
+                                                                                                        <li
+                                                                                                            class="page-item <%= i === currentPage ? 'active' : '' %>">
+                                                                                                            <a class="page-link"
+                                                                                                                href="?page=<%= i %>">
+                                                                                                                <%= i %>
+                                                                                                            </a>
+                                                                                                        </li>
+                                                                                                        <% } %>
 
-                                                                                    <% if (currentPage !==totalPages) {
-                                                                                        %>
-                                                                                        <li class="page-item">
-                                                                                            <a class="page-link"
-                                                                                                href="?page=<%= currentPage + 1 %>">Next
-                                                                                                &rsaquo;</a>
-                                                                                        </li>
-                                                                                        <li class="page-item">
-                                                                                            <a class="page-link"
-                                                                                                href="?page=<%= totalPages %>">Last
-                                                                                                &raquo;</a>
-                                                                                        </li>
+                                                                                                            <% if
+                                                                                                                (currentPage
+                                                                                                                !==totalPages)
+                                                                                                                { %>
+                                                                                                                <li
+                                                                                                                    class="page-item">
+                                                                                                                    <a class="page-link"
+                                                                                                                        href="?page=<%= currentPage + 1 %>">Next
+                                                                                                                        &rsaquo;</a>
+                                                                                                                </li>
+                                                                                                                <li
+                                                                                                                    class="page-item">
+                                                                                                                    <a class="page-link"
+                                                                                                                        href="?page=<%= totalPages %>">Last
+                                                                                                                        &raquo;</a>
+                                                                                                                </li>
+                                                                                                                <% } %>
+                                                                                        </ul>
+                                                                                    </div>
+                                                                                    <% } else { %>
+                                                                                        <p>No orders found.</p>
+
                                                                                         <% } %>
-                                                                </ul>
                                                             </div>
-                                                            <% } else { %>
-                                                                <p>No orders found.</p>
-
-                                                                <% } %>
-                                            </div>
                                                         </div>
                                                     </div>
-                                                    
-                                    <div class="tab-pane fade" id="wallet" role="tabpanel"
-                                    aria-labelledby="account-detail-tab" style="padding: 20px;
+
+                                                    <div class="tab-pane fade" id="wallet" role="tabpanel"
+                                                        aria-labelledby="account-detail-tab" style="padding: 20px;
                                 width: 100%; display: grid; grid-template-columns: 1fr 2fr;">
-                                    <div class="card coupon-container"
-                                        style="border-radius: 15px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); width: 250px;">
-                                        <% if(wallet){%>
-                                            <div class="card-header bg-gradient-primary text-white"
-                                                style="border-top-left-radius: 15px; border-top-right-radius: 15px;">
-                                                <h5 style="margin-bottom: 0; font-size: 24px;">Wallet</h5>
-                                            </div>
+                                                        <div class="card coupon-container"
+                                                            style="border-radius: 15px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); width: 250px;">
+                                                            <% if(wallet){%>
+                                                                <div class="card-header bg-gradient-primary text-white"
+                                                                    style="border-top-left-radius: 15px; border-top-right-radius: 15px;">
+                                                                    <h5 style="margin-bottom: 0; font-size: 24px;">
+                                                                        Wallet</h5>
+                                                                </div>
 
-                                            <div class="card-body" style="max-width: 300px;">
-                                                <!-- Adjust the max-width -->
-                                                <div class="wallet-info" style="padding-bottom: 15px;">
-                                                    <h6 style="margin-bottom: 0; font-size: 18px;">Available
-                                                        Balance:</h6>
-                                                    <p id="balanceAmount"
-                                                        style="margin-top: 5px; font-size: 24px; font-weight: bold;">
-                                                        $<%= wallet.balance %>
-                                                    </p>
+                                                                <div class="card-body" style="max-width: 300px;">
+                                                                    <!-- Adjust the max-width -->
+                                                                    <div class="wallet-info"
+                                                                        style="padding-bottom: 15px;">
+                                                                        <h6 style="margin-bottom: 0; font-size: 18px;">
+                                                                            Available
+                                                                            Balance:</h6>
+                                                                        <p id="balanceAmount"
+                                                                            style="margin-top: 5px; font-size: 24px; font-weight: bold;">
+                                                                            $<%= wallet.balance %>
+                                                                        </p>
 
-                                                </div>
-                                                <!-- wallet payment Form -->
-                                                <div class="add-funds-form" style="margin-top: 20px;">
+                                                                    </div>
+                                                                    <!-- wallet payment Form -->
+                                                                    <div class="add-funds-form"
+                                                                        style="margin-top: 20px;">
 
 
-                                                    <div class="form-group">
-                                                        <label for="amount"
-                                                            style="margin-bottom: 5px; font-size: 18px;">Amount:</label>
-                                                        <input type="number" class="form-control" id="amountInput"
-                                                            name="amount"
-                                                            style="border-radius: 20px; font-size: 16px; padding: 10px; border: 1px solid #ced4da;"
-                                                            value="">
+                                                                        <div class="form-group">
+                                                                            <label for="amount"
+                                                                                style="margin-bottom: 5px; font-size: 18px;">Amount:</label>
+                                                                            <input type="number" class="form-control"
+                                                                                id="amountInput" name="amount"
+                                                                                style="border-radius: 20px; font-size: 16px; padding: 10px; border: 1px solid #ced4da;"
+                                                                                value="">
+                                                                        </div>
+                                                                        <button onclick="submitForm()"
+                                                                            style="background-color: #000000;"
+                                                                            type="submit" class="btn btn-primary"
+                                                                            style="border-radius: 20px; padding: 10px 30px; font-size: 18px;">Pay</button>
+
+
+                                                                    </div>
+                                                                </div>
+                                                                <% } %>
+                                                        </div>
+
+                                                        <% if (wallet) { %>
+                                                            <div class="transaction-history"
+                                                                style="max-height: 400px; overflow-y: auto;">
+                                                                <h2
+                                                                    style="position: sticky; top: 0; background-color: #ffffff; z-index: 1; color: #007bff; font-size: 24px; font-weight: bold; text-align: center; text-transform: uppercase; margin-bottom: 20px;">
+                                                                    Transaction History</h2>
+                                                                <table style="width: 100%;">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>Transaction ID</th>
+                                                                            <th>Date</th>
+                                                                            <th>Amount</th>
+                                                                            <th>Status</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <% for (let i=wallet.history.length - 1; i>= 0;
+                                                                            i--) { %>
+                                                                            <tr>
+                                                                                <td>#<%= Math.random().toString(36).substr(2,
+                                                                                        8).toUpperCase() %>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <%= wallet.history[i].createdAt.toLocaleString()
+                                                                                        %>
+                                                                                </td>
+                                                                                <td
+                                                                                    style="color: <%= wallet.history[i].type === 'credit' ? '#28a745' : '#dc3545' %>">
+                                                                                    <%= wallet.history[i].type==='credit'
+                                                                                        ? '+ $' : '- $' %>
+                                                                                        <%= wallet.history[i].amount %>
+                                                                                </td>
+                                                                                <td
+                                                                                    style="color: <%= wallet.history[i].type === 'credit' ? '#28a745' : '#dc3545' %>">
+                                                                                    <%= wallet.history[i].type %>
+                                                                                </td>
+
+
+                                                                            </tr>
+                                                                            <!-- Add more rows for each transaction -->
+                                                                            <% } %>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+
+                                                            <% } %>
+
                                                     </div>
-                                                    <button onclick="submitForm()"
-                                                        style="background-color: #000000;" type="submit"
-                                                        class="btn btn-primary"
-                                                        style="border-radius: 20px; padding: 10px 30px; font-size: 18px;">Pay</button>
-
-
-                                                </div>
-                                            </div>
-                                            <% } %>
-                                    </div>
-
-                                    <% if (wallet) { %>
-                                        <div class="transaction-history"
-                                            style="max-height: 400px; overflow-y: auto;">
-                                            <h2
-                                                style="position: sticky; top: 0; background-color: #ffffff; z-index: 1; color: #007bff; font-size: 24px; font-weight: bold; text-align: center; text-transform: uppercase; margin-bottom: 20px;">
-                                                Transaction History</h2>
-                                            <table style="width: 100%;">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Transaction ID</th>
-                                                        <th>Date</th>
-                                                        <th>Amount</th>
-                                                        <th>Status</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <% for (let i=wallet.history.length - 1; i>= 0; i--) { %>
-                                                        <tr>
-                                                            <td>#<%= Math.random().toString(36).substr(2,
-                                                                    8).toUpperCase() %>
-                                                            </td>
-                                                            <td>
-                                                                <%= wallet.history[i].createdAt.toLocaleString() %>
-                                                            </td>
-                                                            <td
-                                                                style="color: <%= wallet.history[i].type === 'credit' ? '#28a745' : '#dc3545' %>">
-                                                                <%= wallet.history[i].type==='credit' ? '+ $'
-                                                                    : '- $' %>
-                                                                    <%= wallet.history[i].amount %>
-                                                            </td>
-                                                            <td
-                                                            style="color: <%= wallet.history[i].type === 'credit' ? '#28a745' : '#dc3545' %>">
-                                                            <%= wallet.history[i].type %>
-                                                        </td>
-
-
-                                                        </tr>
-                                                        <!-- Add more rows for each transaction -->
-                                                        <% } %>
-                                                </tbody>
-                                            </table>
-                                        </div>
-
-                                        <% } %>
-
-                                </div>
 
 
                                 </div>
@@ -827,7 +869,8 @@
                     <div class="footer-bottom"></div>
                 </div>
                 <div class="col-lg-6">
-                    <p class="float-md-left font-sm text-muted mb-0">&copy; 2024, <strong class="text-brand">Dude </strong>Men's
+                    <p class="float-md-left font-sm text-muted mb-0">&copy; 2024, <strong class="text-brand">Dude
+                        </strong>Men's
                         Clothing </p>
                 </div>
                 <div class="col-lg-6">
@@ -858,16 +901,16 @@
             }
         }
     </script>
-        <script>
-            function payNow(orderId) {
-                // Make an AJAX request to update the order status
-                fetch('/updateOrderStatus', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ orderId: orderId, status: 'retry done' })
-                })
+    <script>
+        function payNow(orderId) {
+            // Make an AJAX request to update the order status
+            fetch('/updateOrderStatus', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ orderId: orderId, status: 'retry done' })
+            })
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
@@ -878,68 +921,68 @@
                     }
                 })
                 .catch(error => console.error('Error:', error));
-            }
-            </script>
-<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"
-    integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script>
-    function submitForm() {
-        // Get the amount input value
-        const amount = document.getElementById('amountInput').value;
+        }
+    </script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"
+        integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        function submitForm() {
+            // Get the amount input value
+            const amount = document.getElementById('amountInput').value;
 
-        
-        const data = {
-            amount: amount
-           
-        };
 
-        // Fetch request
-        fetch('/addTowallet', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        })
-            .then((response) => response.json())
-            .then(data => {
-                // Initialize Razorpay checkout with received order details
-                const options = {
-                    "key": 'rzp_test_nT0B9ngSa0Vkv3', 
-                    "amount": data.order.amount, // Use the amount from server response
-                    "currency": 'INR', 
-                    "name": 'Dude',
-                    "description": 'Purchase Description',
-                    "order_id": data.order.id, // Use the order ID from server response
-                    "handler": function (response) {
-                        Swal.fire({
-                            position: "center",
-                            icon: "success",
-                            title: "Payment successful!",
-                            showConfirmButton: false,
-                            timer: 2000
-                        }).then(() => {
-                            window.location.href = '/myaccount';
-                        });
-                    },
-                 
-                };
-                const razorpayInstance = new Razorpay(options);
-                razorpayInstance.open();
+            const data = {
+                amount: amount
+
+            };
+
+            // Fetch request
+            fetch('/addTowallet', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
             })
-            .catch(error => {
-                console.error('Error:', error);
-                Swal.fire({
-                    icon: "error",
-                    title: "Oops...",
-                    text: "Something went wrong!",
+                .then((response) => response.json())
+                .then(data => {
+                    // Initialize Razorpay checkout with received order details
+                    const options = {
+                        "key": 'rzp_test_nT0B9ngSa0Vkv3',
+                        "amount": data.order.amount, // Use the amount from server response
+                        "currency": 'INR',
+                        "name": 'Dude',
+                        "description": 'Purchase Description',
+                        "order_id": data.order.id, // Use the order ID from server response
+                        "handler": function (response) {
+                            Swal.fire({
+                                position: "center",
+                                icon: "success",
+                                title: "Payment successful!",
+                                showConfirmButton: false,
+                                timer: 2000
+                            }).then(() => {
+                                window.location.href = '/myaccount';
+                            });
+                        },
+
+                    };
+                    const razorpayInstance = new Razorpay(options);
+                    razorpayInstance.open();
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Something went wrong!",
+                    });
                 });
-            });
-    }
-</script>
+        }
+    </script>
 
 
 

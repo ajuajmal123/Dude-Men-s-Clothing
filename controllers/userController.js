@@ -7,7 +7,7 @@ const Product = require("../models/productModel");
 const Category = require("../models/categoryModel");
 const Cart = require('../models/cartModel')
 const Address = require('../models/addressModel')
-const mongoose= require('mongoose')
+const mongoose = require('mongoose')
 const Wishlist = require("../models/wishlistSchema");
 const nodemailer = require('nodemailer')
 const validator = require('validator');
@@ -283,7 +283,7 @@ const logout = async (req, res) => {
 const loadHome = async (req, res) => {
 
   try {
-  
+
     const userData = await User.findById({ _id: req.session.user_id });
     var search = "";
     if (req.query.search) {
@@ -296,9 +296,9 @@ const loadHome = async (req, res) => {
         { product_name: { $regex: ".*" + search + ".*", $options: "i" } },
       ],
     }).populate('category_id')
-    let totalQuantities=0
+    let totalQuantities = 0
     if (userData) {
-      const cart = await Cart.findOne({ userId: req.session.user_id  }).populate(
+      const cart = await Cart.findOne({ userId: req.session.user_id }).populate(
         "products.productId"
       );
       if (cart) {
@@ -307,12 +307,12 @@ const loadHome = async (req, res) => {
         });
       }
     }
-    const wish= await Wishlist.find({userId: req.session.user_id })
-    if(wish){
-      totalWish=wish.length
+    const wish = await Wishlist.find({ userId: req.session.user_id })
+    if (wish) {
+      totalWish = wish.length
     }
-    
-    res.render('home', { user: userData, products,totalWish,totalQuantities,search: search})
+
+    res.render('home', { user: userData, products, totalWish, totalQuantities, search: search })
   } catch (error) {
     console.log(error.message);
   }

@@ -2,9 +2,9 @@ const Coupon = require("../models/couponModel");
 const path = require('path');
 const loadCoupon = async (req, res) => {
   try {
-    
+
     const couponData = await Coupon.find().sort({ Date: -1 });
-   
+
     res.render("admin/coupon", { couponData });
 
   } catch (error) {

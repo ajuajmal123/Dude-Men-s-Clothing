@@ -1,6 +1,6 @@
 const User = require('../models/userModel')
 require("dotenv").config()
-const mongoose= require('mongoose')
+const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
 const Product = require("../models/productModel");
 const Category = require("../models/categoryModel");
@@ -9,8 +9,8 @@ const Address = require('../models/addressModel')
 const Order = require('../models/orderModel')
 const Wallet = require("../models/walletModel");
 const Wishlist = require("../models/wishlistSchema");
-const crypto=require('crypto')
-const Razorpay= require('razorpay')
+const crypto = require('crypto')
+const Razorpay = require('razorpay')
 const Coupon = require("../models/couponModel");
 const Payment = require("../models/paymentModel");
 const RAZORPAY_ID_KEY = process.env.RAZORPAY_ID_KEY;
@@ -71,16 +71,16 @@ const allProducts = async (req, res) => {
           selling_price: -1,
         });
         break;
-        case "newArrivals":
-          const currentDate = new Date();
-          const oneWeekAgo = new Date(
-            currentDate.getTime() - 7 * 24 * 60 * 60 * 1000
-          );
-          sortProducts = await Product.find({
-            delete: false,
-            createdAt: { $gte: oneWeekAgo },
-          });
-          break;
+      case "newArrivals":
+        const currentDate = new Date();
+        const oneWeekAgo = new Date(
+          currentDate.getTime() - 7 * 24 * 60 * 60 * 1000
+        );
+        sortProducts = await Product.find({
+          delete: false,
+          createdAt: { $gte: oneWeekAgo },
+        });
+        break;
       case "aA-zZ":
         sortProducts = await Product.find({ delete: false }).sort({
           product_name: 1,
@@ -137,7 +137,7 @@ const addToCart = async (req, res) => {
     const quantity = parseInt(req.body.quantity) || 1;
     const selectedSize = req.body.selectedSize;
 
- 
+
 
     if (!selectedSize) {
       return res.status(400).json({ success: false, message: "Size must be selected" });
@@ -172,7 +172,7 @@ const addToCart = async (req, res) => {
       return res.status(400).json({ success: false, message: "Insufficient stock for the selected size" });
     }
 
-    
+
     product.sizes = product.sizes.map(sizeObj =>
       sizeObj.size === selectedSize ? { ...sizeObj, stock: sizeObj.stock - quantity } : sizeObj
     );
@@ -283,7 +283,7 @@ const remove_product_from_cart = async (req, res) => {
       await Cart.findOneAndDelete({ userId });
     }
 
-    res.redirect("/cart"); 
+    res.redirect("/cart");
   } catch (error) {
     console.error("Error removing product from cart:", error);
     res.status(500).send("Internal Server Error");
@@ -315,7 +315,7 @@ const renderCheckOut = async (req, res) => {
     // Fetch the user and cart details
     const user = await User.findById(userId);
     const cart = await Cart.findOne({ userId }).populate("products.productId");
-    const coupons= await Coupon.find({isActive: true})
+    const coupons = await Coupon.find({ isActive: true })
     if (!cart || !cart.products.length) {
       // If the user's cart is empty, render an empty cart view
       return res.render("checkOut", {
@@ -456,8 +456,8 @@ const colorFiltering = async (req, res) => {
 const placeOrder = async (req, res) => {
   try {
     const userId = req.session.user_id;
-    const { couponCode, selectedAddress, paymentMethod} = req.body;
-    
+    const { couponCode, selectedAddress, paymentMethod } = req.body;
+
     // Store applied coupon in session or temporary storage
     req.session.appliedCoupons = [couponCode];
     const coupon = await Coupon.findOne({
@@ -474,7 +474,7 @@ const placeOrder = async (req, res) => {
       return res.status(400).send("Cart is empty");
     }
 
-     
+
     // Find the selected address
     const address = await Address.findOne({ _id: selectedAddress, userId });
 
@@ -506,7 +506,7 @@ const placeOrder = async (req, res) => {
       return res.status(400).send("Payment method is required");
     }
 
-       // Set initial delivery status based on payment method
+    // Set initial delivery status based on payment method
     for (const item of cart.products) {
       item.deliveryStatus = paymentMethod === "Online" ? "Payment Pending" : "Processing";
     }
@@ -536,13 +536,13 @@ const placeOrder = async (req, res) => {
     });
     if (paymentMethod === "Cash on Delivery") {
       await order.save();
-      
+
       // Deduct the purchased quantity from the product's stock
       for (const item of cart.products) {
-      const productId = item.productId._id;
-      const product = await Product.findById(productId);
-      product.stock -= item.quantity;
-      await product.save();
+        const productId = item.productId._id;
+        const product = await Product.findById(productId);
+        product.stock -= item.quantity;
+        await product.save();
       }
     } else if (paymentMethod === "Online") {
       const createOrder = await Order.create(order);
@@ -589,14 +589,14 @@ const placeOrder = async (req, res) => {
         // Set order status to "paid" and save the order
         order.status = "paid";
         await order.save();
-        
-      // Deduct the purchased quantity from the product's stock
-      for (const item of cart.products) {
-      const productId = item.productId._id;
-      const product = await Product.findById(productId);
-      product.stock -= item.quantity;
-      await product.save();
-      }
+
+        // Deduct the purchased quantity from the product's stock
+        for (const item of cart.products) {
+          const productId = item.productId._id;
+          const product = await Product.findById(productId);
+          product.stock -= item.quantity;
+          await product.save();
+        }
         const appliedCoupons = req.session.appliedCoupons;
         if (appliedCoupons && appliedCoupons.length > 0) {
           for (const couponCode of appliedCoupons) {
@@ -626,7 +626,7 @@ const placeOrder = async (req, res) => {
   }
 };
 
- const verifyPayment = async (req, res) => {
+const verifyPayment = async (req, res) => {
   try {
     const secret = process.env.RAZORPAY_SECRET_KEY;
     const userId = req.session.user_id;
@@ -658,16 +658,16 @@ const placeOrder = async (req, res) => {
           },
         }
       );
-       // Find the user's cart
-    const cart = await Cart.findOne({ userId }).populate("products.productId");
+      // Find the user's cart
+      const cart = await Cart.findOne({ userId }).populate("products.productId");
 
-       // Deduct the purchased quantity from the product's stock
-       for (const item of cart.products) {
+      // Deduct the purchased quantity from the product's stock
+      for (const item of cart.products) {
         const productId = item.productId._id;
         const product = await Product.findById(productId);
         product.stock -= item.quantity;
         await product.save();
-        }
+      }
       res.json({
         success: true,
       });
@@ -675,7 +675,7 @@ const placeOrder = async (req, res) => {
   } catch (error) {
     console.error(error);
   }
-}; 
+};
 
 
 const renderOrderSuccess = async (req, res) => {
@@ -800,5 +800,5 @@ module.exports = {
   removeFromWishlist,
   renderWishlist,
   verifyPayment,
-  
+
 }

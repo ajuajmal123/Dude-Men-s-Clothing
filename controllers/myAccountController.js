@@ -29,15 +29,15 @@ const myAccount = async (req, res) => {
             .sort({ createdAt: -1 })
             .skip((page - 1) * PAGE_SIZE)
             .limit(PAGE_SIZE);;
-            let wallet = await Wallet.findOne({ userId });
-        
-            if (!wallet) {
-                wallet = new Wallet({ userId, balance: 0 });
-                await wallet.save();
-            }
+        let wallet = await Wallet.findOne({ userId });
+
+        if (!wallet) {
+            wallet = new Wallet({ userId, balance: 0 });
+            await wallet.save();
+        }
 
         res.render('myAccount', {
-            user, addresses, orders, wallet,currentPage: page, totalPages, messages: {
+            user, addresses, orders, wallet, currentPage: page, totalPages, messages: {
                 error: req.flash('error'),
                 success: req.flash('success')
             }
@@ -265,98 +265,98 @@ const myOrderDetails = async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 };
-const updateOrderStatus = async (req,res)=>{
+const updateOrderStatus = async (req, res) => {
     try {
-      const { orderId, status } = req.body;
-      if (!orderId || !status) {
-          return res.status(400).json({ success: false, message: "Order ID and status are required" });
-      }
-  
-      const order = await Order.findById(orderId);
-      if (!order) {
-          return res.status(404).json({ success: false, message: "Order not found" });
-      }
-  
-      order.status = status;
-      await order.save();
-  
-      res.json({ success: true });
-  } catch (error) {
-      console.error(error);
-      res.status(500).json({ success: false, message: "Internal Server Error" });
-  }
-  }
-  const cancelMyOrder = async (req, res) => {
-    try {
-      const { orderId, productId, quantity } = req.body;
-      const userId = req.session.user_id;
-  
-      // Find the order of the user
-      const order = await Order.findOne({ userId, _id: orderId });
-  
-      if (!order) {
-        return res.status(404).json({ success: false, message: "Order not found" });
-      }
-  
-      // Find the item in the order
-      const item = order.items.find(item => item.productId.toString() === productId);
-  
-      if (!item) {
-        return res.status(404).json({ success: false, message: "Item not found in order" });
-      }
-  
-      // Update delivery status to "Cancelled"
-      item.deliveryStatus = "Cancelled";
-  
-      // Restore stock quantity in product schema
-      const product = await Product.findById(productId);
-  
-      if (!product) {
-        return res.status(404).json({ success: false, message: "Product not found" });
-      }
-  
-      product.stock += parseInt(quantity); // Increment stock
-  
-      // Deduct total amount of canceled products from the order
-      let canceledAmount = item.price;
-      
-      // Check if coupon applied for the order
-      if (order.couponDiscount > 0) {
-        // Calculate the discount amount based on the couponDiscount percentage
-        const discountAmount = (canceledAmount * order.couponDiscount) / 100;
-        canceledAmount -= discountAmount;
-      }
-  
-      order.totalAmount -= canceledAmount;
-  
-      // Save changes
-      await order.save();
-      await product.save();
-  
-      // Refund the canceled amount to the user's wallet if not cash on delivery
-      if (order.paymentMethod !== "Cash on Delivery") {
-        const wallet = await Wallet.findOne({ userId });
-        if (!wallet) {
-          return res.status(404).json({ success: false, message: "Wallet not found for the user" });
+        const { orderId, status } = req.body;
+        if (!orderId || !status) {
+            return res.status(400).json({ success: false, message: "Order ID and status are required" });
         }
-  
-        wallet.balance += canceledAmount;
-        wallet.history.push({
-          amount: parseFloat(canceledAmount),
-          type: "credit",
-          createdAt: new Date(),
-        });
-        await wallet.save();
-      }
-  
-      res.status(200).json({ success: true, message: "Order cancelled successfully" });
+
+        const order = await Order.findById(orderId);
+        if (!order) {
+            return res.status(404).json({ success: false, message: "Order not found" });
+        }
+
+        order.status = status;
+        await order.save();
+
+        res.json({ success: true });
     } catch (error) {
-      console.log(error.message);
-      res.status(500).json({ success: false, message: "Internal Server Error" });
+        console.error(error);
+        res.status(500).json({ success: false, message: "Internal Server Error" });
     }
-  };
-  
-  
+}
+const cancelMyOrder = async (req, res) => {
+    try {
+        const { orderId, productId, quantity } = req.body;
+        const userId = req.session.user_id;
+
+        // Find the order of the user
+        const order = await Order.findOne({ userId, _id: orderId });
+
+        if (!order) {
+            return res.status(404).json({ success: false, message: "Order not found" });
+        }
+
+        // Find the item in the order
+        const item = order.items.find(item => item.productId.toString() === productId);
+
+        if (!item) {
+            return res.status(404).json({ success: false, message: "Item not found in order" });
+        }
+
+        // Update delivery status to "Cancelled"
+        item.deliveryStatus = "Cancelled";
+
+        // Restore stock quantity in product schema
+        const product = await Product.findById(productId);
+
+        if (!product) {
+            return res.status(404).json({ success: false, message: "Product not found" });
+        }
+
+        product.stock += parseInt(quantity); // Increment stock
+
+        // Deduct total amount of canceled products from the order
+        let canceledAmount = item.price;
+
+        // Check if coupon applied for the order
+        if (order.couponDiscount > 0) {
+            // Calculate the discount amount based on the couponDiscount percentage
+            const discountAmount = (canceledAmount * order.couponDiscount) / 100;
+            canceledAmount -= discountAmount;
+        }
+
+        order.totalAmount -= canceledAmount;
+
+        // Save changes
+        await order.save();
+        await product.save();
+
+        // Refund the canceled amount to the user's wallet if not cash on delivery
+        if (order.paymentMethod !== "Cash on Delivery") {
+            const wallet = await Wallet.findOne({ userId });
+            if (!wallet) {
+                return res.status(404).json({ success: false, message: "Wallet not found for the user" });
+            }
+
+            wallet.balance += canceledAmount;
+            wallet.history.push({
+                amount: parseFloat(canceledAmount),
+                type: "credit",
+                createdAt: new Date(),
+            });
+            await wallet.save();
+        }
+
+        res.status(200).json({ success: true, message: "Order cancelled successfully" });
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({ success: false, message: "Internal Server Error" });
+    }
+};
+
+
 const addTowallet = async (req, res) => {
     try {
         let amount = req.body.amount;
