@@ -3,6 +3,7 @@ require('dotenv').config()
 const config = require('../Dude/config/config')
 
 mongoose.connect(process.env.MONGODB_URI)
+  
 const express = require('express')
 
 const app = express()
