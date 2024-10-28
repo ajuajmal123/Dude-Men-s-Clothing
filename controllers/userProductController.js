@@ -130,21 +130,20 @@ const renderCart = async (req, res) => {
   }
 };
 
-
 const addToCart = async (req, res) => {
   try {
-   
     const userId = req.session.user_id;
     const productId = req.params.productId;
     const quantity = parseInt(req.body.quantity) || 1;
     const selectedSize = req.body.selectedSize;
-    console.log('Selected size in request:', selectedSize); 
+
+ 
+
     if (!selectedSize) {
       return res.status(400).json({ success: false, message: "Size must be selected" });
     }
 
     let cart = await Cart.findOne({ userId });
-
     if (!cart) {
       cart = new Cart({ userId, products: [] });
     }
@@ -173,6 +172,7 @@ const addToCart = async (req, res) => {
       return res.status(400).json({ success: false, message: "Insufficient stock for the selected size" });
     }
 
+    
     product.sizes = product.sizes.map(sizeObj =>
       sizeObj.size === selectedSize ? { ...sizeObj, stock: sizeObj.stock - quantity } : sizeObj
     );
@@ -180,13 +180,18 @@ const addToCart = async (req, res) => {
     await product.save();
     await cart.save();
 
-    res.redirect('/cart');
+    if (req.headers['x-requested-with'] === 'fetch' || req.headers.accept.includes('application/json')) {
+      return res.json({ success: true, message: "Product added to cart successfully" });
+    } else {
+      return res.redirect('/cart');
+    }
 
   } catch (error) {
     console.log('Error in addToCart:', error);
     res.status(500).json({ success: false, message: "Internal Server Error" });
   }
 };
+
 
 
 const updateQuantity = async (req, res) => {
@@ -688,43 +693,40 @@ const renderWishlist = async (req, res) => {
       const user = await User.findById(req.session.user_id);
 
       if (!user) {
-        // Handle the case where the user with the session ID is not found
         return res.status(404).send("User not found");
       }
-      // Save the wishlist item to the database
+
       const userId = req.session.user_id;
       let totalQuantities = 0;
       let totalWish = 0;
-      if (userId) {
-        const cart = await Cart.findOne({ userId }).populate(
-          "products.productId"
-        );
-        if (cart) {
-          cart.products.forEach((item) => {
-            totalQuantities += item.quantity;
-          });
-        }
-        const wish = await Wishlist.find({ userId });
-        if (wish) {
-          totalWish = wish.length;
-        }
-      }
-      const wishlist = await Wishlist.find({ userId }).populate("productId");
 
-      if (!wishlist) {
-        // If the user's wishlist is empty, render an empty wishlist view
-        return res.render("wishlist", { wishlist });
+      // Fetch cart data and calculate total quantities
+      const cart = await Cart.findOne({ userId }).populate("products.productId");
+      if (cart) {
+        cart.products.forEach((item) => {
+          totalQuantities += item.quantity;
+        });
       }
+
+      // Fetch wishlist and populate productId
+      let wishlist = await Wishlist.find({ userId }).populate("productId");
+
+      // Filter out any wishlist items where productId is missing or invalid
+      wishlist = wishlist.filter(item => item.productId);
+
+      // Calculate total wish count
+      totalWish = wishlist.length;
 
       res.render("wishlist", { wishlist, user, totalQuantities, totalWish });
     } else {
       res.render("registration");
     }
   } catch (error) {
-    console.error(error);
+    console.error("Error rendering wishlist:", error);
     res.status(500).send("Internal Server Error");
   }
 };
+
 
 
 
@@ -776,6 +778,7 @@ const removeFromWishlist = async (req, res) => {
 };
 
 
+
 module.exports = {
   productPage,
   allProducts,
@@ -796,5 +799,6 @@ module.exports = {
   addToWishlist,
   removeFromWishlist,
   renderWishlist,
-  verifyPayment
+  verifyPayment,
+  
 }

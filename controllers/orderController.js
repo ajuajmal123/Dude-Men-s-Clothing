@@ -14,26 +14,30 @@ const getTotalOrderCount = async () => {
 
 const getOrderList = async (req, res) => {
   try {
-    const page = req.query.page || 1; // Default to page 1 if not provided
+    const page = parseInt(req.query.page) || 1; // Default to page 1 if not provided
     const limit = 5; // Number of orders per page
 
     // Count total number of orders
-    const totalCount = await getTotalOrderCount();
+    const totalCount = await Order.countDocuments(); // Ensure count from the Order model
 
     // Calculate total number of pages
     const totalPages = Math.ceil(totalCount / limit);
 
+    // Ensure the current page is not out of bounds
+    const currentPage = Math.min(Math.max(page, 1), totalPages); 
+
     // Calculate the offset for pagination
-    const offset = (page - 1) * limit;
+    const offset = (currentPage - 1) * limit;
 
     // Fetch orders for the current page
     const orders = await Order.find()
       .skip(offset)
-      .limit(limit).sort({ createdAt: -1 })
+      .limit(limit)
+      .sort({ createdAt: -1 })
       .populate("items.productId")
       .populate("userId");
 
-    res.render("admin/order", { orders, totalPages, currentPage: page });
+    res.render("admin/order", { orders, totalPages, currentPage });
   } catch (error) {
     console.error(error.message);
     res.status(500).send("Internal Server Error");

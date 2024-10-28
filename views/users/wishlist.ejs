@@ -19,6 +19,30 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <!-- Template CSS -->
     <link rel="stylesheet" href="/assets/css/maind134.css?v=3.4">
+    <style>
+        .styled-button {
+    background-color: rgb(8, 129, 120); 
+    color: #fff; 
+    border: none; 
+    padding: 10px 20px;
+    border-radius: 5px; 
+    font-size: 16px; 
+    font-weight: bold; 
+    cursor: pointer; 
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.styled-button:hover {
+    background-color: rgb(4, 105, 99,); 
+    transform: scale(1.05); 
+}
+
+.styled-button:active {
+    background-color: rgb(3, 85, 80); 
+    transform: scale(0.98);
+}
+
+    </style>
 </head>
 
 <body>
@@ -83,32 +107,15 @@
                 </div>
             </div>
         </div>
-        <div class="header-middle header-middle-ptb-1 d-none d-lg-block">
+        <div class="header-middle header-middle-ptb-1 d-none d-lg-block ">
             <div class="container">
                 <div class="header-wrap">
                     <div class="logo logo-width-1">
                         <a href="/"><img src="/assets/imgs/theme/logo1.png" alt="logo"></a>
                     </div>
                     <div class="header-right">
-                        <div class="search-style-2">
-                            <form action="#">
-                                <select class="select-active">
-                                    <option>All Categories</option>
-                                    <option>Women's</option>
-                                    <option>Men's</option>
-                                    <option>Cellphones</option>
-                                    <option>Computer</option>
-                                    <option>Electronics</option>
-                                    <option> Accessories</option>
-                                    <option>Home & Garden</option>
-                                    <option>Luggage</option>
-                                    <option>Shoes</option>
-                                    <option>Mother & Kids</option>
-                                </select>
-                                <input type="text" placeholder="Search for items...">
-                            </form>
-                        </div>
-                        <div class="header-action-right">
+
+                        <div class="header-action-right ms-auto ">
                             <div class="header-action-2">
                                 <div class="header-action-icon-2">
                                     <a href="/wishlist">
@@ -161,19 +168,13 @@
 
                                     <li><a href="#">Pages <i class="fi-rs-angle-down"></i></a>
                                         <ul class="sub-menu">
-                                            <li><a href="page-about.html">About Us</a></li>
-                                            <li><a href="page-contact.html">Contact</a></li>
-                                            <li><a href="page-account.html">My Account</a></li>
-                                            <li><a href="page-login-register.html">login/register</a></li>
-                                            <li><a href="page-purchase-guide.html">Purchase Guide</a></li>
-                                            <li><a href="page-privacy-policy.html">Privacy Policy</a></li>
-                                            <li><a href="page-terms.html">Terms of Service</a></li>
-                                            <li><a href="page-404.html">404 Page</a></li>
+
+                                            <li><a href="/myaccount">My Account</a></li>
+                                            <li><a href="/logout">Logout</a></li>
+
                                         </ul>
                                     </li>
-                                    <li>
-                                        <a href="page-contact.html">Contact</a>
-                                    </li>
+
                                 </ul>
                             </nav>
                         </div>
@@ -215,7 +216,7 @@
         <div class="mobile-header-wrapper-inner">
             <div class="mobile-header-top">
                 <div class="mobile-header-logo">
-                    <a href="/"><img src="/assets/imgs/theme/logo1.png alt=" logo"></a>
+                    <a href="/"><img src="/assets/imgs/theme/logo1.png alt="></a>
                 </div>
                 <div class="mobile-menu-close close-style-wrap close-style-position-inherit">
                     <button class="close-style search-close">
@@ -239,8 +240,7 @@
                             <li class="menu-item"><span class="menu-expand"></span><a href="/">Home</a>
 
                             </li>
-                            <li class="menu-item-has-children"><span class="menu-expand"></span><a
-                                    href="shop-grid-right.html">shop</a>
+                            <li class="menu-item-has-children"><span class="menu-expand"></span><a href="#">shop</a>
                                 <ul class="dropdown">
 
 
@@ -268,10 +268,7 @@
                                         </a></li>
                                     <li><a href="/logout">Logout</a></li>
 
-                                    <% } else { %>
-                                        <!-- If user is not logged in, show login button -->
-                                        <li><a href="/signup">Log In / Sign Up</a></li>
-                                        <% } %>
+                                    <% } %>
 
                             </li>
 
@@ -320,63 +317,113 @@
                     <div class="col-12">
                         <div class="table-responsive">
                             <table class="table shopping-summery text-center">
+
                                 <thead>
+
                                     <tr class="main-heading">
+
                                         <th scope="col" colspan="2">Product</th>
+
                                         <th scope="col">Price</th>
+
                                         <th scope="col">Action</th>
+
                                         <th scope="col">Remove</th>
+
                                     </tr>
+
                                 </thead>
+
                                 <tbody>
-                                    <% if (wishlist && wishlist.length > 0) { %>
-                                      <% wishlist.forEach(item => { %>
-                                        <tr>
-                                          <td class="image product-thumbnail">
-                                            <img src="/admin-assets/imgs/items/<%= item.productId.primary_image.name %>" alt="#">
-                                          </td>
-                                          <td class="product-des product-name">
-                                            <h5 class="product-name"><a href="#"><%= item.productId.product_name %></a></h5>
-                                  
-                                            <!-- Size selection -->
-                                            <div class="size-selector">
-                                              <label for="size-<%= item.productId._id %>">Select Size:</label>
-                                              <select id="size-<%= item.productId._id %>" class="size-dropdown">
-                                                <option value="">Select a size</option>
-                                                <% item.productId.sizes.forEach(sizeObj => { %>
-                                                  <option value="<%= sizeObj.size %>"><%= sizeObj.size %> - <%= sizeObj.stock %> in stock</option>
-                                                <% }) %>
-                                              </select>
-                                            </div>
-                                          </td>
-                                          <td class="price" data-title="Price">
-                                            <span>$<%= item.productId.selling_price %></span>
-                                          </td>
-                                          <td class="text-right" data-title="Cart">
-                                            <form action="/add-to-cart/<%= item.productId._id %>" method="post" onsubmit="return addToCartFromWishlist(event, '<%= item.productId._id %>')" enctype="multipart/form-data">
-                                                <input type="hidden" name="fromWishlist" value="true">
-                                                <input type="hidden" name="selectedSize" id="wishlist-selected-size-<%= item.productId._id %>">
-                                                <button type="submit" class="btn btn-sm"><i class="fi-rs-shopping-bag mr-5"></i>Add to cart</button>
-                                              </form>
-                                              
-                                              
-                                          </td>
-                                          <td class="action" data-title="Remove">
-                                            <form action="/removefromwishlist" method="post" onsubmit="return removeFromWishlist(event, '<%= item.productId._id %>')">
-                                              <button type="submit" class="btn btn-sm"><i class="fi-rs-trash"></i></button>
-                                            </form>
-                                          </td>
-                                        </tr>
-                                      <% }); %>
-                                    <% } else { %>
-                                      <tr>
-                                        <td colspan="5">Your wishlist is empty</td>
-                                      </tr>
-                                    <% } %>
-                                  </tbody>
-                                  
-                                  
+
+                                    <% if (wishlist && wishlist.length> 0) { %>
+
+                                        <% wishlist.forEach(item=> { %>
+
+                                            <tr>
+
+                                                <td class="image product-thumbnail">
+
+                                                    <img src="/admin-assets/imgs/items/<%= item.productId.primary_image.name %>"
+                                                        alt="#">
+
+                                                </td>
+
+                                                <td class="product-des product-name">
+
+                                                    <h5 class="product-name"><a href="#">
+                                                            <%= item.productId.product_name %>
+                                                        </a></h5>
+
+                                                    <div class="size-selection">
+
+                                                        <label for="size_<%= item.productId._id %>">Select Size:</label>
+
+                                                        <select id="sizeSelect-<%= item._id %>" class="size-select"
+                                                            data-product-id="<%= item.productId._id %>">
+
+                                                            <option value="" selected>Select Size</option>
+
+                                                            <% item.productId.sizes.forEach(size=> { %>
+
+                                                                <option value="<%= size.size %>"
+                                                                    data-stock="<%= size.stock %>">
+
+                                                                    <%= size.size %> - Stock: <%= size.stock %>
+
+                                                                </option>
+
+                                                                <% }) %>
+
+                                                        </select>
+
+                                                    </div>
+
+                                                </td>
+
+                                                <td class="price" data-title="Price">
+
+                                                    <span>$<%= item.productId.selling_price %></span>
+
+                                                </td>
+
+                                                <td class="text-right" data-title="Cart">
+
+                                                    <button class="add-to-cart styled-button"
+                                                    data-product-id="<%= item.productId._id %>"
+                                                    data-size-select-id="sizeSelect-<%= item._id %>">
+                                                Add to Cart
+                                            </button>
+                                            
+                                                </td>
+
+                                                <td class="action" data-title="Remove">
+
+                                                    <form action="/removefromwishlist" method="post"
+                                                        onsubmit="return removeFromWishlist(event, '<%= item.productId._id %>')">
+
+                                                        <button type="submit" class="btn btn-sm"><i
+                                                                class="fi-rs-trash"></i></button>
+
+                                                    </form>
+
+                                                </td>
+
+                                            </tr>
+                                            <% }); %>
+
+                                                <% } else { %>
+
+                                                    <tr>
+                                                        <td colspan="5">Your wishlist is empty</td>
+
+                                                    </tr>
+                                                    <% } %>
+
+                                </tbody>
+
                             </table>
+
                         </div>
                     </div>
                 </div>
@@ -463,8 +510,8 @@
                     <div class="footer-bottom"></div>
                 </div>
                 <div class="col-lg-6">
-                    <p class="float-md-left font-sm text-muted mb-0">&copy; 2022, <strong
-                            class="text-brand">Evara</strong> - HTML Ecommerce Template </p>
+                    <p class="float-md-left font-sm text-muted mb-0">&copy; 2024, <strong
+                            class="text-brand">Dude</strong>Men's Clothing </p>
                 </div>
                 <div class="col-lg-6">
                     <p class="text-lg-end text-start font-sm text-muted mb-0">
@@ -475,54 +522,55 @@
             </div>
         </div>
     </footer>
-   
 <script>
-    async function addToCartFromWishlist(event, productId) {
-  event.preventDefault(); // Prevent default form submission
+    document.querySelectorAll('.add-to-cart').forEach(button => {
+    button.addEventListener('click', function (event) {
+        const productId = event.target.getAttribute('data-product-id');
+        const sizeSelectId = event.target.getAttribute('data-size-select-id');
+        const sizeSelect = document.getElementById(sizeSelectId);
+        const selectedSize = sizeSelect ? sizeSelect.value : '';
 
-  const sizeDropdown = document.getElementById(`size-${productId}`);
-  const selectedSize = sizeDropdown.value;
-  const hiddenSizeInput = document.getElementById(`wishlist-selected-size-${productId}`);
+        console.log("Selected size:", selectedSize);
 
-  if (!selectedSize) {
-    alert('Please select a size before adding to the cart.');
-    return false;
-  }
+        if (!selectedSize) {
+            alert('Please select a size before adding to cart');
+            return;
+        }
 
-  hiddenSizeInput.value = selectedSize;
-
-  // Log to verify if the selected size is set
-  console.log('Selected size:', selectedSize);
-
-  const form = event.target;
-  const formData = new FormData(form);
-
-  // Log form data to verify if selectedSize is included
-  for (let pair of formData.entries()) {
-    console.log(pair[0] + ': ' + pair[1]);
-  }
-
-  try {
-    const response = await fetch(form.action, {
-      method: form.method,
-      body: formData,
+        fetch(`add-to-cart/${productId}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json',
+                'X-Requested-With': 'fetch'  // Custom header to signal an AJAX request from Wishlist
+             },
+            body: JSON.stringify({ selectedSize }),
+            credentials: "include"
+        })
+            .then(response => {
+                if (!response.ok) {
+                    if (response.status === 401) {
+                        throw new Error('Error');
+                    }
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    window.location.href = '/cart';
+                } else {
+                    alert(data.message || 'Error adding to cart');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert(error.message || 'Error adding to cart. ');
+            });
     });
-
-    const responseData = await response.json();
-
-    if (responseData.success) {
-      location.reload(); // Reload on success
-    } else {
-      alert(responseData.message);
-    }
-  } catch (error) {
-    console.error('Error adding product to cart:', error);
-    alert('An error occurred while adding the product to cart. Please try again later.');
-  }
-}
+});
 
 </script>
-      
+
+
 
     <script>
         async function removeFromWishlist(event, productId) {

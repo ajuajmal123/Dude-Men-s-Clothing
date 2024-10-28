@@ -18,16 +18,19 @@
     <link rel="shortcut icon" type="image/x-icon" href="assets/imgs/theme/titlelogo.jpg">
     <!-- Template CSS -->
     <link rel="stylesheet" href="/assets/css/maind134.css?v=3.4">
+   
+    
 </head>
 
 <body>
 
+   
+<div id="invoice">
     <div class="container">
         <section class="content-main">
             <div class="content-header">
                 <div class="container">
-                    <h2 class="content-title card-title">Order detail</h2>
-
+                    <h2 class="content-title card-title">Order Details</h2>
                 </div>
             </div>
             <div class="card">
@@ -35,9 +38,9 @@
                     <div class="row align-items-center">
                         <div class="col-lg-6 col-md-6 mb-lg-0 mb-15">
                             <span>
-                                <i class="material-icons md-calendar_today"></i> <b>
-                                    <%= order.createdAt.toLocaleDateString() %>
-                                </b>
+                                <i class="material-icons md-calendar_today"></i> 
+                               <small class="text-muted"> Order Date: <%= order.createdAt.toLocaleDateString() %></small>    
+                                
                             </span> <br>
                             <small class="text-muted">Order ID: <%= order._id %></small>
                         </div>
@@ -45,13 +48,13 @@
                         <% order.items.forEach(item=> { %>
                             <div class="col-lg-6 col-md-6 ms-auto text-md-end">
                                 <% if(item.deliveryStatus==="Delivered" ){%>
-
                                     <button class="btn btn-light" id="print">Download Invoice</button>
-                                    <% } %>
+                                <% } %>
                             </div>
-                            <% }) %>
+                        <% }) %>
                     </div>
-                </header> <!-- card-header end// -->
+                </header>
+                <!-- Other order details, customer info, address, etc. -->
                 <div class="card-body">
                     <div class="row mb-50 mt-20 order-info-wrap">
                         <div class="col-md-4">
@@ -160,17 +163,36 @@
                             </div> <!-- table-responsive// -->
                         </div> <!-- col// -->
                     </div>
-                </div> <!-- card-body end// -->
+                </div>
             </div>
-
-            <!-- card end// -->
-        </section> <!-- content-main end// -->
+        </section>
     </div>
-    <script>
-        document.getElementById('print').addEventListener('click', function () {
-            window.print();
-        });
-    </script>
+    
+ 
+</div>
+<script>
+    document.getElementById('print').addEventListener('click', function () {
+        // Hide the print button
+        document.getElementById('print').style.display = 'none';
+
+        // Get the invoice content
+        var printContents = document.getElementById('invoice').innerHTML;
+        var originalContents = document.body.innerHTML;
+
+        // Replace the body with the invoice content
+        document.body.innerHTML = printContents;
+
+        // Trigger the print dialog
+        window.print();
+
+        // Restore the original page content after printing
+        document.body.innerHTML = originalContents;
+
+        // Re-attach the event listener since the original DOM was restored
+        document.getElementById('print').addEventListener('click', arguments.callee);
+    });
+</script>
+
 
     <!-- Vendor JS-->
     <script src="/assets/js/vendor/modernizr-3.6.0.min.js"></script>

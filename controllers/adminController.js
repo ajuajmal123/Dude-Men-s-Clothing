@@ -40,14 +40,19 @@ const confirmLogin = async (req, res) => {
     console.log(error.message);
   }
 };
-
 const loadDashboard = async (req, res) => {
   try {
     const orders = await Order.find().populate("items.productId");
     const categories = await Category.find();
     const products = await Product.find();
-    let totalRevenue = 0
-    orders.forEach((order) => {
+    let totalRevenue = 0;
+
+    // Filter delivered orders
+    const deliveredOrders = orders.filter(order =>
+      order.items.some(item => item.deliveryStatus === 'Delivered')
+    );
+
+    deliveredOrders.forEach((order) => {
       order.items.forEach((item) => {
         if (item.deliveryStatus === 'Delivered') {
           totalRevenue += item.quantity * parseFloat(item.productId.selling_price);
@@ -56,7 +61,7 @@ const loadDashboard = async (req, res) => {
     });
 
     const orderCountsByMonth = Array.from({ length: 12 }, () => 0);
-    orders.forEach((order) => {
+    deliveredOrders.forEach((order) => {
       const monthIndex = order.createdAt.getMonth();
       orderCountsByMonth[monthIndex]++;
     });
@@ -68,6 +73,9 @@ const loadDashboard = async (req, res) => {
     });
 
     const orderCountsByYearData = await Order.aggregate([
+      {
+        $match: { "items.deliveryStatus": "Delivered" },  // Only delivered orders
+      },
       {
         $group: {
           _id: { $year: "$createdAt" },
@@ -105,6 +113,9 @@ const loadDashboard = async (req, res) => {
 
     const totalAmountByYearData = await Order.aggregate([
       {
+        $match: { "items.deliveryStatus": "Delivered" },  // Only delivered orders
+      },
+      {
         $group: {
           _id: { $year: "$createdAt" },
           totalAmount: { $sum: { $toDouble: "$totalAmount" } },
@@ -121,16 +132,19 @@ const loadDashboard = async (req, res) => {
       totalAmountByYear[yearIndex] = entry.totalAmount;
     });
 
-    // Calculate total amount by month
     const totalAmountByMonth = Array.from({ length: 12 }, () => 0);
-    orders.forEach((order) => {
+    deliveredOrders.forEach((order) => {
       const monthIndex = order.createdAt.getMonth();
       const totalAmount = parseFloat(order.totalAmount);
       totalAmountByMonth[monthIndex] += totalAmount;
     });
+
     const bestSellingProduct = await Order.aggregate([
       {
         $unwind: "$items",
+      },
+      {
+        $match: { "items.deliveryStatus": "Delivered" },  // Only delivered items
       },
       {
         $group: {
@@ -168,6 +182,9 @@ const loadDashboard = async (req, res) => {
         $unwind: "$items",
       },
       {
+        $match: { "items.deliveryStatus": "Delivered" },  // Only delivered items
+      },
+      {
         $lookup: {
           from: "products",
           localField: "items.productId",
@@ -193,7 +210,7 @@ const loadDashboard = async (req, res) => {
         $group: {
           _id: "$category._id",
           name: { $first: "$category.cat_name" },
-          totalSales: { $sum: "$items.quantity" }, // Changed to reference items.quantity
+          totalSales: { $sum: "$items.quantity" },
         },
       },
       {
@@ -221,6 +238,7 @@ const loadDashboard = async (req, res) => {
     console.log(error.message);
   }
 };
+
 
 
 
