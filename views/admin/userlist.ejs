@@ -54,105 +54,46 @@
                     </div>
                 </li>
                 <li class="menu-item has-submenu">
-                    <a class="menu-link" href="page-orders-1.html"> <i class="icon material-icons md-shopping_cart"></i>
+                    <a class="menu-link" href="/admin/order"> <i class="icon material-icons md-shopping_cart"></i>
                         <span class="text">Orders</span>
                     </a>
                     <div class="submenu">
-                        <a href="page-orders-1.html">Order list 1</a>
-                        <a href="page-orders-2.html">Order list 2</a>
-                        <a href="page-orders-detail.html">Order detail</a>
+                        <a href="/admin/order">Order list</a>
+                  
                     </div>
                 </li>
-                <li class="menu-item has-submenu active">
+                <li class="menu-item has-submenu">
                     <a class="menu-link" href="/admin/userlist"> <i class="icon material-icons md-store"></i>
                         <span class="text">Users</span>
                     </a>
                     <div class="submenu">
 
                         <a href="/admin/userlist" class="active">Users list</a>
-                        <!--  <a href="page-seller-detail.html">Users profile</a> -->
+                 
                     </div>
                 </li>
-                <li class="menu-item has-submenu">
-                    <a class="menu-link" href="page-form-product-1.html"> <i class="icon material-icons md-add_box"></i>
-                        <span class="text">Add product</span>
-                    </a>
-
-                </li>
-                <li class="menu-item has-submenu">
-                    <a class="menu-link" href="page-transactions-1.html"> <i
-                            class="icon material-icons md-monetization_on"></i>
-                        <span class="text">Transactions</span>
-                    </a>
-                    <div class="submenu">
-                        <a href="page-transactions-1.html">Transaction 1</a>
-                        <a href="page-transactions-2.html">Transaction 2</a>
-                    </div>
-                </li>
-                <li class="menu-item has-submenu">
-                    <a class="menu-link" href="#"> <i class="icon material-icons md-person"></i>
-                        <span class="text">Account</span>
-                    </a>
-                    <div class="submenu">
-                        <a href="page-account-login.html">User login</a>
-                        <a href="page-account-register.html">User registration</a>
-                        <a href="page-error-404.html">Error 404</a>
-                    </div>
-                </li>
-                <li class="menu-item">
-                    <a class="menu-link" href="page-reviews.html"> <i class="icon material-icons md-comment"></i>
-                        <span class="text">Reviews</span>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a class="menu-link" href="page-brands.html"> <i class="icon material-icons md-stars"></i>
-                        <span class="text">Brands</span> </a>
-                </li>
-                <li class="menu-item">
-                    <a class="menu-link" disabled href="#"> <i class="icon material-icons md-pie_chart"></i>
-                        <span class="text">Statistics</span>
-                    </a>
-                </li>
+                <li class="menu-item"></li>
+                <a class="menu-link" href="/admin/coupon"> <i class="icon material-icons md-shopping_cart"></i>
+                    <span class="text">Coupons</span>
+                </a>
+            </li>
+            <li class="menu-item">
+            <a class="menu-link" href="/admin/adminOffers">
+                <i class="icon material-icons md-local_offer"></i>
+                <span class="text"> Offer </span>
+              </a>
+            </li>
             </ul>
             <hr>
-            <ul class="menu-aside">
-                <li class="menu-item has-submenu">
-                    <a class="menu-link" href="#"> <i class="icon material-icons md-settings"></i>
-                        <span class="text">Settings</span>
-                    </a>
-                    <div class="submenu">
-                        <a href="page-settings-1.html">Setting sample 1</a>
-                        <a href="page-settings-2.html">Setting sample 2</a>
-                    </div>
-                </li>
-                <li class="menu-item">
-                    <a class="menu-link" href="page-blank.html"> <i class="icon material-icons md-local_offer"></i>
-                        <span class="text"> Starter page </span>
-                    </a>
-                </li>
-            </ul>
+            
             <br>
             <br>
         </nav>
     </aside>
     <main class="main-wrap">
         <header class="main-header navbar">
-            <div class="col-search">
-                <form class="searchform">
-                    <div class="input-group">
-                        <input list="search_terms" type="text" class="form-control" placeholder="Search term">
-                        <button class="btn btn-light bg" type="button"> <i
-                                class="material-icons md-search"></i></button>
-                    </div>
-                    <datalist id="search_terms">
-                        <option value="Products">
-                        <option value="New orders">
-                        <option value="Apple iphone">
-                        <option value="Ahmed Hassan">
-                    </datalist>
-                </form>
-            </div>
-            <div class="col-nav">
+          
+            <div class="col-nav ms-auto">
                 <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside"> <i
                         class="material-icons md-apps"></i> </button>
                 <ul class="nav">
@@ -185,15 +126,7 @@
                         <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount"
                             aria-expanded="false"> Admin</a>
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
-                            <a class="dropdown-item" href="#"><i class="material-icons md-perm_identity"></i>Edit
-                                Profile</a>
-                            <a class="dropdown-item" href="#"><i class="material-icons md-settings"></i>Account
-                                Settings</a>
-                            <a class="dropdown-item" href="#"><i
-                                    class="material-icons md-account_balance_wallet"></i>Wallet</a>
-                            <a class="dropdown-item" href="#"><i class="material-icons md-receipt"></i>Billing</a>
-                            <a class="dropdown-item" href="#"><i class="material-icons md-help_outline"></i>Help
-                                center</a>
+                         
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item text-danger" href="/admin/logout"><i
                                     class="material-icons md-exit_to_app"></i>Logout</a>
@@ -205,37 +138,18 @@
         <section class="content-main">
             <div class="content-header">
                 <h2 class="content-title">Users list</h2>
-                <div>
-                    <a href="#" class="btn btn-primary"><i class="material-icons md-plus"></i> Create new</a>
-                </div>
+                
             </div>
             <div class="card mb-4">
                 <header class="card-header">
-                    <div class="row gx-3">
-                        <div class="col-lg-4 col-md-6 me-auto">
-                            <input type="text" placeholder="Search..." class="form-control">
-                        </div>
-                        <div class="col-lg-2 col-md-3 col-6">
-                            <select class="form-select">
-                                <option>Status</option>
-                                <option>Active</option>
-                                <option>Blocked</option>
-                                <option>Show all</option>
-                            </select>
-                        </div>
-                        <div class="col-lg-2 col-md-3 col-6">
-                            <select class="form-select">
-                                <option>Show 20</option>
-                                <option>Show 30</option>
-                                <option>Show 40</option>
-                            </select>
-                        </div>
-                    </div>
+                  
                 </header> <!-- card-header end// -->
-                <form class="search-container d-flex p-0" action="/admin/userlist" method="get">
-                    <input type="text" class="flex-grow-1" placeholder="search..." name="search"
-                        value="<%= search %>" /><button class="btn btn-primary h-100 rounded-start-0">Search</button>
+                <form class="search-container d-flex p-0 w-50 ms-auto" action="/admin/userlist" method="get">
+                    <input type="text" class="flex-grow-1" placeholder="search..." name="search" value="<%= search %>"style="font-size: 15px; text-align: right;" />
+                    
+                    <button class="btn btn-primary h-100 rounded-start-0">Search</button>
                 </form>
+                
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-hover">
@@ -244,7 +158,7 @@
                                     <th scope="col">Sr Num</th>
                                     <th scope="col">Name</th>
                                     <th scope="col">Email</th>
-                                    <th scope="col">Mobile</th>
+                                    
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -261,9 +175,7 @@
                                             <td>
                                                 <%= user.email%>
                                             </td>
-                                            <td>
-                                                <%= user.mobile%>
-                                            </td>
+                                           
                                             <td>
                                                 <%= user.blocked? 'Blocked' :'Active' %>
                                             </td>
@@ -287,19 +199,7 @@
                         </table> <!-- table-responsive.// -->
                     </div>
                 </div> <!-- card-body end// -->
-            </div> <!-- card end// -->
-            <!--  <div class="pagination-area mt-15 mb-50">
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination justify-content-start">
-                        <li class="page-item active"><a class="page-link" href="#">01</a></li>
-                        <li class="page-item"><a class="page-link" href="#">02</a></li>
-                        <li class="page-item"><a class="page-link" href="#">03</a></li>
-                        <li class="page-item"><a class="page-link dot" href="#">...</a></li>
-                        <li class="page-item"><a class="page-link" href="#">16</a></li>
-                        <li class="page-item"><a class="page-link" href="#"><i class="material-icons md-chevron_right"></i></a></li>
-                    </ul>
-                </nav>
-            </div> -->
+            </div> 
 
         </section> <!-- content-main end// -->
         <footer class="main-footer font-xs">

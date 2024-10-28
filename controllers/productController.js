@@ -247,7 +247,7 @@ const update_product = async (req, res) => {
         }
 
         // Server-side validation
-        if (prod_price <= 0 || sellig_price <= 0 || stock <= 0) {
+        if (prod_price <= 0 || sellig_price <= 0 || stocks <= 0) {
             req.flash("error", "Prices and stock must be greater than 0.");
             return res.redirect(`/admin/edit-product/${req.body.id}`);
         }
@@ -275,11 +275,11 @@ const update_product = async (req, res) => {
         }
         const sizeStockPairs = sizes.map((size, index) => {
             const stock = parseInt(stocks[index], 10);
-            if (isNaN(stock) || stock <= 0 || isNaN(size) || size <= 0) {
+            if (isNaN(stock) || stock <= 0 || size <= 0) {
                 req.flash("error", "Size and stock must be greater than 0.");
                 return null;
             }
-            return { size: parseInt(size, 10), stock };
+            return { size , stock };
         });
 
         if (sizeStockPairs.includes(null)) {

@@ -15,7 +15,7 @@
     <meta property="og:url" content="">
     <meta property="og:image" content="">
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="/admin-assets/imgs/theme/logo1.png">
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/imgs/theme/logo1.png">
     <!-- Template CSS -->
     <link href="/admin-assets/css/main.css" rel="stylesheet" type="text/css" />
 </head>
@@ -25,11 +25,10 @@
     <aside class="navbar-aside" id="offcanvas_aside">
         <div class="aside-top">
             <a href="/admin/dashboard" class="brand-wrap">
-
+                <img src="/assets/imgs/theme/logo1.png" class="logo" alt="Dude Men's Clothing">
             </a>
             <div>
-                <button class="btn btn-icon btn-aside-minimize"> <i class="text-muted material-icons md-menu_open"></i>
-                </button>
+                <button class="btn btn-icon btn-aside-minimize"> <i class="text-muted material-icons md-menu_open"></i> </button>
             </div>
         </div>
         <nav>
@@ -39,7 +38,7 @@
                         <span class="text">Dashboard</span>
                     </a>
                 </li>
-                <li class="menu-item has-submenu active">
+                <li class="menu-item has-submenu ">
                     <a class="menu-link" href="#"> <i class="icon material-icons md-shopping_bag"></i>
                         <span class="text">Products</span>
                     </a>
@@ -56,11 +55,11 @@
                     </div>
                 </li>
                 <li class="menu-item has-submenu ">
-                    <a class="menu-link" href="#"> <i class="icon material-icons md-shopping_cart"></i>
+                    <a class="menu-link" href="/admin/order"> <i class="icon material-icons md-shopping_cart"></i>
                         <span class="text">Orders</span>
                     </a>
                     <div class="submenu">
-                        <a href="#">Order list </a>
+                        <a href="/admin/order">Order list </a>
 
                     </div>
                 </li>
@@ -72,90 +71,32 @@
                         <a href="/admin/userlist">Users list</a>
                     </div>
                 </li>
-
-                <li class="menu-item has-submenu">
-                    <a class="menu-link" href="page-transactions-1.html"> <i
-                            class="icon material-icons md-monetization_on"></i>
-                        <span class="text">Transactions</span>
-                    </a>
-                    <div class="submenu">
-                        <a href="page-transactions-1.html">Transaction 1</a>
-                        <a href="page-transactions-2.html">Transaction 2</a>
-                    </div>
-                </li>
-                <li class="menu-item has-submenu">
-                    <a class="menu-link" href="#"> <i class="icon material-icons md-person"></i>
-                        <span class="text">Account</span>
-                    </a>
-                    <div class="submenu">
-                        <a href="page-account-login.html">User login</a>
-                        <a href="page-account-register.html">User registration</a>
-                        <a href="page-error-404.html">Error 404</a>
-                    </div>
-                </li>
-                <li class="menu-item">
-                    <a class="menu-link" href="page-reviews.html"> <i class="icon material-icons md-comment"></i>
-                        <span class="text">Reviews</span>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a class="menu-link" href="page-brands.html"> <i class="icon material-icons md-stars"></i>
-                        <span class="text">Brands</span> </a>
-                </li>
-                <li class="menu-item">
-                    <a class="menu-link" disabled href="#"> <i class="icon material-icons md-pie_chart"></i>
-                        <span class="text">Statistics</span>
-                    </a>
-                </li>
+                <li class="menu-item"></li>
+                <a class="menu-link" href="/admin/coupon"> <i class="icon material-icons md-shopping_cart"></i>
+                    <span class="text">Coupons</span>
+                </a>
+            </li>
+            <li class="menu-item">
+            <a class="menu-link" href="/admin/adminOffers">
+                <i class="icon material-icons md-local_offer"></i>
+                <span class="text"> Offer </span>
+              </a>
+            </li>
             </ul>
             <hr>
-            <ul class="menu-aside">
-                <li class="menu-item has-submenu">
-                    <a class="menu-link" href="#"> <i class="icon material-icons md-settings"></i>
-                        <span class="text">Settings</span>
-                    </a>
-                    <div class="submenu">
-                        <a href="page-settings-1.html">Setting sample 1</a>
-                        <a href="page-settings-2.html">Setting sample 2</a>
-                    </div>
-                </li>
-                <li class="menu-item">
-                    <a class="menu-link" href="page-blank.html"> <i class="icon material-icons md-local_offer"></i>
-                        <span class="text"> Starter page </span>
-                    </a>
-                </li>
-            </ul>
+           
             <br>
             <br>
         </nav>
     </aside>
     <main class="main-wrap">
         <header class="main-header navbar">
-            <div class="col-search">
-                <form class="searchform">
-                    <div class="input-group">
-                        <input list="search_terms" type="text" class="form-control" placeholder="Search term">
-                        <button class="btn btn-light bg" type="button"> <i
-                                class="material-icons md-search"></i></button>
-                    </div>
-                    <datalist id="search_terms">
-                        <option value="Products">
-                        <option value="New orders">
-                        <option value="Apple iphone">
-                        <option value="Ahmed Hassan">
-                    </datalist>
-                </form>
-            </div>
-            <div class="col-nav">
+           
+            <div class="col-nav ms-auto">
                 <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside"> <i
                         class="material-icons md-apps"></i> </button>
                 <ul class="nav">
-                    <li class="nav-item">
-                        <a class="nav-link btn-icon" href="#">
-                            <i class="material-icons md-notifications animation-shake"></i>
-                            <span class="badge rounded-pill">3</span>
-                        </a>
-                    </li>
+                  
                     <li class="nav-item">
                         <a class="nav-link btn-icon darkmode" href="#"> <i class="material-icons md-nights_stay"></i>
                         </a>
@@ -182,15 +123,7 @@
                         <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount"
                             aria-expanded="false">Admin</a>
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
-                            <a class="dropdown-item" href="#"><i class="material-icons md-perm_identity"></i>Edit
-                                Profile</a>
-                            <a class="dropdown-item" href="#"><i class="material-icons md-settings"></i>Account
-                                Settings</a>
-                            <a class="dropdown-item" href="#"><i
-                                    class="material-icons md-account_balance_wallet"></i>Wallet</a>
-                            <a class="dropdown-item" href="#"><i class="material-icons md-receipt"></i>Billing</a>
-                            <a class="dropdown-item" href="#"><i class="material-icons md-help_outline"></i>Help
-                                center</a>
+                           
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item text-danger" href="/admin/logout"><i
                                     class="material-icons md-exit_to_app"></i>Logout</a>
@@ -233,59 +166,56 @@
                             </thead>
                             <tbody>
                                 <% let serialNumber=(currentPage - 1) * itemsPerPage + 1; %>
-                                    <% products.forEach(product=> { %>
-                                        <tr>
-                                            <td scope="row">
-                                                <%= serialNumber %>
-                                            </td>
-                                            <td><img class="rounded mx-auto d-block" style="width: 4rem;"
-                                                    src="/admin-assets/imgs/items/<%= product.primary_image.name %>"
-                                                    alt=""></td>
-                                            <td>
-                                                <%= product.product_name %>
-                                            </td>
-                                            <td>
-                                                <%= product.brand_name %>
-                                            </td>
-                                            <td>
-                                                <%= product.category.cat_name %>
-                                            </td>
-                                            <td>
-                                                <% product.sizes.forEach(sizeObj=> { %>
-                                                    <div>
-                                                        <strong>Size:</strong>
-                                                        <%= sizeObj.size %><br>
-                                                            <strong>Stock:</strong>
-                                                            <%= sizeObj.stock %>
-                                                    </div>
-                                                    <hr>
-                                                    <% }); %>
-                                            </td>
-                                            <td>
-                                                <%= product.color %>
-                                            </td>
-                                            <td>
-                                                <%= product.actual_price %>
-                                            </td>
-                                            <td>
-                                                <%= product.selling_price %>
-                                            </td>
-                                            <% if (product.status) { %>
-                                                <td>List</td>
-                                                <% } else { %>
-                                                    <td>Unlist</td>
-                                                    <% } %>
-                                                        <td>
-                                                            <a href="/admin/edit-product/<%= product._id %>"
-                                                                class="ms-3"><i class="fa-solid fa-pen"></i>Edit</a>
-                                                            <a href="/admin/softdelete_product/<%= product._id %>"
-                                                                class="text-danger ms-2"
-                                                                onclick="return confirm('Are you sure you want to delete <%= product.product_name %>?')">Delete</a>
-                                                        </td>
-                                        </tr>
-                                        <% serialNumber++; %>
+                                <% products.forEach(product=> { %>
+                                <tr>
+                                    <td scope="row">
+                                        <%= serialNumber %>
+                                    </td>
+                                    <td><img class="rounded mx-auto d-block" style="width: 4rem;"
+                                            src="/admin-assets/imgs/items/<%= product.primary_image.name %>"
+                                            alt=""></td>
+                                    <td>
+                                        <%= product.product_name %>
+                                    </td>
+                                    <td>
+                                        <%= product.brand_name %>
+                                    </td>
+                                    <td>
+                                        <%= product.category.cat_name %>
+                                    </td>
+                                    <td>
+                                        <select class="form-select">
+                                            <% product.sizes.forEach(sizeObj => { %>
+                                            <option value="<%= sizeObj.size %>">
+                                                Size: <%= sizeObj.size %> - Stock: <%= sizeObj.stock %>
+                                            </option>
                                             <% }); %>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <%= product.color %>
+                                    </td>
+                                    <td>
+                                        <%= product.actual_price %>
+                                    </td>
+                                    <td>
+                                        <%= product.selling_price %>
+                                    </td>
+                                    <% if (product.status) { %>
+                                    <td>List</td>
+                                    <% } else { %>
+                                    <td>Unlist</td>
+                                    <% } %>
+                                    <td>
+                                        <a href="/admin/edit-product/<%= product._id %>" class="ms-3"><i class="fa-solid fa-pen"></i>Edit</a>
+                                        <a href="/admin/softdelete_product/<%= product._id %>" class="text-danger ms-2"
+                                            onclick="return confirm('Are you sure you want to delete <%= product.product_name %>?')">Delete</a>
+                                    </td>
+                                </tr>
+                                <% serialNumber++; %>
+                                <% }); %>
                             </tbody>
+                            
                         </table>
                     </div>
                 </section>
@@ -309,7 +239,7 @@
                 <div class="col-sm-6">
                     <script>
                         document.write(new Date().getFullYear())
-                    </script> ©, Evara - HTML Ecommerce Template .
+                    </script> ©Dude Men's Clothing
                 </div>
                 <div class="col-sm-6">
                     <div class="text-sm-end">

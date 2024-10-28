@@ -52,7 +52,7 @@
     .size-item .size-btn.active {
       background-color: #007bff;
       color: #fff;
-      border: 1px solid #007bff;
+      border: 1px solid hsl(211, 100%, 50%);
     }
 
     .fi-rs-heart {
@@ -123,7 +123,7 @@
       <div class="container">
         <div class="header-wrap">
           <div class="logo logo-width-1">
-            <a href="/"><img src="/assets/imgs/theme/logo1.png" alt="logo"></a>
+            <a href="/"><img src="/assets/imgs/theme/logo1.png"></a>
           </div>
 
         </div>
@@ -133,7 +133,7 @@
       <div class="container">
         <div class="header-wrap header-space-between position-relative">
           <div class="logo logo-width-1 d-block d-lg-none">
-            <a href="/"><img src="/assets/imgs/theme/logo1.png" alt="logo"></a>
+            <a href="/"><img src="/assets/imgs/theme/logo1.png"></a>
           </div>
           <div class="header-nav d-none d-lg-flex">
 
@@ -158,8 +158,7 @@
 
                   <li><a href="#">Pages <i class="fi-rs-angle-down"></i></a>
                     <ul class="sub-menu">
-                      <li><a href="#">About Us</a></li>
-                      <li><a href="#">Contact</a></li>
+                      
                       <li><a href="/myaccount">My Account</a></li>
                       <li>
 
@@ -181,9 +180,7 @@
 
                 </ul>
                 </li>
-                <li>
-                  <a href="#">Contact</a>
-                </li>
+                
                 </ul>
               </nav>
             </div>
@@ -286,7 +283,7 @@
             <a href="page-contact.html"> Our location </a>
           </div>
           <div class="single-mobile-header-info">
-            <a href="page-login-register.html">Log In / Sign Up </a>
+            <a href="/logout">Logout </a>
           </div>
           <div class="single-mobile-header-info">
             <a href="#">(+01) - 2345 - 6789 </a>
@@ -434,18 +431,9 @@
                                         <i class="fi-rs-heart"></i>
                                      </a>
                                      
-                                        <% } else { %>
-                                          <!-- Remove from Wishlist -->
-                                          <a aria-label="Remove From Wishlist" class="action-btn hover-up"
-                                            onclick="removeFromWishlist('<%= user._id %>', '<%= product._id %>', this)">
-                                            <i class="fi-rs-heart-fill"></i>
-                                          </a>
-                                          <% } %>
-                                            <% } else { %>
-                                              <!-- Redirect to Login if not authenticated -->
-                                              <a href="/register" class="action-btn hover-up"><i
-                                                  class="fi-rs-heart"></i></a>
-                                              <% } %>
+                                        <% } %>
+                                           
+                                       <% } %>
 
                                 </div>
                               </div>
@@ -585,8 +573,7 @@
           <div class="footer-bottom"></div>
         </div>
         <div class="col-lg-6">
-          <p class="float-md-left font-sm text-muted mb-0">&copy; 2022, <strong class="text-brand">Evara</strong> - HTML
-            Ecommerce Template </p>
+          <p class="float-md-left font-sm text-muted mb-0">&copy; 2024, <strong class="text-brand">Dude</strong>Men's Clothing </p>
         </div>
         <div class="col-lg-6">
           <p class="text-lg-end text-start font-sm text-muted mb-0">
@@ -645,17 +632,12 @@
       }, 2000);
     }
 
-    // Function to add product to wishlist
+    
   // Function to add product to wishlist
 async function addToWishlist(userId, productId, element) {
   event.preventDefault();
 
-  const selectedSize = document.getElementById('selectedSize').value;
 
-  if (!selectedSize) {
-    alert('Please select a size before adding the product to your wishlist.');
-    return;
-  }
 
   try {
     const response = await axios.post(`/addtowishlist/${productId}`, { userId, selectedSize });
@@ -675,26 +657,7 @@ async function addToWishlist(userId, productId, element) {
   }
 }
 
-    // Function to remove product from wishlist
-    async function removeFromWishlist(userId, productId, element) {
-      event.preventDefault();
-      try {
-        const response = await axios.post(`/removefromwishlist`, { userId, productId });
-        if (response.data.success) {
-          // Show success message
-          showWishlistMessage('Product removed from wishlist!');
-
-          // Change the icon back to empty heart
-          element.innerHTML = '<i class="fi-rs-heart"></i>';
-          element.setAttribute('onclick', `addToWishlist('${userId}', '${productId}', this)`);
-        } else {
-          alert('Failed to remove product from wishlist.');
-        }
-      } catch (error) {
-        console.error('Error removing from wishlist:', error);
-        alert('Failed to remove product from wishlist.');
-      }
-    }
+    
   </script>
 
   <!-- Vendor JS-->

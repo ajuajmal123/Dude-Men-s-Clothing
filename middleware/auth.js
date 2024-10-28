@@ -5,13 +5,14 @@ const isLogin = async (req, res, next) => {
     if (req.session.user_id) {
       next();
     } else {
-      res.redirect("/login");
+      res.redirect("/register");
     }
 
   } catch (error) {
     console.log(error.message);
   }
 };
+
 
 const isLogout = async (req, res, next) => {
   try {
@@ -35,7 +36,7 @@ const checkBlock = async (req, res, next) => {
     try {
       const user = await User.findOne({ _id: userId });
       if (user && user.blocked === 1) {
-        return res.redirect('/login');
+        return res.redirect('/register');
       }
     } catch (error) {
       console.error(error.message)

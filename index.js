@@ -10,7 +10,7 @@ const app = express()
 const path = require('path')
 
 const session = require('express-session')
-
+const cors = require('cors');
 const passport = require('./config/passport')
 const flash = require('connect-flash')
 
@@ -18,11 +18,13 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 const PORT = 3000 || process.env.PORT
+app.use(express.json()); 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: false,
+    cookie:{secure: false}
 
 }))
 app.use(passport.initialize())
@@ -34,7 +36,7 @@ app.use((req, res, next) => {
     res.locals.error = req.flash('error');
     next();
 });
-
+app.use(cors());
 
 
 //for user routes
