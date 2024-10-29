@@ -581,10 +581,15 @@
                                                                                                             <% if
                                                                                                                 (item.deliveryStatus=='Processing'
                                                                                                                 ) { %>
-                                                                                                                <button
-                                                                                                                    onclick="cancelMyOrder('<%= order._id%>', '<%= item.productId._id %>','<%= item.quantity%>')"
+                                                                                                                    
+                                                                                                                    <button
+                                                                                                                    onclick="confirmCancelOrder('<%= order._id %>', '<%= item.productId._id %>', '<%= item.quantity %>')"
                                                                                                                     type="button"
-                                                                                                                    class="btn btn-danger btn-sm">Cancel</button>
+                                                                                                                    class="btn btn-danger btn-sm">
+                                                                                                                    Cancel
+                                                                                                                </button>
+                                                                                                                
+                                                                                                              
                                                                                                                 <% } %>
                                                                                                                     <% if(item.deliveryStatus=='Delivered'
                                                                                                                         ){
@@ -888,19 +893,45 @@
             return confirm('Are you sure you want to delete this address?');
         }
     </script>
-    <script>
-        async function cancelMyOrder(orderId, productId, quantity) {
-            try {
-                event.preventDefault()
-                const response = await axios.post('/cancel-order', { orderId, productId, quantity });
-                if (response.data.success) {
-                    location.reload()
-                }
-            } catch (error) {
-                console.error('Error cancelling order:', error);
-            }
+<script>
+    async function confirmCancelOrder(orderId, productId, quantity) {
+        event.preventDefault();
+
+      
+        const isConfirmed = confirm("Are you sure you want to cancel this order?");
+        
+        if (!isConfirmed) {
+            return; // Exit function if user cancels
         }
-    </script>
+
+        try {
+            // Send cancellation request if confirmed
+            const response = await axios.post('/cancel-order', { orderId, productId, quantity });
+            if (response.data.success) {
+                location.reload(); 
+            } else {
+                alert("Failed to cancel the order. Please try again.");
+            }
+        } catch (error) {
+            console.error('Error cancelling order:', error);
+            alert("An error occurred while cancelling the order. Please try again later.");
+        }
+    }
+</script> <script>
+    async function returnMyOrder(orderId, productId, quantity) {
+        try {
+            event.preventDefault()
+            const reason = document.getElementById(`return-reason-${orderId}-${productId}`).value;
+            const response = await axios.post('/return-order', { orderId, productId, quantity, reason });
+            if (response.data.success) {
+                location.reload()
+            }
+        } catch (error) {
+            console.error('Error returning order:', error);
+        }
+    }
+</script>
+
     <script>
         function payNow(orderId) {
             // Make an AJAX request to update the order status

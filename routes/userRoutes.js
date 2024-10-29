@@ -60,6 +60,7 @@ user_route.get('/edit-address/:id', auth.isLogin, myAccountController.editAddres
 user_route.post('/edit-address/:id', auth.isLogin, myAccountController.editAddress);
 user_route.post('/delete-address/:addressId', auth.isLogin, myAccountController.deleteAddress);
 user_route.post('/cancel-order', auth.isLogin, myAccountController.cancelMyOrder)
+user_route.post('/return-order',auth.isLogin,myAccountController.returnMyOrder)
 user_route.post('/updateOrderStatus', myAccountController.updateOrderStatus)
 user_route.get('/myorderdetails/:orderId', auth.isLogin, myAccountController.myOrderDetails)
 
