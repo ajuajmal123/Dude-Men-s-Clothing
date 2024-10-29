@@ -23,18 +23,18 @@ user_route.use(express.static(path.join(__dirname, 'public')));
 user_route.use(passport.initialize())
 user_route.use(passport.session())
 
-user_route.get('/register', auth.isLogout, userController.loadRegister)
-user_route.post('/register', auth.isLogout, userController.insertUser)
+user_route.get('/', auth.isLogout, userController.loadRegister)
+user_route.post('/', auth.isLogout, userController.insertUser)
 user_route.get('/Otp', auth.isLogout, userController.getOTP)
 user_route.post('/Otp', auth.isLogout, userController.submitOTP)
 user_route.post('/resend-otp', auth.isLogout, userController.resendOTP)
 
-user_route.get('/', userController.loadHome)
+user_route.get('/home',auth.isLogin, userController.loadHome)
 user_route.post('/login', auth.isLogout, userController.confirmLogin)
 user_route.get('/logout', auth.isLogin, userController.logout)
 //user side products
 
-user_route.get('/', userController.getAllProducts);
+user_route.get('/home', userController.getAllProducts);
 user_route.get('/allproducts', userProductController.allProducts)
 user_route.get('/product/:productId', userProductController.productPage);
 user_route.get('/filter', searchController.get_searchedProducts);
@@ -42,14 +42,14 @@ user_route.get('/filter', searchController.get_searchedProducts);
 
 user_route.get('/auth/google', passport.authenticate('google', { scope: ['email', 'profile'] }));
 user_route.get('/auth/google/callback', passport.authenticate('google', {
-    failureRedirect: '/register',
+    failureRedirect: '/',
 }), (req, res) => {
     req.session.user_id = req.user._id;
-    res.redirect('/');
+    res.redirect('/home');
 });
 
-user_route.get('/', userController.successLogin);
-user_route.get('/register', userController.failureLogin);
+user_route.get('/home', userController.successLogin);
+user_route.get('/', userController.failureLogin);
 
 //myaccount
 user_route.get('/myaccount', auth.isLogin, myAccountController.myAccount)
