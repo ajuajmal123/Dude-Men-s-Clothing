@@ -357,6 +357,39 @@ const cancelMyOrder = async (req, res) => {
 };
 
 
+const returnMyOrder = async (req, res) => {
+    try {
+        const { orderId, productId, quantity, reason } = req.body;
+        const userId = req.session.user_id;
+  
+        // Find the order of the user
+        const order = await Order.findOne({ userId, _id: orderId });
+  
+        if (!order) {
+            return res.status(404).json({ success: false, message: 'Order not found' });
+        }
+  
+        // Find the item in the order
+        const item = order.items.find(item => item.productId.toString() === productId);
+  
+        if (!item) {
+            return res.status(404).json({ success: false, message: 'Item not found in order' });
+        }
+  
+        // Update delivery status to "Pending" until admin approves Return
+        item.deliveryStatus = 'Return Requested';
+        item.returnReason = reason;
+        // Save changes
+        await order.save();
+  
+        res.status(200).json({ success: true, message: 'Return requested successfully' });
+  
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({ success: false, message: 'Internal Server Error' });
+    }
+  }
+  
 const addTowallet = async (req, res) => {
     try {
         let amount = req.body.amount;
@@ -408,5 +441,6 @@ module.exports = {
     validatePassword,
     addTowallet,
     cancelMyOrder,
+    returnMyOrder,
     updateOrderStatus
 }
