@@ -132,7 +132,7 @@ const insertUser = async (req, res) => {
     const { password, confirm_password } = req.body;
 
     if (password !== confirm_password) {
-      res.render('registration', { message: 'Passwords do not match.' });
+      return res.render('registration', { message: 'Passwords do not match.' });
     }
 
     // to check email or phone number is already exist
