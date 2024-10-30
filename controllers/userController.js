@@ -18,9 +18,12 @@ const { essentialcontacts } = require('googleapis/build/src/apis/essentialcontac
 
 //strong password validation
 const validatePassword = (password) => {
+  // Check if the password is defined and is a string
   if (typeof password !== 'string' || !password) {
-    throw new Error('Password is required and must be a string');
-}
+    throw new Error('Password is required and must be a valid string');
+  }
+
+  // Run the strong password validation
   const isStrongPassword = validator.isStrongPassword(password, {
     minLength: 8,
     minLowercase: 1,
@@ -31,6 +34,7 @@ const validatePassword = (password) => {
 
   return isStrongPassword;
 };
+
 
 // password Hashing
 const securePassword = async (password) => {
