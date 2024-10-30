@@ -9,7 +9,7 @@ passport.use(new GoogleStrategy({
 
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: '/google/callback',
+    callbackURL: 'http://dudemensclothing.store/google/callback',
     passReqToCallback:true
 },
 async function(request, accessToken, refreshToken, profile, done) {
