@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 require('dotenv').config()
-const config = require('../Dude/config/config')
+
 
 mongoose.connect(process.env.MONGODB_URI)
   
@@ -18,7 +18,7 @@ const flash = require('connect-flash')
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-const PORT = 3000 || process.env.PORT
+const PORT = 3000  
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({

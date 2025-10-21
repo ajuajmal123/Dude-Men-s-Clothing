@@ -13,7 +13,7 @@ passport.use(new GoogleStrategy({
     passReqToCallback:true
 },
 async function(request, accessToken, refreshToken, profile, done) {
-    try {
+    try {   
         
         let user = await User.findOne({ googleId: profile.id });
         if (!user) {

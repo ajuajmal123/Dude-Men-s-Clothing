@@ -18,6 +18,12 @@ const { essentialcontacts } = require('googleapis/build/src/apis/essentialcontac
 
 //strong password validation
 const validatePassword = (password) => {
+  // Check if the password is defined and is a string
+  if (typeof password !== 'string' || !password) {
+    throw new Error('Password is required and must be a valid string');
+  }
+
+  // Run the strong password validation
   const isStrongPassword = validator.isStrongPassword(password, {
     minLength: 8,
     minLowercase: 1,
@@ -28,6 +34,7 @@ const validatePassword = (password) => {
 
   return isStrongPassword;
 };
+
 
 // password Hashing
 const securePassword = async (password) => {
@@ -125,7 +132,7 @@ const insertUser = async (req, res) => {
     const { password, confirm_password } = req.body;
 
     if (password !== confirm_password) {
-      res.render('registration', { message: 'Passwords do not match.' });
+      return res.render('registration', { message: 'Passwords do not match.' });
     }
 
     // to check email or phone number is already exist
@@ -205,7 +212,7 @@ const submitOTP = async (req, res) => {
       });
       const saveUser = await userDATA.save();
       req.session.user_id = saveUser._id;
-      res.redirect("/");
+      res.redirect("/home");
     } else {
       res.render('verifyOTP', { message: "Incorrect OTP!!!" })
     }
@@ -230,7 +237,7 @@ const resendOTP = async (req, res) => {
 
     sendVarifyMail(user.username, user.email, otp); // Assuming sendverifyMail is a function to send emails
     req.session.OTP = otp;
-    res.redirect("/");
+    res.redirect("/home");
   } catch (error) {
     console.log(error.message);
     res.status(500).send("Internal Server Error");
@@ -252,7 +259,7 @@ const confirmLogin = async (req, res) => {
       if (passwordMatch) {
         // If the password matches, create a session and redirect to the home page
         req.session.user_id = userData._id;
-        res.redirect('/');
+        res.redirect('/home');
       } else {
         // If the password doesn't match, render the registration page with an error message
         res.render('registration', { message: 'Incorrect Email or Password' });
@@ -271,7 +278,7 @@ const confirmLogin = async (req, res) => {
 const logout = async (req, res) => {
   try {
     req.session.destroy();
-    res.redirect("/register");
+    res.redirect("/");
   } catch (error) {
     console.log(error.message);
   }
