@@ -54,8 +54,8 @@ const sendVarifyMail = async (name, email, otp) => {
       secure: false,
       requireTLS: true,
       auth: {
-        user: 'ajuajmalvalad@gmail.com',
-        pass: 'ijcdvcensglhooji'
+        user: process.env.MAIL_USER,
+        pass: process.env.MAIL_PASS
 
       }
 
@@ -151,7 +151,7 @@ const insertUser = async (req, res) => {
     req.session.userData = {
       name: req.body.username,
       email: req.body.email,
-      mobile: req.body.mobileRegex,
+      mobile: req.body.mobileRegex, 
       password: spassword
     }
 
