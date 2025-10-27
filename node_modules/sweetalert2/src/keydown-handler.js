@@ -18,7 +18,7 @@ export const removeKeydownHandler = (globalState) => {
 /**
  * @param {GlobalState} globalState
  * @param {SweetAlertOptions} innerParams
- * @param {*} dismissWith
+ * @param {(dismiss: DismissReason) => void} dismissWith
  */
 export const addKeydownHandler = (globalState, innerParams, dismissWith) => {
   removeKeydownHandler(globalState)
@@ -43,6 +43,11 @@ export const setFocus = (index, increment) => {
   if (focusableElements.length) {
     index = index + increment
 
+    // shift + tab when .swal2-popup is focused
+    if (index === -2) {
+      index = focusableElements.length - 1
+    }
+
     // rollover to first item
     if (index === focusableElements.length) {
       index = 0
@@ -66,7 +71,7 @@ const arrowKeysPreviousButton = ['ArrowLeft', 'ArrowUp']
 /**
  * @param {SweetAlertOptions} innerParams
  * @param {KeyboardEvent} event
- * @param {Function} dismissWith
+ * @param {(dismiss: DismissReason) => void} dismissWith
  */
 const keydownHandler = (innerParams, event, dismissWith) => {
   if (!innerParams) {
@@ -195,11 +200,11 @@ const handleArrows = (key) => {
 /**
  * @param {KeyboardEvent} event
  * @param {SweetAlertOptions} innerParams
- * @param {Function} dismissWith
+ * @param {(dismiss: DismissReason) => void} dismissWith
  */
 const handleEsc = (event, innerParams, dismissWith) => {
+  event.preventDefault()
   if (callIfFunction(innerParams.allowEscapeKey)) {
-    event.preventDefault()
     dismissWith(DismissReason.esc)
   }
 }

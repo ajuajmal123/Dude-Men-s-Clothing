@@ -64,6 +64,7 @@ const shouldPreventTouchMove = (event) => {
   if (
     !dom.isScrollable(container) &&
     target instanceof HTMLElement &&
+    !dom.selfOrParentIsScrollable(target, htmlContainer) && // #2823
     target.tagName !== 'INPUT' && // #1603
     target.tagName !== 'TEXTAREA' && // #2266
     !(
@@ -79,7 +80,7 @@ const shouldPreventTouchMove = (event) => {
 /**
  * https://github.com/sweetalert2/sweetalert2/issues/1786
  *
- * @param {*} event
+ * @param {object} event
  * @returns {boolean}
  */
 const isStylus = (event) => {

@@ -203,13 +203,13 @@ export const getDirectChildByClass = (elem, className) => {
 /**
  * @param {HTMLElement} elem
  * @param {string} property
- * @param {*} value
+ * @param {string | number | null | undefined} value
  */
 export const applyNumericalStyle = (elem, property, value) => {
-  if (value === `${parseInt(value)}`) {
+  if (value === `${parseInt(`${value}`)}`) {
     value = parseInt(value)
   }
-  if (value || parseInt(value) === 0) {
+  if (value || parseInt(`${value}`) === 0) {
     elem.style.setProperty(property, typeof value === 'number' ? `${value}px` : value)
   } else {
     elem.style.removeProperty(property)
@@ -268,7 +268,7 @@ export const setStyle = (parent, selector, property, value) => {
 
 /**
  * @param {HTMLElement} elem
- * @param {any} condition
+ * @param {boolean | string | null | undefined} condition
  * @param {string} display
  */
 export const toggle = (elem, condition, display = 'flex') => {
@@ -298,6 +298,22 @@ export const allButtonsAreHidden = () =>
  * @returns {boolean}
  */
 export const isScrollable = (elem) => !!(elem.scrollHeight > elem.clientHeight)
+
+/**
+ * @param {HTMLElement} element
+ * @param {HTMLElement} stopElement
+ * @returns {boolean}
+ */
+export const selfOrParentIsScrollable = (element, stopElement) => {
+  let parent = element
+  while (parent && parent !== stopElement) {
+    if (isScrollable(parent)) {
+      return true
+    }
+    parent = parent.parentElement
+  }
+  return false
+}
 
 /**
  * borrowed from https://stackoverflow.com/a/46352119
