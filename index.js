@@ -21,13 +21,14 @@ app.set('views', path.join(__dirname, 'views'));
 const PORT = 3000  
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(session({
-    secret: process.env.SESSION_SECRET,
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET , 
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: false }
-
-}))
+    cookie: { secure: false }, 
+  })
+);
 app.use(passport.initialize())
 app.use(passport.session())
 app.use(flash())
