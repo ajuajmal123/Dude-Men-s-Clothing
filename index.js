@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 require('dotenv').config()
-
+const MongoStore = require('connect-mongo');
 
 mongoose.connect(process.env.MONGODB_URI)
   
@@ -24,6 +24,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(
   session({
     secret: process.env.SESSION_SECRET , 
+     store: MongoStore.create({ mongoUrl: process.env.MONGODB_URI }),
     resave: false,
     saveUninitialized: false,
     cookie: { secure: false }, 

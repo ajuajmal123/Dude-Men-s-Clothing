@@ -2,7 +2,7 @@ const User = require('../models/userModel')
 require("dotenv").config()
 const passport = require('../config/passport')
 const OTP = require('../models/userotpVarification')
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcryptjs');
 const Product = require("../models/productModel");
 const Category = require("../models/categoryModel");
 const Cart = require('../models/cartModel')
